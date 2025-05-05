@@ -1,17 +1,17 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # 명령줄 인터페이스 (CLI) [[command-line-interface]]
 
-`huggingface_hub` Python 패키지는 `huggingface-cli`라는 내장 CLI를 함께 제공합니다. 이 도구를 사용하면 터미널에서 Hugging Face Hub와 직접 상호 작용할 수 있습니다. 계정에 로그인하고, 리포지토리를 생성하고, 파일을 업로드 및 다운로드하는 등의 다양한 작업을 수행할 수 있습니다. 또한 머신을 구성하거나 캐시를 관리하는 데 유용한 기능도 제공합니다. 이 가이드는 CLI의 주요 기능과 사용 방법에 관해 설명합니다.
+`old_huggingface_hub` Python 패키지는 `huggingface-cli`라는 내장 CLI를 함께 제공합니다. 이 도구를 사용하면 터미널에서 Hugging Face Hub와 직접 상호 작용할 수 있습니다. 계정에 로그인하고, 리포지토리를 생성하고, 파일을 업로드 및 다운로드하는 등의 다양한 작업을 수행할 수 있습니다. 또한 머신을 구성하거나 캐시를 관리하는 데 유용한 기능도 제공합니다. 이 가이드는 CLI의 주요 기능과 사용 방법에 관해 설명합니다.
 
 ## 시작하기 [[getting-started]]
 
 먼저, CLI를 설치해 보세요:
 
 ```
->>> pip install -U "huggingface_hub[cli]"
+>>> pip install -U "old_huggingface_hub[cli]"
 ```
 
 <Tip>
@@ -99,7 +99,7 @@ _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|
 _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
 _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
 
-To log in, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
+To login, `old_huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
 Token:
 Add token as git credential? (Y/n)
 Token is valid (permission: write).
@@ -438,14 +438,14 @@ Got 1 warning(s) while scanning. Use -vvv to print details.
 
 ## huggingface-cli env [[huggingface-cli-env]]
 
-`huggingface-cli env` 명령어는 사용자의 컴퓨터 설정에 대한 상세한 정보를 보여줍니다. 이는 [GitHub](https://github.com/huggingface/huggingface_hub)에서 문제를 제출할 때, 관리자가 문제를 파악하고 해결하는 데 도움이 됩니다.
+`huggingface-cli env` 명령어는 사용자의 컴퓨터 설정에 대한 상세한 정보를 보여줍니다. 이는 [GitHub](https://github.com/huggingface/old_huggingface_hub)에서 문제를 제출할 때, 관리자가 문제를 파악하고 해결하는 데 도움이 됩니다.
 
 ```bash
 >>> huggingface-cli env
 
 Copy-and-paste the text below in your GitHub issue.
 
-- huggingface_hub version: 0.19.0.dev0
+- old_huggingface_hub version: 0.19.0.dev0
 - Platform: Linux-6.2.0-36-generic-x86_64-with-glibc2.35
 - Python version: 3.10.12
 - Running in iPython ?: No

@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -6,7 +6,7 @@ rendered properly in your Markdown viewer.
 
 A collection is a group of related items on the Hub (models, datasets, Spaces, papers) that are organized together on the same page. Collections are useful for creating your own portfolio, bookmarking content in categories, or presenting a curated list of items you want to share. Check out this [guide](https://huggingface.co/docs/hub/collections) to understand in more detail what collections are and how they look on the Hub.
 
-You can directly manage collections in the browser, but in this guide, we will focus on how to manage them programmatically.
+You can directly manage collections in the browser, but in this guide, we will focus on how to manage it programmatically.
 
 ## Fetch a collection
 
@@ -19,7 +19,7 @@ Use [`get_collection`] to fetch your collections or any public ones. You must ha
 Let's fetch the collection with, `"TheBloke/recent-models-64f9a55bb3115b4f513ec026"`:
 
 ```py
->>> from huggingface_hub import get_collection
+>>> from old_huggingface_hub import get_collection
 >>> collection = get_collection("TheBloke/recent-models-64f9a55bb3115b4f513ec026")
 >>> collection
 Collection(
@@ -62,7 +62,7 @@ In addition to these base attributes, returned items can have additional attribu
 
 We can also retrieve collections using [`list_collections`]. Collections can be filtered using some parameters. Let's list all the collections from the user [`teknium`](https://huggingface.co/teknium).
 ```py
->>> from huggingface_hub import list_collections
+>>> from old_huggingface_hub import list_collections
 
 >>> collections = list_collections(owner="teknium")
 ```
@@ -107,7 +107,7 @@ For more details, please check out [`list_collections`] reference.
 Now that we know how to get a [`Collection`], let's create our own! Use [`create_collection`] with a title and description. To create a collection on an organization page, pass `namespace="my-cool-org"` when creating the collection. Finally, you can also create private collections by passing `private=True`.
 
 ```py
->>> from huggingface_hub import create_collection
+>>> from old_huggingface_hub import create_collection
 
 >>> collection = create_collection(
 ...     title="ICCV 2023",
@@ -115,7 +115,7 @@ Now that we know how to get a [`Collection`], let's create our own! Use [`create
 ... )
 ```
 
-It will return a [`Collection`] object with the high-level metadata (title, description, owner, etc.) and an empty list of items. You will now be able to refer to this collection using its `slug`.
+It will return a [`Collection`] object with the high-level metadata (title, description, owner, etc.) and an empty list of items. You will now be able to refer to this collection using it's `slug`.
 
 ```py
 >>> collection.slug
@@ -137,7 +137,7 @@ Now that we have a [`Collection`], we want to add items to it and organize them.
 Items have to be added one by one using [`add_collection_item`]. You only need to know the `collection_slug`, `item_id` and `item_type`. Optionally, you can also add a `note` to the item (500 characters maximum).
 
 ```py
->>> from huggingface_hub import create_collection, add_collection_item
+>>> from old_huggingface_hub import create_collection, add_collection_item
 
 >>> collection = create_collection(title="OS Week Highlights - Sept 18 - 24", namespace="osanseviero")
 >>> collection.slug
@@ -161,7 +161,7 @@ If an item already exists in a collection (same `item_id`/`item_type` pair), an 
 You can modify an existing item to add or modify the note attached to it using [`update_collection_item`]. Let's reuse the example above:
 
 ```py
->>> from huggingface_hub import get_collection, update_collection_item
+>>> from old_huggingface_hub import get_collection, update_collection_item
 
 # Fetch collection with newly added items
 >>> collection_slug = "osanseviero/os-week-highlights-sept-18-24-650bfed7f795a59f491afb80"
@@ -182,7 +182,7 @@ Items in a collection are ordered. The order is determined by the `position` att
 Let's reuse our example above:
 
 ```py
->>> from huggingface_hub import get_collection, update_collection_item
+>>> from old_huggingface_hub import get_collection, update_collection_item
 
 # Fetch collection
 >>> collection_slug = "osanseviero/os-week-highlights-sept-18-24-650bfed7f795a59f491afb80"
@@ -201,7 +201,7 @@ Let's reuse our example above:
 Finally, you can also remove an item using [`delete_collection_item`].
 
 ```py
->>> from huggingface_hub import get_collection, update_collection_item
+>>> from old_huggingface_hub import get_collection, update_collection_item
 
 # Fetch collection
 >>> collection_slug = "osanseviero/os-week-highlights-sept-18-24-650bfed7f795a59f491afb80"
@@ -222,6 +222,6 @@ This is a non-revertible action. A deleted collection cannot be restored.
 </Tip>
 
 ```py
->>> from huggingface_hub import delete_collection
+>>> from old_huggingface_hub import delete_collection
 >>> collection = delete_collection("username/useless-collection-64f9a55bb3115b4f513ec026", missing_ok=True)
 ```

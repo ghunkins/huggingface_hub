@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -6,7 +6,7 @@ rendered properly in your Markdown viewer.
 
 In this guide, we will see how to manage your Space runtime
 ([secrets](https://huggingface.co/docs/hub/spaces-overview#managing-secrets),
-[hardware](https://huggingface.co/docs/hub/spaces-gpus), and [storage](https://huggingface.co/docs/hub/spaces-storage#persistent-storage)) using `huggingface_hub`.
+[hardware](https://huggingface.co/docs/hub/spaces-gpus), and [storage](https://huggingface.co/docs/hub/spaces-storage#persistent-storage)) using `old_huggingface_hub`.
 
 ## A simple example: configure secrets and hardware.
 
@@ -15,7 +15,7 @@ Here is an end-to-end example to create and setup a Space on the Hub.
 **1. Create a Space on the Hub.**
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> repo_id = "Wauplin/my-cool-training-space"
 >>> api = HfApi()
 
@@ -99,7 +99,7 @@ Space. See [docs](https://huggingface.co/docs/hub/spaces-gpus) for more details.
 
 ```py
 # Use `SpaceHardware` enum
->>> from huggingface_hub import SpaceHardware
+>>> from old_huggingface_hub import SpaceHardware
 >>> api.request_space_hardware(repo_id=repo_id, hardware=SpaceHardware.T4_MEDIUM)
 
 # Or simply pass a string value
@@ -205,7 +205,7 @@ Upgraded hardware will be automatically assigned to your Space once it's built.
 You can choose the storage tier of your choice to access disk space that persists across restarts of your Space. This means you can read and write from disk like you would with a traditional hard drive. See [docs](https://huggingface.co/docs/hub/spaces-storage#persistent-storage) for more details.
 
 ```py
->>> from huggingface_hub import SpaceStorage
+>>> from old_huggingface_hub import SpaceStorage
 >>> api.request_space_storage(repo_id=repo_id, storage=SpaceStorage.LARGE)
 ```
 
@@ -276,7 +276,7 @@ HF_TOKEN = os.environ.get("HF_TOKEN")
 # Space own repo_id
 TRAINING_SPACE_ID = "Wauplin/dreambooth-training"
 
-from huggingface_hub import HfApi, SpaceHardware
+from old_huggingface_hub import HfApi, SpaceHardware
 api = HfApi(token=HF_TOKEN)
 
 # On Space startup, check if a task is scheduled. If yes, finetune the model. If not,

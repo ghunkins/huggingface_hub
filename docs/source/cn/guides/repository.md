@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -31,7 +31,7 @@ Hugging Face Hub是一组 Git 存储库。[Git](https://git-scm.com/)是软件�
 运行以下代码，以创建仓库：
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-model")
 'https://huggingface.co/lysandre/test-model'
 ```
@@ -41,7 +41,7 @@ Hugging Face Hub是一组 Git 存储库。[Git](https://git-scm.com/)是软件�
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-dataset", repo_type="dataset")
 'https://huggingface.co/datasets/lysandre/test-dataset'
 ```
@@ -51,11 +51,11 @@ Hugging Face Hub是一组 Git 存储库。[Git](https://git-scm.com/)是软件�
 请运行以下代码
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-private", private=True)
 ```
 
-如果你想在以后更改仓库的可见性，你可以使用[`update_repo_settings`] 函数
+如果你想在以后更改仓库的可见性，你可以使用[`update_repo_visibility`] 函数
 
 ### 删除一个仓库
 
@@ -76,7 +76,7 @@ Hugging Face Hub是一组 Git 存储库。[Git](https://git-scm.com/)是软件�
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import duplicate_space
+>>> from old_huggingface_hub import duplicate_space
 >>> duplicate_space("multimodalart/dreambooth-training", private=False)
 RepoUrl('https://huggingface.co/spaces/nateraw/dreambooth-training',...)
 ```
@@ -98,7 +98,7 @@ Git存储库通常使用分支来存储同一存储库的不同版本。标签�
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import create_branch, create_tag
+>>> from old_huggingface_hub import create_branch, create_tag
 
 # Create a branch on a Space repo from `main` branch
 >>> create_branch("Matthijs/speecht5-tts-demo", repo_type="space", branch="handle-dog-speaker")
@@ -115,7 +115,7 @@ Git存储库通常使用分支来存储同一存储库的不同版本。标签�
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import list_repo_refs
+>>> from old_huggingface_hub import list_repo_refs
 >>> api.list_repo_refs("bigcode/the-stack", repo_type="dataset")
 GitRefs(
    branches=[
@@ -131,7 +131,7 @@ GitRefs(
 
 ## 修改存储库设置
 
-存储库具有一些可配置的设置。大多数情况下，您通常会在浏览器中的存储库设置页面上手动配置这些设置。要配置存储库，您必须具有对其的写访问权限（拥有它或属于组织）。在本节中，我们将看到您还可以使用 `huggingface_hub` 在编程方式上配置的设置。
+存储库具有一些可配置的设置。大多数情况下，您通常会在浏览器中的存储库设置页面上手动配置这些设置。要配置存储库，您必须具有对其的写访问权限（拥有它或属于组织）。在本节中，我们将看到您还可以使用 `old_huggingface_hub` 在编程方式上配置的设置。
 
 一些设置是特定于 Spaces（硬件、环境变量等）的。要配置这些设置，请参考我们的[管理Spaces](../guides/manage-spaces)指南。
 
@@ -142,8 +142,8 @@ GitRefs(
 请运行以下代码将存储库更改为私有：
 
 ```py
->>> from huggingface_hub import update_repo_settings
->>> update_repo_settings(repo_id=repo_id, private=True)
+>>> from old_huggingface_hub import update_repo_visibility
+>>> update_repo_visibility(repo_id=repo_id, private=True)
 ```
 
 ### 重命名您的存储库
@@ -153,7 +153,7 @@ GitRefs(
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import move_repo
+>>> from old_huggingface_hub import move_repo
 >>> move_repo(from_id="Wauplin/cool-model", to_id="huggingface/cool-model")
 ```
 
@@ -170,7 +170,7 @@ GitRefs(
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="<path>/<to>/<folder>")
 ```
 
@@ -181,7 +181,7 @@ GitRefs(
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="w2v2", clone_from="facebook/wav2vec2-large-960h-lv60")
 ```
 `clone_from`还可以使用URL克隆存储库：
@@ -189,7 +189,7 @@ GitRefs(
 请运行以下代码：
 
 ```py
->>> repo = Repository(local_dir="huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
 ```
 
 你可以将`clone_from`参数与[`create_repo`]结合使用，以创建并克隆一个存储库：
@@ -223,8 +223,8 @@ GitRefs(
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import Repository
->>> repo = Repository(local_dir="huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
+>>> from old_huggingface_hub import Repository
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
 >>> repo.git_checkout("branch2")
 ```
 
@@ -235,7 +235,7 @@ GitRefs(
 请运行以下代码：
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo.git_pull()
 ```
 

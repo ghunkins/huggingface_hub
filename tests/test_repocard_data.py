@@ -3,8 +3,8 @@ import unittest
 import pytest
 import yaml
 
-from huggingface_hub import SpaceCardData
-from huggingface_hub.repocard_data import (
+from old_huggingface_hub import SpaceCardData
+from old_huggingface_hub.repocard_data import (
     CardData,
     DatasetCardData,
     EvalResult,
@@ -14,7 +14,7 @@ from huggingface_hub.repocard_data import (
 )
 
 
-OPEN_LLM_LEADERBOARD_URL = "https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard"
+OPEN_LLM_LEADERBOARD_URL = "https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard"
 DUMMY_METADATA_WITH_MODEL_INDEX = """
 language: en
 license: mit
@@ -39,7 +39,7 @@ model-index:
       value: 0.9
     source:
       name: Open LLM Leaderboard
-      url: https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard
+      url: https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard
 """
 
 
@@ -63,12 +63,6 @@ class BaseCardDataTest(unittest.TestCase):
         self.assertTrue("foo" in metadata)
         self.assertFalse("FOO" in metadata)
 
-        # default value
-        # Should return default when key is not in metadata
-        self.assertEqual(metadata.get("FOO", "default"), "default")
-        # Should return default when key is in metadata but value is None
-        metadata.FOO = None
-        self.assertEqual(metadata.get("FOO", "default"), "default")
         # export
         self.assertEqual(str(metadata), "foo: BAR")
 
@@ -242,62 +236,6 @@ class ModelCardDataTest(unittest.TestCase):
     def test_model_card_unique_tags(self):
         data = ModelCardData(tags=["tag2", "tag1", "tag2", "tag3"])
         assert data.tags == ["tag2", "tag1", "tag3"]
-
-    def test_remove_top_level_none_values(self):
-        as_obj = ModelCardData(tags=["tag1", None], foo={"bar": 3, "baz": None}, pipeline_tag=None)
-        as_dict = as_obj.to_dict()
-
-        assert as_obj.tags == ["tag1", None]
-        assert as_dict["tags"] == ["tag1", None]  # none value inside list should be kept
-
-        assert as_obj.foo == {"bar": 3, "baz": None}
-        assert as_dict["foo"] == {"bar": 3, "baz": None}  # none value inside dict should be kept
-
-        assert as_obj.pipeline_tag is None
-        assert "pipeline_tag" not in as_dict  # top level none value should be removed
-
-    def test_eval_results_requires_evalresult_type(self):
-        with pytest.raises(ValueError, match="should be of type `EvalResult` or a list of `EvalResult`"):
-            ModelCardData(model_name="my-cool-model", eval_results="this is not an EvalResult")
-
-        with pytest.raises(ValueError, match="should be of type `EvalResult` or a list of `EvalResult`"):
-            ModelCardData(model_name="my-cool-model", eval_results=["accuracy: 0.9", "f1: 0.85"])
-
-        data = ModelCardData(
-            model_name="my-cool-model",
-            eval_results="this is not an EvalResult",
-            ignore_metadata_errors=True,
-        )
-        assert data.eval_results is not None and data.eval_results == "this is not an EvalResult"
-
-    def test_model_name_required_with_eval_results(self):
-        with pytest.raises(ValueError, match="`eval_results` requires `model_name` to be set"):
-            ModelCardData(
-                eval_results=[
-                    EvalResult(
-                        task_type="image-classification",
-                        dataset_type="beans",
-                        dataset_name="Beans",
-                        metric_type="acc",
-                        metric_value=0.9,
-                    ),
-                ],
-            )
-
-        eval_results = [
-            EvalResult(
-                task_type="image-classification",
-                dataset_type="beans",
-                dataset_name="Beans",
-                metric_type="acc",
-                metric_value=0.9,
-            ),
-        ]
-        data = ModelCardData(
-            eval_results=eval_results,
-            ignore_metadata_errors=True,
-        )
-        assert data.eval_results is not None and data.eval_results == eval_results
 
 
 class DatasetCardDataTest(unittest.TestCase):

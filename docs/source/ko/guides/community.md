@@ -1,10 +1,10 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Discussions 및 Pull Requests를 이용하여 상호작용하기[[interact-with-discussions-and-pull-requests]]
 
-`huggingface_hub` 라이브러리는 Hub의 Pull Requests 및 Discussions와 상호작용할 수 있는 Python 인터페이스를 제공합니다.
+`old_huggingface_hub` 라이브러리는 Hub의 Pull Requests 및 Discussions와 상호작용할 수 있는 Python 인터페이스를 제공합니다.
 [전용 문서 페이지](https://huggingface.co/docs/hub/repositories-pull-requests-discussions)를 방문하여 Hub의 Discussions와 Pull Requests가 무엇이고 어떻게 작동하는지 자세히 살펴보세요.
 
 ## Hub에서 Discussions 및 Pull Requests 가져오기[[retrieve-discussions-and-pull-requests-from-the-hub]]
@@ -12,7 +12,7 @@ rendered properly in your Markdown viewer.
 `HfApi` 클래스를 사용하면 지정된 리포지토리에 대한 Discussions 및 Pull Requests를 검색할 수 있습니다:
 
 ```python
->>> from huggingface_hub import get_repo_discussions
+>>> from old_huggingface_hub import get_repo_discussions
 >>> for discussion in get_repo_discussions(repo_id="bigscience/bloom"):
 ...     print(f"{discussion.num} - {discussion.title}, pr: {discussion.is_pull_request}")
 
@@ -27,7 +27,7 @@ rendered properly in your Markdown viewer.
 `HfApi.get_repo_discussion`은 작성자, 유형(Pull Requests 또는 Discussion) 및 상태(`open` 또는 `closed`)별로 필터링을 지원합니다:
 
 ```python
->>> from huggingface_hub import get_repo_discussions
+>>> from old_huggingface_hub import get_repo_discussions
 >>> for discussion in get_repo_discussions(
 ...    repo_id="bigscience/bloom",
 ...    author="ArthurZ",
@@ -42,14 +42,14 @@ rendered properly in your Markdown viewer.
 `HfApi.get_repo_discussions`는 [`Discussion`] 객체를 생성하는 [생성자](https://docs.python.org/3.7/howto/functional.html#generators)를 반환합니다. 모든 Discussions를 하나의 리스트로 가져오려면 다음을 실행합니다:
 
 ```python
->>> from huggingface_hub import get_repo_discussions
+>>> from old_huggingface_hub import get_repo_discussions
 >>> discussions_list = list(get_repo_discussions(repo_id="bert-base-uncased"))
 ```
 
 [`HfApi.get_repo_discussions`]가 반환하는 [`Discussion`] 객체에는 Discussions 또는 Pull Request에 대한 개략적인 개요가 포함되어 있습니다. [`HfApi.get_discussion_details`]를 사용하여 더 자세한 정보를 얻을 수도 있습니다:
 
 ```python
->>> from huggingface_hub import get_discussion_details
+>>> from old_huggingface_hub import get_discussion_details
 
 >>> get_discussion_details(
 ...     repo_id="bigscience/bloom-1b3",
@@ -91,7 +91,7 @@ Hub의 리포지토리에 변경 사항을 제안하는 가장 간단한 방법�
     * [`metadata_update`]
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 
 >>> metadata_update(
 ...     repo_id="username/repo_name",
@@ -104,18 +104,18 @@ Hub의 리포지토리에 변경 사항을 제안하는 가장 간단한 방법�
 이 방법으로 Pull Request를 열면 로컬에서 변경 작업을 해야 하는 경우에 유용할 수 있습니다. 이 방법으로 열린 Pull Request는 `"draft"` 모드가 됩니다.
 
 ```python
->>> from huggingface_hub import create_discussion, create_pull_request
+>>> from old_huggingface_hub import create_discussion, create_pull_request
 
 >>> create_discussion(
 ...     repo_id="username/repo-name",
-...     title="Hi from the huggingface_hub library!",
+...     title="Hi from the old_huggingface_hub library!",
 ...     token="<insert your access token here>",
 ... )
 DiscussionWithDetails(...)
 
 >>> create_pull_request(
 ...     repo_id="username/repo-name",
-...     title="Hi from the huggingface_hub library!",
+...     title="Hi from the old_huggingface_hub library!",
 ...     token="<insert your access token here>",
 ... )
 DiscussionWithDetails(..., is_pull_request=True)

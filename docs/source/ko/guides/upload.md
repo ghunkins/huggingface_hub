@@ -1,10 +1,10 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Hub에 파일 업로드하기[[upload-files-to-the-hub]]
 
-파일과 작업물을 공유하는 것은 Hub의 주요 특성 중 하나입니다. `huggingface_hub`는 Hub에 파일을 업로드하기 위한 몇 가지 옵션을 제공합니다. 이러한 기능을 단독으로 사용하거나 라이브러리에 통합하여 해당 라이브러리의 사용자가 Hub와 더 편리하게 상호작용할 수 있도록 도울 수 있습니다. 이 가이드에서는 파일을 푸시하는 다양한 방법에 대해 설명합니다:
+파일과 작업물을 공유하는 것은 Hub의 주요 특성 중 하나입니다. `old_huggingface_hub`는 Hub에 파일을 업로드하기 위한 몇 가지 옵션을 제공합니다. 이러한 기능을 단독으로 사용하거나 라이브러리에 통합하여 해당 라이브러리의 사용자가 Hub와 더 편리하게 상호작용할 수 있도록 도울 수 있습니다. 이 가이드에서는 파일을 푸시하는 다양한 방법에 대해 설명합니다:
 
 - Git을 사용하지 않고 푸시하기.
 - [Git LFS](https://git-lfs.github.com/)를 사용하여 매우 큰 파일을 푸시하기.
@@ -21,7 +21,7 @@ Hub에 파일을 업로드 하려면 허깅페이스 계정으로 로그인해�
 
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.upload_file(
 ...     path_or_fileobj="/path/to/local/folder/README.md",
@@ -37,7 +37,7 @@ Hub에 파일을 업로드 하려면 허깅페이스 계정으로 로그인해�
 업로드할 로컬 폴더의 본 경로, 리포지토리에서 폴더를 업로드할 위치, 대상 리포지토리의 이름을 지정합니다. 리포지토리의 유형을 `dataset`, `model`, `space`로 선택적으로 설정할 수 있습니다.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 
 # 로컬 폴더에 있는 모든 콘텐츠를 원격 Space에 업로드 합니다.
@@ -105,7 +105,7 @@ CLI 업로드 명령어에 대한 자세한 내용은 [CLI 가이드](./cli#hugg
 ## 고급 기능[[advanced-features]]
 
 대부분의 경우, Hub에 파일을 업로드하는 데 [`upload_file`]과 [`upload_folder`] 이상이 필요하지 않습니다.
-하지만 `huggingface_hub`에는 작업을 더 쉽게 할 수 있는 고급 기능이 있습니다. 그 기능들을 살펴봅시다!
+하지만 `old_huggingface_hub`에는 작업을 더 쉽게 할 수 있는 고급 기능이 있습니다. 그 기능들을 살펴봅시다!
 
 
 ### 논블로킹 업로드[[non-blocking-uploads]]
@@ -115,7 +115,7 @@ CLI 업로드 명령어에 대한 자세한 내용은 [CLI 가이드](./cli#hugg
 이렇게 하려면 [`upload_file`]과 [[`upload_folder`] 에 `run_as_future` 인수를 사용하고 [`concurrent.futures.Future`](https://docs.python.org/3/library/concurrent.futures.html#future-objects)객체를 반환받아 업로드 상태를 확인하는 데 사용할 수 있습니다.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> future = api.upload_folder( # 백그라운드에서 업로드 작업 수행 (논블로킹)
 ...     repo_id="username/my-model",
@@ -141,7 +141,7 @@ False
 업로드 메소드에 내장된 `run_as_future` 인수는 본 기능의 별칭입니다.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.run_as_future(api.create_repo, "username/my-model", exists_ok=True)
 Future(...)
@@ -161,7 +161,7 @@ Future(...)
 업로드 중에 오류나 연결 문제가 발생해도 처음부터 다시 시작할 필요는 없습니다.
 
 여러 커밋으로 폴더를 업로드하려면 `multi_commits=True`를 인수로 전달하면 됩니다.
-내부적으로 `huggingface_hub`는 업로드/삭제할 파일을 나열하고 여러 커밋으로 분할합니다.
+내부적으로 `old_huggingface_hub`는 업로드/삭제할 파일을 나열하고 여러 커밋으로 분할합니다.
 커밋을 분할하는 전략은 업로드할 파일의 수와 크기에 따라 결정됩니다.
 모든 커밋을 푸시하기 위해 Hub에 PR이 열리게 되며, PR이 준비되면 여러 커밋이 단일 커밋으로 뭉쳐집니다.
 완료하기 전에 프로세스가 중단된 경우 스크립트를 다시 실행하여 업로드를 재개할 수 있습니다. 생성된 PR이 자동으로 감지되고 업로드가 중단된 지점부터 업로드가 재개됩니다.
@@ -208,7 +208,7 @@ Hub에 데이터(잠재적으로 수백만 개의 사용자 피드백)를 저장
 >>> import uuid
 >>> from pathlib import Path
 >>> import gradio as gr
->>> from huggingface_hub import CommitScheduler
+>>> from old_huggingface_hub import CommitScheduler
 
 # 데이터를 저장할 파일을 선언합니다. UUID를 이용하여 중복을 방지합니다.
 >>> feedback_file = Path("user_feedback/") / f"data_{uuid.uuid4()}.json"
@@ -340,7 +340,7 @@ class ZipScheduler(CommitScheduler):
 1. 파일을 추가하거나 삭제하고 폴더를 삭제하기 위해 적절한 `CommitOperation`을 사용합니다:
 
 ```py
->>> from huggingface_hub import HfApi, CommitOperationAdd, CommitOperationDelete
+>>> from old_huggingface_hub import HfApi, CommitOperationAdd, CommitOperationDelete
 >>> api = HfApi()
 >>> operations = [
 ...     CommitOperationAdd(path_in_repo="LICENSE.md", path_or_fileobj="~/repo/LICENSE.md"),
@@ -390,7 +390,7 @@ class ZipScheduler(CommitScheduler):
 다음은 파일을 미리 업로드하는 방법을 보여주는 간단한 예시입니다:
 
 ```py
->>> from huggingface_hub import CommitOperationAdd, preupload_lfs_files, create_commit, create_repo
+>>> from old_huggingface_hub import CommitOperationAdd, preupload_lfs_files, create_commit, create_repo
 
 >>> repo_id = create_repo("test_preupload").repo_id
 
@@ -424,15 +424,15 @@ Hub에서 리포지토리를 구성하는 방법에 대한 모범 사례는 [리
 - **실패를 예상하세요**: 대량의 데이터를 스트리밍하는 것은 어려운 일입니다. 어떤 일이 일어날지 알 수 없지만, 항상 컴퓨터, 연결, 서버 등 어떤 이유로든 한 번쯤은 실패할 수 있다는 점을 고려하는 것이 가장 좋습니다. 예를 들어, 많은 양의 파일을 업로드할 계획이라면 다음 파일을 업로드하기 전에 이미 업로드한 파일을 로컬에서 추적하는 것이 가장 좋습니다. 이미 커밋된 LFS 파일은 절대 두 번 다시 업로드되지 않지만 클라이언트 측에서 이를 확인하면 시간을 절약할 수 있습니다.
 - **`hf_transfer`를 사용하세요**: [`hf_transfer`](https://github.com/huggingface/hf_transfer)는 대역폭이 매우 높은 컴퓨터에서 업로드 속도를 높이기 위한 Rust 기반 라이브러리입니다. `hf_transfer`를 사용하려면:
 
-    1. `huggingface_hub`를 설치할 때 `hf_transfer`를 추가로 지정합니다.
-       (예: `pip install huggingface_hub[hf_transfer]`).
+    1. `old_huggingface_hub`를 설치할 때 `hf_transfer`를 추가로 지정합니다.
+       (예: `pip install old_huggingface_hub[hf_transfer]`).
     2. 환경 변수로 `HF_HUB_ENABLE_HF_TRANSFER=1`을 설정합니다.
 
 <Tip warning={true}>
 
 `hf_transfer`는 고급 사용자 도구입니다!
 테스트 및 프로덕션 준비가 완료되었지만, 고급 오류 처리나 프록시와 같은 사용자 친화적인 기능이 부족합니다.
-자세한 내용은 [이 섹션](https://huggingface.co/docs/huggingface_hub/hf_transfer)을 참조하세요.
+자세한 내용은 [이 섹션](https://huggingface.co/docs/old_huggingface_hub/hf_transfer)을 참조하세요.
 
 </Tip>
 
@@ -469,7 +469,7 @@ huggingface-cli lfs-enable-largefiles
 4. 변경 내용을 `text-files` 리포지토리에 push.
 
 ```python
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> with Repository(local_dir="text-files", clone_from="<user>/text-files").commit(commit_message="My first file :)"):
 ...     with open("file.txt", "w+") as f:
 ...         f.write(json.dumps({"hey": 8}))
@@ -527,7 +527,7 @@ huggingface-cli lfs-enable-largefiles
 예를 들어 Hub에서 리포지토리를 이미 복제했다면 로컬 디렉터리에서 `repo`를 초기화할 수 있습니다:
 
 ```python
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="path/to/local/repo")
 ```
 

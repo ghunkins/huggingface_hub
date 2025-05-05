@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -10,6 +10,7 @@ The `HfFileSystem` class provides a pythonic file interface to the Hugging Face 
 
 `HfFileSystem` is based on [fsspec](https://filesystem-spec.readthedocs.io/en/latest/), so it is compatible with most of the APIs that it offers. For more details, check out [our guide](../guides/hf_file_system) and fsspec's [API Reference](https://filesystem-spec.readthedocs.io/en/latest/api.html#fsspec.spec.AbstractFileSystem).
 
-[[autodoc]] HfFileSystem 
+[[autodoc]] HfFileSystem
     - __init__
-    - all
+    - resolve_path
+    - ls

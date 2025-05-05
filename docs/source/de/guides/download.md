@@ -1,10 +1,10 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Dateien aus dem Hub herunterladen
 
-Die `huggingface_hub`-Bibliothek bietet Funktionen zum Herunterladen von Dateien aus den auf dem Hub gespeicherten Repositories. Sie können diese Funktionen unabhängig verwenden oder in Ihre eigene Bibliothek integrieren, um es Ihren Benutzern zu erleichtern, mit dem Hub zu interagieren. In diesem Leitfaden erfahren Sie, wie Sie:
+Die `old_huggingface_hub`-Bibliothek bietet Funktionen zum Herunterladen von Dateien aus den auf dem Hub gespeicherten Repositories. Sie können diese Funktionen unabhängig verwenden oder in Ihre eigene Bibliothek integrieren, um es Ihren Benutzern zu erleichtern, mit dem Hub zu interagieren. In diesem Leitfaden erfahren Sie, wie Sie:
 
 * Einzelne Dateien herunterladen und zwischenspeichern.
 * Ein gesamtes Repository herunterladen und zwischenspeichern.
@@ -25,7 +25,7 @@ Der zurückgegebene Dateipfad verweist auf den lokalen Cache von HF. Es ist dahe
 Wählen Sie die Datei zum Herunterladen anhand der Parameter `repo_id`, `repo_type` und `filename` aus. Standardmäßig wird davon ausgegangen, dass die Datei Teil einer `model`-Repository ist.
 
 ```python
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(repo_id="lysandre/arxiv-nlp", filename="config.json")
 '/root/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade/config.json'
 
@@ -65,7 +65,7 @@ Falls Sie die URL erstellen möchten, die zum Herunterladen einer Datei aus eine
 Um ein ganzes Repository herunterzuladen, geben Sie einfach die `repo_id` und `repo_type` an:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp")
 '/home/lysandre/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade'
 
@@ -77,7 +77,7 @@ Um ein ganzes Repository herunterzuladen, geben Sie einfach die `repo_id` und `r
 [`snapshot_download`] lädt standardmäßig die neueste Revision herunter. Wenn Sie eine spezifische Repository-Revision wünschen, verwenden Sie den Parameter `revision`:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", revision="refs/pr/1")
 ```
 
@@ -90,21 +90,21 @@ Diese Parameter akzeptieren entweder ein einzelnes Muster oder eine Liste von Mu
 Beispielsweise können Sie `allow_patterns` verwenden, um nur JSON-Konfigurationsdateien herunterzuladen:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", allow_patterns="*.json")
 ```
 
 Andererseits können Sie mit `ignore_patterns` bestimmte Dateien vom Herunterladen ausschließen. Im folgenden Beispiel werden die Dateierweiterungen `.msgpack` und `.h5` ignoriert:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", ignore_patterns=["*.msgpack", "*.h5"])
 ```
 
 Schließlich können Sie beide kombinieren, um Ihren Download genau zu filtern. Hier ist ein Beispiel, wie man alle json- und markdown-Dateien herunterlädt, außer `vocab.json`.
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="gpt2", allow_patterns=["*.md", "*.json"], ignore_patterns="vocab.json")
 ```
 
@@ -132,7 +132,7 @@ Hier ist eine Tabelle, die die verschiedenen Optionen zusammenfasst, um Ihnen zu
 | `local_dir="path/to/folder"`<br>`local_dir_use_symlinks=False` | Nein | Datei im Ordner | ✅ | ✅ | ❌<br>_(bei erneutem Ausführen wird die Datei erneut heruntergeladen)_ | ⚠️<br>(mehrere Kopien, wenn in mehreren Ordnern ausgeführt) |
 | `local_dir="path/to/folder"`<br>`local_dir_use_symlinks=False` | Ja | Datei im Ordner | ✅ | ✅ | ⚠️<br>_(Datei muss zuerst im Cache gespeichert werden)_ | ❌<br>_(Datei wird dupliziert)_ |
 
-**Hinweis**: Wenn Sie einen Windows-Computer verwenden, müssen Sie den Entwicklermodus aktivieren oder `huggingface_hub` als Administrator ausführen, um Symlinks zu aktivieren. Weitere Details finden Sie im Abschnitt über [Cache-Beschränkungen](../guides/manage-cache#limitations).
+**Hinweis**: Wenn Sie einen Windows-Computer verwenden, müssen Sie den Entwicklermodus aktivieren oder `old_huggingface_hub` als Administrator ausführen, um Symlinks zu aktivieren. Weitere Details finden Sie im Abschnitt über [Cache-Beschränkungen](../guides/manage-cache#limitations).
 
 ## Herunterladen mit dem CLI
 
@@ -172,7 +172,7 @@ Standardmäßig werden Dateien im Cache-Verzeichnis heruntergeladen, das durch d
 ./cache/models--gpt2/snapshots/11c5a3d5811f50298f278a704980280950aedb10/config.json
 ```
 
-Wenn Sie Dateien in einen lokalen Ordner herunterladen möchten, ohne die Cache-Verzeichnisstruktur, können Sie `--local-dir` verwenden. Das Herunterladen in einen lokalen Ordner hat seine Einschränkungen, die in dieser [Tabelle](https://huggingface.co/docs/huggingface_hub/guides/download#download-files-to-local-folder) aufgeführt sind.
+Wenn Sie Dateien in einen lokalen Ordner herunterladen möchten, ohne die Cache-Verzeichnisstruktur, können Sie `--local-dir` verwenden. Das Herunterladen in einen lokalen Ordner hat seine Einschränkungen, die in dieser [Tabelle](https://huggingface.co/docs/old_huggingface_hub/guides/download#download-files-to-local-folder) aufgeführt sind.
 
 ```bash
 >>> huggingface-cli download gpt2 config.json --local-dir=./models/gpt2

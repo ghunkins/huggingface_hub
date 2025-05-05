@@ -1,8 +1,8 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
-# Verwalten des `huggingface_hub` Cache-Systems
+# Verwalten des `old_huggingface_hub` Cache-Systems
 
 ## Caching verstehen
 
@@ -115,7 +115,7 @@ Sie gibt entweder den Dateipfad zurück (falls vorhanden und im Cache gespeicher
 oder `None` (wenn wir es nicht wissen).
 
 ```python
-from huggingface_hub import try_to_load_from_cache, _CACHED_NO_EXIST
+from old_huggingface_hub import try_to_load_from_cache, _CACHED_NO_EXIST
 
 filepath = try_to_load_from_cache()
 if isinstance(filepath, str):
@@ -153,9 +153,9 @@ In der Praxis sollte Ihr Cache folgendermaßen aussehen:
 
 ### Einschränkungen
 
-Um ein effizientes Cache-System zu haben, verwendet `huggingface-hub` Symlinks. Allerdings
+Um ein effizientes Cache-System zu haben, verwendet `old-huggingface-hub` Symlinks. Allerdings
 werden Symlinks nicht auf allen Maschinen unterstützt. Dies ist eine bekannte Einschränkung,
-insbesondere bei Windows. Wenn dies der Fall ist, verwendet `huggingface_hub` nicht das `blobs/` Verzeichnis,
+insbesondere bei Windows. Wenn dies der Fall ist, verwendet `old_huggingface_hub` nicht das `blobs/` Verzeichnis,
 sondern speichert die Dateien direkt im `snapshots/` Verzeichnis. Dieser Workaround ermöglicht es den Nutzern,
 Dateien vom Hub auf genau die gleiche Weise herunterzuladen und zu cachen.
 Auch Werkzeuge zur Überprüfung und Löschung des Caches (siehe unten) werden unterstützt.
@@ -174,17 +174,17 @@ Umgebungsvariable `HF_HUB_DISABLE_SYMLINKS_WARNING` auf true deaktiviert werden.
 
 Zusätzlich zum Zwischenspeichern von Dateien aus dem Hub benötigen nachgelagerte Bibliotheken
 oft das Zwischenspeichern von anderen Dateien, die in Verbindung mit HF stehen, aber nicht
-direkt von `huggingface_hub` behandelt werden (zum Beispiel: Dateien, die von GitHub heruntergeladen werden,
+direkt von `old_huggingface_hub` behandelt werden (zum Beispiel: Dateien, die von GitHub heruntergeladen werden,
 vorverarbeitete Daten, Protokolle,...). Um diese Dateien, die als `assets` bezeichnet werden, zwischenzuspeichern,
 kann man [`cached_assets_path`] verwenden. Dieser kleine Helfer generiert Pfade im HF-Cache auf eine einheitliche Weise,
 basierend auf dem Namen der anfragenden Bibliothek und optional auf einem Namensraum und einem Unterordnernamen.
 Das Ziel ist, dass jede nachgelagerte Bibliothek ihre Assets auf ihre eigene Weise verwaltet
 (z.B. keine Regelung über die Struktur), solange sie im richtigen Assets-Ordner bleibt.
-Diese Bibliotheken können dann die Werkzeuge von `huggingface_hub` nutzen, um den Cache zu verwalten,
+Diese Bibliotheken können dann die Werkzeuge von `old_huggingface_hub` nutzen, um den Cache zu verwalten,
 insbesondere um Teile der Assets über einen CLI-Befehl zu scannen und zu löschen.
 
 ```py
-from huggingface_hub import cached_assets_path
+from old_huggingface_hub import cached_assets_path
 
 assets_path = cached_assets_path(library_name="datasets", namespace="SQuAD", subfolder="download")
 something_path = assets_path / "something.json" # Machen Sie, was Sie möchten, in Ihrem Assets-Ordner!
@@ -238,7 +238,7 @@ Derzeit werden zwischengespeicherte Dateien nie aus Ihrem lokalen Verzeichnis ge
 Wenn Sie eine neue Revision eines Zweiges herunterladen, werden vorherige Dateien aufbewahrt,
 falls Sie sie wieder benötigen. Daher kann es nützlich sein, Ihr Cache-Verzeichnis zu scannen,
 um zu erfahren, welche Repos und Revisionen den meisten Speicherplatz beanspruchen.
-`huggingface_hub` bietet einen Helfer dafür, der über `huggingface-cli` oder in einem Python-Skript verwendet werden kann.
+`old_huggingface_hub` bietet einen Helfer dafür, der über `huggingface-cli` oder in einem Python-Skript verwendet werden kann.
 
 ### Cache vom Terminal aus scannen
 
@@ -321,7 +321,7 @@ Sie können es verwenden, um einen detaillierten Bericht zu erhalten, der um 4 D
 Hier ist ein einfaches Anwendungs-Beispiel in Python. Siehe Referenz für Details.
 
 ```py
->>> from huggingface_hub import scan_cache_dir
+>>> from old_huggingface_hub import scan_cache_dir
 
 >>> hf_cache_info = scan_cache_dir()
 HFCacheInfo(
@@ -424,7 +424,7 @@ Dies ist der Standardmodus. Um ihn zu nutzen, müssen Sie zuerst zusätzliche Ab
 den folgenden Befehl ausführen:
 
 ```
-pip install huggingface_hub["cli"]
+pip install old_huggingface_hub["cli"]
 ```
 
 Führen Sie dann den Befehl aus:
@@ -530,7 +530,7 @@ Für mehr Flexibilität können Sie auch die Methode [`~HFCacheInfo.delete_revis
 Hier ist ein einfaches Beispiel. Siehe Referenz für Details.
 
 ```py
->>> from huggingface_hub import scan_cache_dir
+>>> from old_huggingface_hub import scan_cache_dir
 
 >>> delete_strategy = scan_cache_dir().delete_revisions(
 ...     "81fd1d6e7847c99f5862c9fb81387956d99ec7aa"

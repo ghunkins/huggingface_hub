@@ -1,18 +1,9 @@
 # Inference Endpoints
 
 Inference Endpoints provides a secure production solution to easily deploy any `transformers`, `sentence-transformers`, and `diffusers` models on a dedicated and autoscaling infrastructure managed by Hugging Face. An Inference Endpoint is built from a model from the [Hub](https://huggingface.co/models).
-In this guide, we will learn how to programmatically manage Inference Endpoints with `huggingface_hub`. For more information about the Inference Endpoints product itself, check out its [official documentation](https://huggingface.co/docs/inference-endpoints/index).
+In this guide, we will learn how to programmatically manage Inference Endpoints with `old_huggingface_hub`. For more information about the Inference Endpoints product itself, check out its [official documentation](https://huggingface.co/docs/inference-endpoints/index).
 
-This guide assumes `huggingface_hub` is correctly installed and that your machine is logged in. Check out the [Quick Start guide](https://huggingface.co/docs/huggingface_hub/quick-start#quickstart) if that's not the case yet. The minimal version supporting Inference Endpoints API is `v0.19.0`.
-
-
-<Tip>
-
-**New:** it is now possible to deploy an Inference Endpoint from the [HF model catalog](https://endpoints.huggingface.co/catalog) with a simple API call. The catalog is a carefully curated list of models that can be deployed with optimized settings. You don't need to configure anything, we take all the heavy stuff on us! All models and settings are guaranteed to have been tested to provide best cost/performance balance.  [`create_inference_endpoint_from_catalog`] works the same as [`create_inference_endpoint`], with much less parameters to pass. You can use [`list_inference_catalog`] to programmatically retrieve the catalog.
-
-Note that this is still an experimental feature. Let us know what you think if you use it!
-
-</Tip>
+This guide assumes `old_huggingface_hub` is correctly installed and that your machine is logged in. Check out the [Quick Start guide](https://huggingface.co/docs/old_huggingface_hub/quick-start#quickstart) if that's not the case yet. The minimal version supporting Inference Endpoints API is `v0.19.0`.
 
 
 ## Create an Inference Endpoint
@@ -20,7 +11,7 @@ Note that this is still an experimental feature. Let us know what you think if y
 The first step is to create an Inference Endpoint using [`create_inference_endpoint`]:
 
 ```py
->>> from huggingface_hub import create_inference_endpoint
+>>> from old_huggingface_hub import create_inference_endpoint
 
 >>> endpoint = create_inference_endpoint(
 ...     "my-endpoint-name",
@@ -31,8 +22,8 @@ The first step is to create an Inference Endpoint using [`create_inference_endpo
 ...     vendor="aws",
 ...     region="us-east-1",
 ...     type="protected",
-...     instance_size="x2",
-...     instance_type="intel-icl"
+...     instance_size="medium",
+...     instance_type="c6i"
 ... )
 ```
 
@@ -49,7 +40,7 @@ It's a dataclass that holds information about the endpoint. You can access impor
 
 Once your Inference Endpoint is created, you can find it on your [personal dashboard](https://ui.endpoints.huggingface.co/).
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/inference_endpoints_created.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/old_huggingface_hub/inference_endpoints_created.png)
 
 #### Using a custom image
 
@@ -57,7 +48,7 @@ By default the Inference Endpoint is built from a docker image provided by Huggi
 
 ```python
 # Start an Inference Endpoint running Zephyr-7b-beta on TGI
->>> from huggingface_hub import create_inference_endpoint
+>>> from old_huggingface_hub import create_inference_endpoint
 >>> endpoint = create_inference_endpoint(
 ...     "aws-zephyr-7b-beta-0486",
 ...     repository="HuggingFaceH4/zephyr-7b-beta",
@@ -67,8 +58,8 @@ By default the Inference Endpoint is built from a docker image provided by Huggi
 ...     vendor="aws",
 ...     region="us-east-1",
 ...     type="protected",
-...     instance_size="x1",
-...     instance_type="nvidia-a10g",
+...     instance_size="medium",
+...     instance_type="g5.2xlarge",
 ...     custom_image={
 ...         "health_route": "/health",
 ...         "env": {
@@ -89,7 +80,7 @@ The value to pass as `custom_image` is a dictionary containing a url to the dock
 In some cases, you might need to manage Inference Endpoints you created previously. If you know the name, you can fetch it using [`get_inference_endpoint`], which returns an [`InferenceEndpoint`] object. Alternatively, you can use [`list_inference_endpoints`] to retrieve a list of all Inference Endpoints. Both methods accept an optional `namespace` parameter. You can set the `namespace` to any organization you are a part of. Otherwise, it defaults to your username.
 
 ```py
->>> from huggingface_hub import get_inference_endpoint, list_inference_endpoints
+>>> from old_huggingface_hub import get_inference_endpoint, list_inference_endpoints
 
 # Get one
 >>> get_inference_endpoint("my-endpoint-name")
@@ -130,7 +121,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 # Wait 10s => raises a InferenceEndpointTimeoutError
 >>> endpoint.wait(timeout=10)
     raise InferenceEndpointTimeoutError("Timeout while waiting for Inference Endpoint to be deployed.")
-huggingface_hub._inference_endpoints.InferenceEndpointTimeoutError: Timeout while waiting for Inference Endpoint to be deployed.
+old_huggingface_hub._inference_endpoints.InferenceEndpointTimeoutError: Timeout while waiting for Inference Endpoint to be deployed.
 
 # Wait more
 >>> endpoint.wait()
@@ -158,7 +149,7 @@ If the Inference Endpoint is not running, an [`InferenceEndpointError`] exceptio
 
 ```py
 >>> endpoint.client
-huggingface_hub._inference_endpoints.InferenceEndpointError: Cannot create a client for this Inference Endpoint as it is not yet deployed. Please wait for the Inference Endpoint to be deployed using `endpoint.wait()` and try again.
+old_huggingface_hub._inference_endpoints.InferenceEndpointError: Cannot create a client for this Inference Endpoint as it is not yet deployed. Please wait for the Inference Endpoint to be deployed using `endpoint.wait()` and try again.
 ```
 
 For more details about how to use the [`InferenceClient`], check out the [Inference guide](../guides/inference).
@@ -212,7 +203,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2-large', status='pending', url=None)
 
 # Update to larger instance
->>> endpoint.update(accelerator="cpu", instance_size="x4", instance_type="intel-icl")
+>>> endpoint.update(accelerator="cpu", instance_size="large", instance_type="c6i")
 InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2-large', status='pending', url=None)
 ```
 
@@ -233,7 +224,7 @@ A typical use case of Inference Endpoints is to process a batch of jobs at once 
 
 ```py
 >>> import asyncio
->>> from huggingface_hub import create_inference_endpoint
+>>> from old_huggingface_hub import create_inference_endpoint
 
 # Start endpoint + wait until initialized
 >>> endpoint = create_inference_endpoint(name="batch-endpoint",...).wait()
@@ -254,7 +245,7 @@ Or if your Inference Endpoint already exists and is paused:
 
 ```py
 >>> import asyncio
->>> from huggingface_hub import get_inference_endpoint
+>>> from old_huggingface_hub import get_inference_endpoint
 
 # Get endpoint + wait until initialized
 >>> endpoint = get_inference_endpoint("batch-endpoint").resume().wait()

@@ -1,5 +1,5 @@
 name: "\U0001F41B Bug Report"
-description: Report a bug on huggingface_hub
+description: Report a bug on old_huggingface_hub
 labels: ["bug"]
 body:
   - type: markdown
@@ -24,7 +24,7 @@ body:
     id: logs
     attributes:
       label: Logs
-      description: "Please include the Python logs if you can. If possible, run the code with `HF_DEBUG=1` as environment variable."
+      description: "Please include the Python logs if you can."
       render: shell
   - type: textarea
     id: system-info
@@ -38,13 +38,13 @@ body:
 
         If you are working in a notebook, please run it in a code cell:
         ```py
-        from huggingface_hub import dump_environment_info
+        from old_huggingface_hub import dump_environment_info
 
         dump_environment_info()
         ```
       render: shell
       placeholder: |
-        - huggingface_hub version: 0.11.0.dev0
+        - old_huggingface_hub version: 0.11.0.dev0
         - Platform: Linux-5.15.0-52-generic-x86_64-with-glibc2.35
         - Python version: 3.10.6
         ...

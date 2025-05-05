@@ -1,23 +1,15 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Interact with the Hub through the Filesystem API
 
-In addition to the [`HfApi`], the `huggingface_hub` library provides [`HfFileSystem`], a pythonic [fsspec-compatible](https://filesystem-spec.readthedocs.io/en/latest/) file interface to the Hugging Face Hub. The [`HfFileSystem`] builds on top of the [`HfApi`] and offers typical filesystem style operations like `cp`, `mv`, `ls`, `du`, `glob`, `get_file`, and `put_file`.
-
-<Tip warning={true}>
-
-  [`HfFileSystem`] provides fsspec compatibility, which is useful for libraries that require it (e.g., reading
-  Hugging Face datasets directly with `pandas`). However, it introduces additional overhead due to this compatibility
-  layer. For better performance and reliability, it's recommended to use [`HfApi`] methods when possible.
-
-</Tip>
+In addition to the [`HfApi`], the `old_huggingface_hub` library provides [`HfFileSystem`], a pythonic [fsspec-compatible](https://filesystem-spec.readthedocs.io/en/latest/) file interface to the Hugging Face Hub. The [`HfFileSystem`] builds of top of the [`HfApi`] and offers typical filesystem style operations like `cp`, `mv`, `ls`, `du`, `glob`, `get_file`, and `put_file`.
 
 ## Usage
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem()
 
 >>> # List all files in a directory
@@ -25,7 +17,7 @@ In addition to the [`HfApi`], the `huggingface_hub` library provides [`HfFileSys
 ['datasets/my-username/my-dataset-repo/data/train.csv', 'datasets/my-username/my-dataset-repo/data/test.csv']
 
 >>> # List all ".csv" files in a repo
->>> fs.glob("datasets/my-username/my-dataset-repo/**/*.csv")
+>>> fs.glob("datasets/my-username/my-dataset-repo/**.csv")
 ['datasets/my-username/my-dataset-repo/data/train.csv', 'datasets/my-username/my-dataset-repo/data/test.csv']
 
 >>> # Read a remote file
@@ -53,10 +45,6 @@ The [`HfFileSystem`] can be used with any library that integrates `fsspec`, prov
 hf://[<repo_type_prefix>]<repo_id>[@<revision>]/<path/in/repo>
 ```
 
-<div class="flex justify-center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/hf_urls.png"/>
-</div>
-
 The `repo_type_prefix` is `datasets/` for datasets, `spaces/` for spaces, and models don't need a prefix in the URL.
 
 Some interesting integrations where [`HfFileSystem`] simplifies interacting with the Hub are listed below:
@@ -78,7 +66,7 @@ The same workflow can also be used for [Dask](https://docs.dask.org/en/stable/ho
 * Querying (remote) Hub files with [DuckDB](https://duckdb.org/docs/guides/python/filesystems):
 
   ```python
-  >>> from huggingface_hub import HfFileSystem
+  >>> from old_huggingface_hub import HfFileSystem
   >>> import duckdb
 
   >>> fs = HfFileSystem()
@@ -111,11 +99,11 @@ The same workflow can also be used for [Dask](https://docs.dask.org/en/stable/ho
 
 In many cases, you must be logged in with a Hugging Face account to interact with the Hub. Refer to the [Authentication](../quick-start#authentication) section of the documentation to learn more about authentication methods on the Hub.
 
-It is also possible to log in programmatically by passing your `token` as an argument to [`HfFileSystem`]:
+It is also possible to login programmatically by passing your `token` as an argument to [`HfFileSystem`]:
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem(token=token)
 ```
 
-If you log in this way, be careful not to accidentally leak the token when sharing your source code!
+If you login this way, be careful not to accidentally leak the token when sharing your source code!

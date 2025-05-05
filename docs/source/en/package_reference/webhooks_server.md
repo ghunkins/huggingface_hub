@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -18,7 +18,7 @@ deploy it as a Space.
 <Tip warning={true}>
 
 This is an experimental feature. This means that we are still working on improving the API. Breaking changes might be
-introduced in the future without prior notice. Make sure to pin the version of `huggingface_hub` in your requirements.
+introduced in the future without prior notice. Make sure to pin the version of `old_huggingface_hub` in your requirements.
 A warning is triggered when you use an experimental feature. You can disable it by setting `HF_HUB_DISABLE_EXPERIMENTAL_WARNING=1` as an environment variable.
 
 </Tip>
@@ -31,11 +31,11 @@ by redirecting the Webhooks to your machine (using a Gradio tunnel) before deplo
 
 ### WebhooksServer
 
-[[autodoc]] huggingface_hub.WebhooksServer
+[[autodoc]] old_huggingface_hub.WebhooksServer
 
 ### @webhook_endpoint
 
-[[autodoc]] huggingface_hub.webhook_endpoint
+[[autodoc]] old_huggingface_hub.webhook_endpoint
 
 ## Payload
 
@@ -45,40 +45,40 @@ will be automatically validated and parsed as a Python object.
 
 For more information about webhooks payload, you can refer to the Webhooks Payload [guide](https://huggingface.co/docs/hub/webhooks#webhook-payloads).
 
-[[autodoc]] huggingface_hub.WebhookPayload
+[[autodoc]] old_huggingface_hub.WebhookPayload
 
 ### WebhookPayload
 
-[[autodoc]] huggingface_hub.WebhookPayload
+[[autodoc]] old_huggingface_hub.WebhookPayload
 
 ### WebhookPayloadComment
 
-[[autodoc]] huggingface_hub.WebhookPayloadComment
+[[autodoc]] old_huggingface_hub.WebhookPayloadComment
 
 ### WebhookPayloadDiscussion
 
-[[autodoc]] huggingface_hub.WebhookPayloadDiscussion
+[[autodoc]] old_huggingface_hub.WebhookPayloadDiscussion
 
 ### WebhookPayloadDiscussionChanges
 
-[[autodoc]] huggingface_hub.WebhookPayloadDiscussionChanges
+[[autodoc]] old_huggingface_hub.WebhookPayloadDiscussionChanges
 
 ### WebhookPayloadEvent
 
-[[autodoc]] huggingface_hub.WebhookPayloadEvent
+[[autodoc]] old_huggingface_hub.WebhookPayloadEvent
 
 ### WebhookPayloadMovedTo
 
-[[autodoc]] huggingface_hub.WebhookPayloadMovedTo
+[[autodoc]] old_huggingface_hub.WebhookPayloadMovedTo
 
 ### WebhookPayloadRepo
 
-[[autodoc]] huggingface_hub.WebhookPayloadRepo
+[[autodoc]] old_huggingface_hub.WebhookPayloadRepo
 
 ### WebhookPayloadUrl
 
-[[autodoc]] huggingface_hub.WebhookPayloadUrl
+[[autodoc]] old_huggingface_hub.WebhookPayloadUrl
 
 ### WebhookPayloadWebhook
 
-[[autodoc]] huggingface_hub.WebhookPayloadWebhook
+[[autodoc]] old_huggingface_hub.WebhookPayloadWebhook

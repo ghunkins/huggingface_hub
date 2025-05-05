@@ -3,9 +3,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from huggingface_hub import CommitOperationAdd, HfApi, snapshot_download
-from huggingface_hub.errors import LocalEntryNotFoundError, RepositoryNotFoundError
-from huggingface_hub.utils import SoftTemporaryDirectory
+from old_huggingface_hub import CommitOperationAdd, HfApi, snapshot_download
+from old_huggingface_hub.utils import LocalEntryNotFoundError, RepositoryNotFoundError, SoftTemporaryDirectory
 
 from .testing_constants import TOKEN
 from .testing_utils import OfflineSimulationMode, offline, repo_name
@@ -96,7 +95,7 @@ class SnapshotDownloadTests(unittest.TestCase):
             self.assertTrue(self.first_commit_hash in storage_folder)
 
     def test_download_private_model(self):
-        self.api.update_repo_settings(repo_id=self.repo_id, private=True)
+        self.api.update_repo_visibility(repo_id=self.repo_id, private=True)
 
         # Test download fails without token
         with SoftTemporaryDirectory() as tmpdir:
@@ -104,7 +103,7 @@ class SnapshotDownloadTests(unittest.TestCase):
                 _ = snapshot_download(self.repo_id, revision="main", cache_dir=tmpdir)
 
         # Test we can download with token from cache
-        with patch("huggingface_hub.utils._headers.get_token", return_value=TOKEN):
+        with patch("old_huggingface_hub.utils._headers.get_token", return_value=TOKEN):
             with SoftTemporaryDirectory() as tmpdir:
                 storage_folder = snapshot_download(self.repo_id, revision="main", cache_dir=tmpdir)
                 self.assertTrue(self.second_commit_hash in storage_folder)
@@ -114,7 +113,7 @@ class SnapshotDownloadTests(unittest.TestCase):
             storage_folder = snapshot_download(self.repo_id, revision="main", cache_dir=tmpdir, token=TOKEN)
             self.assertTrue(self.second_commit_hash in storage_folder)
 
-        self.api.update_repo_settings(repo_id=self.repo_id, private=False)
+        self.api.update_repo_visibility(repo_id=self.repo_id, private=False)
 
     def test_download_model_local_only(self):
         # Test no branch specified
@@ -142,48 +141,6 @@ class SnapshotDownloadTests(unittest.TestCase):
                 self.repo_id, revision=self.first_commit_hash, cache_dir=tmpdir, local_files_only=True
             )
             self.assertTrue(self.first_commit_hash in storage_folder)  # has expected revision
-
-        # Test with local_dir
-        with SoftTemporaryDirectory() as tmpdir:
-            # first download folder to local_dir
-            snapshot_download(self.repo_id, local_dir=tmpdir)
-            # now load from local_dir
-            storage_folder = snapshot_download(self.repo_id, local_dir=tmpdir, local_files_only=True)
-            self.assertEqual(str(tmpdir), storage_folder)
-
-    def test_download_model_to_local_dir_with_offline_mode(self):
-        """Test that an already downloaded folder is returned when there is a connection error"""
-        # first download folder to local_dir
-        with SoftTemporaryDirectory() as tmpdir:
-            snapshot_download(self.repo_id, local_dir=tmpdir)
-            # Check that the folder is returned when there is a connection error
-            for offline_mode in OfflineSimulationMode:
-                with offline(mode=offline_mode):
-                    storage_folder = snapshot_download(self.repo_id, local_dir=tmpdir)
-                    self.assertEqual(str(tmpdir), storage_folder)
-
-    def test_offline_mode_with_cache_and_empty_local_dir(self):
-        """Test that when cache exists but an empty local_dir is specified in offline mode, we raise an error."""
-        with SoftTemporaryDirectory() as tmpdir_cache:
-            snapshot_download(self.repo_id, cache_dir=tmpdir_cache)
-
-            for offline_mode in OfflineSimulationMode:
-                with offline(mode=offline_mode):
-                    with self.assertRaises(LocalEntryNotFoundError):
-                        with SoftTemporaryDirectory() as tmpdir:
-                            snapshot_download(self.repo_id, cache_dir=tmpdir_cache, local_dir=tmpdir)
-
-    def test_download_model_offline_mode_not_in_local_dir(self):
-        """Test when connection error but local_dir is empty."""
-        with SoftTemporaryDirectory() as tmpdir:
-            with self.assertRaises(LocalEntryNotFoundError):
-                snapshot_download(self.repo_id, local_dir=tmpdir, local_files_only=True)
-
-        for offline_mode in OfflineSimulationMode:
-            with offline(mode=offline_mode):
-                with SoftTemporaryDirectory() as tmpdir:
-                    with self.assertRaises(LocalEntryNotFoundError):
-                        snapshot_download(self.repo_id, local_dir=tmpdir)
 
     def test_download_model_offline_mode_not_cached(self):
         """Test when connection error but cache is empty."""

@@ -1,74 +1,70 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/huggingface_hub-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/huggingface_hub.svg">
-    <img alt="huggingface_hub library logo" src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/huggingface_hub.svg" width="352" height="59" style="max-width: 100%;">
-  </picture>
   <br/>
+    <img alt="old_huggingface_hub library logo" src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/old_huggingface_hub.svg" width="376" height="59" style="max-width: 100%;">
   <br/>
-</p> 
+</p>
 
 <p align="center">
     <i>The official Python client for the Huggingface Hub.</i>
 </p>
 
 <p align="center">
-    <a href="https://huggingface.co/docs/huggingface_hub/en/index"><img alt="Documentation" src="https://img.shields.io/website/http/huggingface.co/docs/huggingface_hub/index.svg?down_color=red&down_message=offline&up_message=online&label=doc"></a>
-    <a href="https://github.com/huggingface/huggingface_hub/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/huggingface_hub.svg"></a>
-    <a href="https://github.com/huggingface/huggingface_hub"><img alt="PyPi version" src="https://img.shields.io/pypi/pyversions/huggingface_hub.svg"></a>
-    <a href="https://pypi.org/project/huggingface-hub"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/huggingface_hub"></a>
-    <a href="https://codecov.io/gh/huggingface/huggingface_hub"><img alt="Code coverage" src="https://codecov.io/gh/huggingface/huggingface_hub/branch/main/graph/badge.svg?token=RXP95LE2XL"></a>
+    <a href="https://huggingface.co/docs/old_huggingface_hub/en/index"><img alt="Documentation" src="https://img.shields.io/website/http/huggingface.co/docs/old_huggingface_hub/index.svg?down_color=red&down_message=offline&up_message=online&label=doc"></a>
+    <a href="https://github.com/huggingface/old_huggingface_hub/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/old_huggingface_hub.svg"></a>
+    <a href="https://github.com/huggingface/old_huggingface_hub"><img alt="PyPi version" src="https://img.shields.io/pypi/pyversions/old_huggingface_hub.svg"></a>
+    <a href="https://pypi.org/project/old-huggingface-hub"><img alt="downloads" src="https://static.pepy.tech/badge/old_huggingface_hub/month"></a>
+    <a href="https://codecov.io/gh/huggingface/old_huggingface_hub"><img alt="Code coverage" src="https://codecov.io/gh/huggingface/old_huggingface_hub/branch/main/graph/badge.svg?token=RXP95LE2XL"></a>
 </p>
 
 <h4 align="center">
     <p>
         <b>English</b> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/i18n/README_de.md">Deutsch</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/i18n/README_hi.md">हिंदी</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/i18n/README_ko.md">한국어</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/i18n/README_cn.md">中文（简体）</a>
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_de.md">Deutsch</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_hi.md">हिंदी</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_ko.md">한국어</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_cn.md">中文（简体）</a>
     <p>
 </h4>
 
 ---
 
-**Documentation**: <a href="https://hf.co/docs/huggingface_hub" target="_blank">https://hf.co/docs/huggingface_hub</a>
+**Documentation**: <a href="https://hf.co/docs/old_huggingface_hub" target="_blank">https://hf.co/docs/old_huggingface_hub</a>
 
-**Source Code**: <a href="https://github.com/huggingface/huggingface_hub" target="_blank">https://github.com/huggingface/huggingface_hub</a>
+**Source Code**: <a href="https://github.com/huggingface/old_huggingface_hub" target="_blank">https://github.com/huggingface/old_huggingface_hub</a>
 
 ---
 
-## Welcome to the huggingface_hub library
+## Welcome to the old_huggingface_hub library
 
-The `huggingface_hub` library allows you to interact with the [Hugging Face Hub](https://huggingface.co/), a platform democratizing open-source Machine Learning for creators and collaborators. Discover pre-trained models and datasets for your projects or play with the thousands of machine learning apps hosted on the Hub. You can also create and share your own models, datasets and demos with the community. The `huggingface_hub` library provides a simple way to do all these things with Python.
+The `old_huggingface_hub` library allows you to interact with the [Hugging Face Hub](https://huggingface.co/), a platform democratizing open-source Machine Learning for creators and collaborators. Discover pre-trained models and datasets for your projects or play with the thousands of machine learning apps hosted on the Hub. You can also create and share your own models, datasets and demos with the community. The `old_huggingface_hub` library provides a simple way to do all these things with Python.
 
 ## Key features
 
-- [Download files](https://huggingface.co/docs/huggingface_hub/en/guides/download) from the Hub.
-- [Upload files](https://huggingface.co/docs/huggingface_hub/en/guides/upload) to the Hub.
-- [Manage your repositories](https://huggingface.co/docs/huggingface_hub/en/guides/repository).
-- [Run Inference](https://huggingface.co/docs/huggingface_hub/en/guides/inference) on deployed models.
-- [Search](https://huggingface.co/docs/huggingface_hub/en/guides/search) for models, datasets and Spaces.
-- [Share Model Cards](https://huggingface.co/docs/huggingface_hub/en/guides/model-cards) to document your models.
-- [Engage with the community](https://huggingface.co/docs/huggingface_hub/en/guides/community) through PRs and comments.
+- [Download files](https://huggingface.co/docs/old_huggingface_hub/en/guides/download) from the Hub.
+- [Upload files](https://huggingface.co/docs/old_huggingface_hub/en/guides/upload) to the Hub.
+- [Manage your repositories](https://huggingface.co/docs/old_huggingface_hub/en/guides/repository).
+- [Run Inference](https://huggingface.co/docs/old_huggingface_hub/en/guides/inference) on deployed models.
+- [Search](https://huggingface.co/docs/old_huggingface_hub/en/guides/search) for models, datasets and Spaces.
+- [Share Model Cards](https://huggingface.co/docs/old_huggingface_hub/en/guides/model-cards) to document your models.
+- [Engage with the community](https://huggingface.co/docs/old_huggingface_hub/en/guides/community) through PRs and comments.
 
 ## Installation
 
-Install the `huggingface_hub` package with [pip](https://pypi.org/project/huggingface-hub/):
+Install the `old_huggingface_hub` package with [pip](https://pypi.org/project/old-huggingface-hub/):
 
 ```bash
-pip install huggingface_hub
+pip install old_huggingface_hub
 ```
 
-If you prefer, you can also install it with [conda](https://huggingface.co/docs/huggingface_hub/en/installation#install-with-conda).
+If you prefer, you can also install it with [conda](https://huggingface.co/docs/old_huggingface_hub/en/installation#install-with-conda).
 
-In order to keep the package minimal by default, `huggingface_hub` comes with optional dependencies useful for some use cases. For example, if you want have a complete experience for Inference, run:
+In order to keep the package minimal by default, `old_huggingface_hub` comes with optional dependencies useful for some use cases. For example, if you want have a complete experience for Inference, run:
 
 ```bash
-pip install huggingface_hub[inference]
+pip install old_huggingface_hub[inference]
 ```
 
-To learn more installation and optional dependencies, check out the [installation guide](https://huggingface.co/docs/huggingface_hub/en/installation).
+To learn more installation and optional dependencies, check out the [installation guide](https://huggingface.co/docs/old_huggingface_hub/en/installation).
 
 ## Quick start
 
@@ -77,7 +73,7 @@ To learn more installation and optional dependencies, check out the [installatio
 Download a single file
 
 ```py
-from huggingface_hub import hf_hub_download
+from old_huggingface_hub import hf_hub_download
 
 hf_hub_download(repo_id="tiiuae/falcon-7b-instruct", filename="config.json")
 ```
@@ -85,16 +81,16 @@ hf_hub_download(repo_id="tiiuae/falcon-7b-instruct", filename="config.json")
 Or an entire repository
 
 ```py
-from huggingface_hub import snapshot_download
+from old_huggingface_hub import snapshot_download
 
 snapshot_download("stabilityai/stable-diffusion-2-1")
 ```
 
-Files will be downloaded in a local cache folder. More details in [this guide](https://huggingface.co/docs/huggingface_hub/en/guides/manage-cache).
+Files will be downloaded in a local cache folder. More details in [this guide](https://huggingface.co/docs/old_huggingface_hub/en/guides/manage-cache).
 
 ### Login
 
-The Hugging Face Hub uses tokens to authenticate applications (see [docs](https://huggingface.co/docs/hub/security-tokens)). To log in your machine, run the following CLI:
+The Hugging Face Hub uses tokens to authenticate applications (see [docs](https://huggingface.co/docs/hub/security-tokens)). To login your machine, run the following CLI:
 
 ```bash
 huggingface-cli login
@@ -105,7 +101,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 ### Create a repository
 
 ```py
-from huggingface_hub import create_repo
+from old_huggingface_hub import create_repo
 
 create_repo(repo_id="super-cool-model")
 ```
@@ -115,7 +111,7 @@ create_repo(repo_id="super-cool-model")
 Upload a single file
 
 ```py
-from huggingface_hub import upload_file
+from old_huggingface_hub import upload_file
 
 upload_file(
     path_or_fileobj="/home/lysandre/dummy-test/README.md",
@@ -127,7 +123,7 @@ upload_file(
 Or an entire folder
 
 ```py
-from huggingface_hub import upload_folder
+from old_huggingface_hub import upload_folder
 
 upload_folder(
     folder_path="/path/to/local/space",
@@ -136,7 +132,7 @@ upload_folder(
 )
 ```
 
-For details in the [upload guide](https://huggingface.co/docs/huggingface_hub/en/guides/upload).
+For details in the [upload guide](https://huggingface.co/docs/old_huggingface_hub/en/guides/upload).
 
 ## Integrating to the Hub.
 
@@ -158,5 +154,5 @@ If you would like to integrate your library, feel free to open an issue to begin
 
 Everyone is welcome to contribute, and we value everybody's contribution. Code is not the only way to help the community.
 Answering questions, helping others, reaching out and improving the documentations are immensely valuable to the community.
-We wrote a [contribution guide](https://github.com/huggingface/huggingface_hub/blob/main/CONTRIBUTING.md) to summarize
+We wrote a [contribution guide](https://github.com/huggingface/old_huggingface_hub/blob/main/CONTRIBUTING.md) to summarize
 how to get started to contribute to this repository.

@@ -1,10 +1,10 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Hub에서 파일 다운로드하기[[download-files-from-the-hub]]
 
-`huggingface_hub` 라이브러리는 Hub의 저장소에서 파일을 다운로드하는 기능을 제공합니다. 이 기능은 함수로 직접 사용할 수 있고, 사용자가 만든 라이브러리에 통합하여 Hub와 쉽게 상호 작용할 수 있도록 할 수 있습니다. 이 가이드에서는 다음 내용을 다룹니다:
+`old_huggingface_hub` 라이브러리는 Hub의 저장소에서 파일을 다운로드하는 기능을 제공합니다. 이 기능은 함수로 직접 사용할 수 있고, 사용자가 만든 라이브러리에 통합하여 Hub와 쉽게 상호 작용할 수 있도록 할 수 있습니다. 이 가이드에서는 다음 내용을 다룹니다:
 
 * 파일 하나를 다운로드하고 캐시하는 방법
 * 리포지토리 전체를 다운로드하고 캐시하는 방법
@@ -25,7 +25,7 @@ rendered properly in your Markdown viewer.
 다운로드할 파일을 선택하기 위해 `repo_id`, `repo_type`, `filename` 매개변수를 사용합니다. `repo_type` 매개변수를 생략하면 파일은 `model` 리포의 일부라고 간주됩니다.
 
 ```python
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(repo_id="lysandre/arxiv-nlp", filename="config.json")
 '/root/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade/config.json'
 
@@ -65,7 +65,7 @@ rendered properly in your Markdown viewer.
 전체 리포지토리를 다운로드하려면 `repo_id`와 `repo_type`을 인자로 넘겨주면 됩니다:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp")
 '/home/lysandre/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade'
 
@@ -77,7 +77,7 @@ rendered properly in your Markdown viewer.
 [`snapshot_download`] 함수는 기본적으로 최신 버전의 리포지토리를 다운로드합니다. 특정 버전의 리포지토리를 다운로드하고 싶은 경우, `revision` 매개변수에 원하는 버전을 지정하면 됩니다:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", revision="refs/pr/1")
 ```
 
@@ -90,21 +90,21 @@ rendered properly in your Markdown viewer.
 예를 들어, `allow_patterns`를 사용하여 JSON 구성 파일만 다운로드하는 방법은 다음과 같습니다:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", allow_patterns="*.json")
 ```
 
 반대로 `ignore_patterns`는 특정 파일을 다운로드에서 제외시킬 수 있습니다. 다음 예제는 `.msgpack`과 `.h5` 파일 확장자를 무시하는 방법입니다:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", ignore_patterns=["*.msgpack", "*.h5"])
 ```
 
 마지막으로, 두 가지 매개변수를 함께 사용하여 다운로드를 정확하게 선택할 수 있습니다. 다음은 `vocab.json`을 제외한 모든 json 및 마크다운 파일을 다운로드하는 예제입니다.
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="gpt2", allow_patterns=["*.md", "*.json"], ignore_patterns="vocab.json")
 ```
 
@@ -131,7 +131,7 @@ Hub에서 파일을 다운로드하는 가장 좋은 (그리고 기본적인) �
 | `local_dir="path/to/folder"`<br>`local_dir_use_symlinks=False` | 아니오 | 폴더 속 파일 | ✅ | ✅ | ❌<br>_(다시 실행하면 파일도 다시 다운로드됩니다)_ | ⚠️<br>(여러 폴더에서 실행하면 그만큼 복사본이 생깁니다) |
 | `local_dir="path/to/folder"`<br>`local_dir_use_symlinks=False` | 예 | 폴더 속 파일 | ✅ | ✅ | ⚠️<br>_(파일이 캐시되어 있어야 합니다)_ | ❌<br>_(파일이 중복됩니다)_ |
 
-**참고**: Windows 컴퓨터를 사용하는 경우 심볼릭 링크를 사용하려면 개발자 모드를 켜거나 관리자 권한으로 `huggingface_hub`를 실행해야 합니다. 자세한 내용은 [캐시 제한](../guides/manage-cache#limitations) 섹션을 참조하세요.
+**참고**: Windows 컴퓨터를 사용하는 경우 심볼릭 링크를 사용하려면 개발자 모드를 켜거나 관리자 권한으로 `old_huggingface_hub`를 실행해야 합니다. 자세한 내용은 [캐시 제한](../guides/manage-cache#limitations) 섹션을 참조하세요.
 
 ## CLI에서 파일 다운로드하기[[download-from-the-cli]]
 
@@ -173,7 +173,7 @@ Fetching 2 files: 100%|███████████████████
 ```
 
 캐시 디렉터리 구조를 따르지 않고 로컬 폴더에 파일을 다운로드하려면 `--local-dir` 옵션을 사용하세요.
-로컬 폴더로 다운로드하면 이 [표](https://huggingface.co/docs/huggingface_hub/guides/download#download-files-to-local-folder)에 나열된 제한 사항이 있습니다.
+로컬 폴더로 다운로드하면 이 [표](https://huggingface.co/docs/old_huggingface_hub/guides/download#download-files-to-local-folder)에 나열된 제한 사항이 있습니다.
 
 
 ```bash

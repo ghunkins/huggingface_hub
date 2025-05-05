@@ -20,7 +20,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from huggingface_hub import (
+from old_huggingface_hub import (
     DatasetCard,
     DatasetCardData,
     EvalResult,
@@ -29,7 +29,6 @@ from huggingface_hub import (
     RepoCard,
     SpaceCard,
     SpaceCardData,
-    constants,
     get_hf_file_metadata,
     hf_hub_url,
     metadata_eval_result,
@@ -37,15 +36,22 @@ from huggingface_hub import (
     metadata_save,
     metadata_update,
 )
-from huggingface_hub.errors import EntryNotFoundError
-from huggingface_hub.file_download import hf_hub_download
-from huggingface_hub.hf_api import HfApi
-from huggingface_hub.repocard import REGEX_YAML_BLOCK
-from huggingface_hub.repocard_data import CardData
-from huggingface_hub.utils import SoftTemporaryDirectory, is_jinja_available
+from old_huggingface_hub.constants import REPOCARD_NAME
+from old_huggingface_hub.file_download import hf_hub_download
+from old_huggingface_hub.hf_api import HfApi
+from old_huggingface_hub.repocard import REGEX_YAML_BLOCK
+from old_huggingface_hub.repocard_data import CardData
+from old_huggingface_hub.utils import EntryNotFoundError, SoftTemporaryDirectory, is_jinja_available
 
-from .testing_constants import ENDPOINT_STAGING, TOKEN, USER
-from .testing_utils import repo_name, with_production_testing
+from .testing_constants import (
+    ENDPOINT_STAGING,
+    TOKEN,
+    USER,
+)
+from .testing_utils import (
+    repo_name,
+    with_production_testing,
+)
 
 
 SAMPLE_CARDS_DIR = Path(__file__).parent / "fixtures/cards"
@@ -199,7 +205,7 @@ class RepocardMetadataTest(unittest.TestCase):
     cache_dir: Path
 
     def setUp(self) -> None:
-        self.filepath = self.cache_dir / constants.REPOCARD_NAME
+        self.filepath = self.cache_dir / REPOCARD_NAME
 
     def test_metadata_load(self):
         self.filepath.write_text(DUMMY_MODELCARD)
@@ -264,28 +270,6 @@ class RepocardMetadataTest(unittest.TestCase):
         self.assertEqual(content, DUMMY_MODELCARD_EVAL_RESULT.splitlines())
 
 
-@with_production_testing
-def test_load_from_hub_if_repo_id_or_path_is_a_dir(monkeypatch, tmp_path):
-    """If `repo_id_or_path` happens to be both a `repo_id` and a local directory, the card must be loaded from the Hub.
-
-    Path can only be a file path.
-
-    Regression test for https://github.com/huggingface/huggingface_hub/issues/2768.
-    """
-    repo_id = "openai-community/gpt2"
-    monkeypatch.chdir(tmp_path)
-
-    test_dir = tmp_path / "openai-community"
-    test_dir.mkdir()
-
-    model_dir = test_dir / "gpt2"
-    model_dir.mkdir()
-
-    card = RepoCard.load(repo_id)
-    assert "GPT-2" in str(card)  # loaded from Hub
-    assert Path(repo_id).is_dir()
-
-
 class RepocardMetadataUpdateTest(unittest.TestCase):
     def setUp(self) -> None:
         self.token = TOKEN
@@ -293,9 +277,7 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
 
         self.repo_id = self.api.create_repo(repo_name()).repo_id
         self.api.upload_file(
-            path_or_fileobj=DUMMY_MODELCARD_EVAL_RESULT.encode(),
-            repo_id=self.repo_id,
-            path_in_repo=constants.REPOCARD_NAME,
+            path_or_fileobj=DUMMY_MODELCARD_EVAL_RESULT.encode(), repo_id=self.repo_id, path_in_repo=REPOCARD_NAME
         )
         self.existing_metadata = yaml.safe_load(DUMMY_MODELCARD_EVAL_RESULT.strip().strip("-"))
 
@@ -303,13 +285,13 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
         self.api.delete_repo(repo_id=self.repo_id)
 
     def _get_remote_card(self) -> str:
-        return hf_hub_download(repo_id=self.repo_id, filename=constants.REPOCARD_NAME)
+        return hf_hub_download(repo_id=self.repo_id, filename=REPOCARD_NAME)
 
     def test_update_dataset_name(self):
         new_datasets_data = {"datasets": ["test/test_dataset"]}
         metadata_update(self.repo_id, new_datasets_data, token=self.token)
 
-        hf_hub_download(repo_id=self.repo_id, filename=constants.REPOCARD_NAME)
+        hf_hub_download(repo_id=self.repo_id, filename=REPOCARD_NAME)
         updated_metadata = metadata_load(self._get_remote_card())
         expected_metadata = copy.deepcopy(self.existing_metadata)
         expected_metadata.update(new_datasets_data)
@@ -326,7 +308,7 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
     def test_update_verify_token(self):
         """Tests whether updating the verification token updates in-place.
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1210
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1210
         """
         new_metadata = copy.deepcopy(self.existing_metadata)
         new_metadata["model-index"][0]["results"][0]["metrics"][0]["verifyToken"] = "1234"
@@ -426,13 +408,11 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
     def test_update_metadata_on_empty_text_content(self) -> None:
         """Test `update_metadata` on a model card that has metadata but no text content
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1010
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1010
         """
         # Create modelcard with metadata but empty text content
         self.api.upload_file(
-            path_or_fileobj=DUMMY_MODELCARD_NO_TEXT_CONTENT.encode(),
-            path_in_repo=constants.REPOCARD_NAME,
-            repo_id=self.repo_id,
+            path_or_fileobj=DUMMY_MODELCARD_NO_TEXT_CONTENT.encode(), path_in_repo=REPOCARD_NAME, repo_id=self.repo_id
         )
         metadata_update(self.repo_id, {"tag": "test"}, token=self.token)
 
@@ -465,7 +445,7 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
     def test_update_with_both_verified_and_unverified_metric(self):
         """Regression test for #1185.
 
-        See https://github.com/huggingface/huggingface_hub/issues/1185.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1185.
         """
         self.api.upload_file(
             path_or_fileobj=DUMMY_MODELCARD_EVAL_RESULT_BOTH_VERIFIED_AND_UNVERIFIED.encode(),
@@ -652,7 +632,7 @@ class RepoCardTest(TestCaseWithHfApi):
     def test_repo_card_without_metadata(self):
         sample_path = SAMPLE_CARDS_DIR / "sample_no_metadata.md"
 
-        with self.assertLogs("huggingface_hub", level="WARNING") as warning_logs:
+        with self.assertLogs("old_huggingface_hub", level="WARNING") as warning_logs:
             card = RepoCard(sample_path.read_text())
         self.assertTrue(
             any(
@@ -774,7 +754,7 @@ class ModelCardTest(TestCaseWithHfApi):
         Some information is lost.
         """
         sample_path = SAMPLE_CARDS_DIR / "sample_invalid_model_index.md"
-        with self.assertLogs("huggingface_hub", level="WARNING") as warning_logs:
+        with self.assertLogs("old_huggingface_hub", level="WARNING") as warning_logs:
             card = ModelCard.load(sample_path, ignore_metadata_errors=True)
         self.assertTrue(
             any("Invalid model-index. Not loading eval results into CardData." in log for log in warning_logs.output)
@@ -784,7 +764,7 @@ class ModelCardTest(TestCaseWithHfApi):
     def test_model_card_with_model_index(self):
         """Test that loading a model card with multiple evaluations is consistent with `metadata_load`.
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1208
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1208
         """
         sample_path = SAMPLE_CARDS_DIR / "sample_simple_model_index.md"
         card = ModelCard.load(sample_path)
@@ -862,11 +842,6 @@ class ModelCardTest(TestCaseWithHfApi):
         self.assertTrue(card.data.to_dict().get("eval_results") is None)
         self.assertEqual(str(card)[: len(DUMMY_MODELCARD_EVAL_RESULT)], DUMMY_MODELCARD_EVAL_RESULT)
 
-    def test_preserve_order_load_save(self):
-        model_card = ModelCard(DUMMY_MODELCARD)
-        model_card.data.license = "test"
-        self.assertEqual(model_card.content, "---\nlicense: test\ndatasets:\n- foo\n- bar\n---\n\nHello\n")
-
 
 class DatasetCardTest(TestCaseWithHfApi):
     def test_load_datasetcard_from_file(self):
@@ -924,7 +899,7 @@ class DatasetCardTest(TestCaseWithHfApi):
         # Here we pass the card data as kwargs as well so template picks up pretty_name.
         card = DatasetCard.from_template(
             card_data,
-            repo="https://github.com/huggingface/huggingface_hub",
+            repo="https://github.com/huggingface/old_huggingface_hub",
             paper="https://arxiv.org/pdf/1910.03771.pdf",
             dataset_summary=(
                 "This is a test dataset card to check if the template variables "
@@ -934,8 +909,8 @@ class DatasetCardTest(TestCaseWithHfApi):
         self.assertTrue(card.text.strip().startswith("# Dataset Card for My Cool Dataset"))
         self.assertIsInstance(card, DatasetCard)
 
-        matches = re.findall(r"Repository:\*\* https://github\.com/huggingface/huggingface_hub", str(card))
-        self.assertEqual(matches[0], "Repository:** https://github.com/huggingface/huggingface_hub")
+        matches = re.findall(r"Repository:\*\* https://github\.com/huggingface/old_huggingface_hub", str(card))
+        self.assertEqual(matches[0], "Repository:** https://github.com/huggingface/old_huggingface_hub")
 
     @require_jinja
     def test_dataset_card_from_custom_template(self):

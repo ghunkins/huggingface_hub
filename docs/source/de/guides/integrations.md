@@ -1,14 +1,14 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Integrieren Sie jedes ML-Framework mit dem Hub
 
-Der Hugging Face Hub erleichtert das Hosten und Teilen von Modellen mit der Community. Er unterstützt [Dutzende von Bibliotheken](https://huggingface.co/docs/hub/models-libraries) im Open Source-Ökosystem. Wir arbeiten ständig daran, diese Unterstützung zu erweitern, um kollaboratives Machine Learning voranzutreiben. Die `huggingface_hub`-Bibliothek spielt eine Schlüsselrolle in diesem Prozess und ermöglicht es jedem Python-Skript, Dateien einfach hochzuladen und zu laden.
+Der Hugging Face Hub erleichtert das Hosten und Teilen von Modellen mit der Community. Er unterstützt [Dutzende von Bibliotheken](https://huggingface.co/docs/hub/models-libraries) im Open Source-Ökosystem. Wir arbeiten ständig daran, diese Unterstützung zu erweitern, um kollaboratives Machine Learning voranzutreiben. Die `old_huggingface_hub`-Bibliothek spielt eine Schlüsselrolle in diesem Prozess und ermöglicht es jedem Python-Skript, Dateien einfach hochzuladen und zu laden.
 
 Es gibt vier Hauptwege, eine Bibliothek mit dem Hub zu integrieren:
 1. **Push to Hub**: Implementieren Sie eine Methode, um ein Modell auf den Hub hochzuladen.
-   Dies beinhaltet das Modellgewicht sowie [die Modellkarte](https://huggingface.co/docs/huggingface_hub/how-to-model-cards) und alle anderen relevanten Informationen oder Daten, die für den Betrieb des Modells erforderlich sind (zum Beispiel Trainingsprotokolle). Diese Methode wird oft `push_to_hub()` genannt.
+   Dies beinhaltet das Modellgewicht sowie [die Modellkarte](https://huggingface.co/docs/old_huggingface_hub/how-to-model-cards) und alle anderen relevanten Informationen oder Daten, die für den Betrieb des Modells erforderlich sind (zum Beispiel Trainingsprotokolle). Diese Methode wird oft `push_to_hub()` genannt.
 2. **Download from Hub**: Implementieren Sie eine Methode, um ein Modell vom Hub zu laden.
    Die Methode sollte die Modellkonfiguration/-gewichte herunterladen und das Modell laden. Diese Methode wird oft `from_pretrained` oder `load_from_hub()` genannt.
 3. **Inference API**: Nutzen Sie unsere Server, um Inferenz auf von Ihrer Bibliothek unterstützten Modellen kostenlos auszuführen.
@@ -79,7 +79,7 @@ Dies ist natürlich nur ein Beispiel. Wenn Sie an komplexeren Manipulationen int
 
 ### Einschränkungen
 
-Obwohl dieser Ansatz flexibel ist, hat er einige Nachteile, insbesondere in Bezug auf die Wartung. Hugging Face-Benutzer sind oft an zusätzliche Funktionen gewöhnt, wenn sie mit `huggingface_hub` arbeiten. Zum Beispiel ist es beim Laden von Dateien aus dem Hub üblich, Parameter wie folgt anzubieten:
+Obwohl dieser Ansatz flexibel ist, hat er einige Nachteile, insbesondere in Bezug auf die Wartung. Hugging Face-Benutzer sind oft an zusätzliche Funktionen gewöhnt, wenn sie mit `old_huggingface_hub` arbeiten. Zum Beispiel ist es beim Laden von Dateien aus dem Hub üblich, Parameter wie folgt anzubieten:
 - `token`: zum Herunterladen aus einem privaten Repository
 - `revision`: zum Herunterladen von einem spezifischen Branch
 - `cache_dir`: um Dateien in einem spezifischen Verzeichnis zu cachen
@@ -96,16 +96,16 @@ Beim Pushen von Modellen werden ähnliche Parameter unterstützt:
 - `api_endpoint`
 - ...
 
-Alle diese Parameter können den zuvor gesehenen Implementierungen hinzugefügt und an die `huggingface_hub`-Methoden übergeben werden.
+Alle diese Parameter können den zuvor gesehenen Implementierungen hinzugefügt und an die `old_huggingface_hub`-Methoden übergeben werden.
  Wenn sich jedoch ein Parameter ändert oder eine neue Funktion hinzugefügt wird, müssen Sie Ihr Paket aktualisieren.
  Die Unterstützung dieser Parameter bedeutet auch mehr Dokumentation, die Sie auf Ihrer Seite pflegen müssen.
  Um zu sehen, wie man diese Einschränkungen mildert, springen wir zu unserem nächsten Abschnitt **Klassenvererbung**.
 
 ## Ein komplexerer Ansatz: Klassenvererbung
 
-Wie wir oben gesehen haben, gibt es zwei Hauptmethoden, um Ihre Bibliothek mit dem Hub zu integrieren: Dateien hochladen (`push_to_hub`) und Dateien herunterladen (`from_pretrained`). Sie können diese Methoden selbst implementieren, aber das hat seine Tücken. Um dies zu bewältigen, bietet `huggingface_hub` ein Werkzeug an, das Klassenvererbung verwendet. Schauen wir uns an, wie es funktioniert!
+Wie wir oben gesehen haben, gibt es zwei Hauptmethoden, um Ihre Bibliothek mit dem Hub zu integrieren: Dateien hochladen (`push_to_hub`) und Dateien herunterladen (`from_pretrained`). Sie können diese Methoden selbst implementieren, aber das hat seine Tücken. Um dies zu bewältigen, bietet `old_huggingface_hub` ein Werkzeug an, das Klassenvererbung verwendet. Schauen wir uns an, wie es funktioniert!
 
-In vielen Fällen implementiert eine Bibliothek ihr Modell bereits mit einer Python-Klasse. Die Klasse enthält die Eigenschaften des Modells und Methoden zum Laden, Ausführen, Trainieren und Evaluieren. Unser Ansatz besteht darin, diese Klasse zu erweitern, um Upload- und Download-Funktionen mit Mixins hinzuzufügen. Ein [Mixin](https://stackoverflow.com/a/547714) ist eine Klasse, die dazu bestimmt ist, eine vorhandene Klasse mit einem Satz spezifischer Funktionen durch Mehrfachvererbung zu erweitern. `huggingface_hub` bietet sein eigenes Mixin, das [`ModelHubMixin`]. Der Schlüssel hier ist zu verstehen, wie es funktioniert und wie man es anpassen kann.
+In vielen Fällen implementiert eine Bibliothek ihr Modell bereits mit einer Python-Klasse. Die Klasse enthält die Eigenschaften des Modells und Methoden zum Laden, Ausführen, Trainieren und Evaluieren. Unser Ansatz besteht darin, diese Klasse zu erweitern, um Upload- und Download-Funktionen mit Mixins hinzuzufügen. Ein [Mixin](https://stackoverflow.com/a/547714) ist eine Klasse, die dazu bestimmt ist, eine vorhandene Klasse mit einem Satz spezifischer Funktionen durch Mehrfachvererbung zu erweitern. `old_huggingface_hub` bietet sein eigenes Mixin, das [`ModelHubMixin`]. Der Schlüssel hier ist zu verstehen, wie es funktioniert und wie man es anpassen kann.
 
 Die Klasse [ModelHubMixin] implementiert 3 *öffentliche* Methoden (`push_to_hub`, `save_pretrained` und `from_pretrained`). Dies sind die Methoden, die Ihre Benutzer aufrufen werden, um Modelle mit Ihrer Bibliothek zu laden/speichern. [`ModelHubMixin`] definiert auch 2 private Methoden (`_save_pretrained` und `_from_pretrained`). Diese müssen Sie implementieren. Um Ihre Bibliothek zu integrieren, sollten Sie:
 
@@ -129,7 +129,7 @@ Hier ist, wie jeder Benutzer ein PyTorch-Modell vom/auf den Hub laden/speichern 
 ```python
 >>> import torch
 >>> import torch.nn as nn
->>> from huggingface_hub import PyTorchModelHubMixin
+>>> from old_huggingface_hub import PyTorchModelHubMixin
 
 # 1. Definieren Sie Ihr Pytorch-Modell genau so, wie Sie es gewohnt sind
 >>> class MyModel(nn.Module, PyTorchModelHubMixin): # Mehrfachvererbung
@@ -154,12 +154,12 @@ Hier ist, wie jeder Benutzer ein PyTorch-Modell vom/auf den Hub laden/speichern 
 
 #### Implementierung
 
-Die Implementierung ist tatsächlich sehr einfach, und die vollständige Implementierung finden Sie [hier](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hub_mixin.py).
+Die Implementierung ist tatsächlich sehr einfach, und die vollständige Implementierung finden Sie [hier](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/hub_mixin.py).
 
 1. Zuerst, erben Ihrer Klasse von `ModelHubMixin`:
 
 ```python
-from huggingface_hub import ModelHubMixin
+from old_huggingface_hub import ModelHubMixin
 
 class PyTorchModelHubMixin(ModelHubMixin):
    (...)
@@ -168,7 +168,7 @@ class PyTorchModelHubMixin(ModelHubMixin):
 2. Implementieren der `_save_pretrained` Methode:
 
 ```py
-from huggingface_hub import ModelCard, ModelCardData
+from old_huggingface_hub import ModelCard, ModelCardData
 
 class PyTorchModelHubMixin(ModelHubMixin):
    (...)
@@ -247,5 +247,5 @@ Lassen Sie uns die beiden Ansätze, die wir gesehen haben, schnell mit ihren Vor
 |:---:|:---:|:---:|
 | Benutzererfahrung | `model = load_from_hub(...)`<br>`push_to_hub(model, ...)` | `model = MyModel.from_pretrained(...)`<br>`model.push_to_hub(...)` |
 | Flexibilität | Sehr flexibel.<br>Sie haben die volle Kontrolle über die Implementierung. | Weniger flexibel.<br>Ihr Framework muss eine Modellklasse haben. |
-| Wartung | Mehr Wartung, um Unterstützung für Konfiguration und neue Funktionen hinzuzufügen. Könnte auch das Beheben von Benutzerproblemen erfordern. | Weniger Wartung, da die meisten Interaktionen mit dem Hub in `huggingface_hub` implementiert sind. |
-| Dokumentation/Typ-Annotation| Manuell zu schreiben. | Teilweise durch `huggingface_hub` behandelt. |
+| Wartung | Mehr Wartung, um Unterstützung für Konfiguration und neue Funktionen hinzuzufügen. Könnte auch das Beheben von Benutzerproblemen erfordern. | Weniger Wartung, da die meisten Interaktionen mit dem Hub in `old_huggingface_hub` implementiert sind. |
+| Dokumentation/Typ-Annotation| Manuell zu schreiben. | Teilweise durch `old_huggingface_hub` behandelt. |

@@ -1,17 +1,17 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Command Line Interface (CLI)
 
-The `huggingface_hub` Python package comes with a built-in CLI called `huggingface-cli`. This tool allows you to interact with the Hugging Face Hub directly from a terminal. For example, you can login to your account, create a repository, upload and download files, etc. It also comes with handy features to configure your machine or manage your cache. In this guide, we will have a look at the main features of the CLI and how to use them.
+The `old_huggingface_hub` Python package comes with a built-in CLI called `huggingface-cli`. This tool allows you to interact with the Hugging Face Hub directly from a terminal. For example, you can login to your account, create a repository, upload and download files, etc. It also comes with handy features to configure your machine or manage your cache. In this guide, we will have a look at the main features of the CLI and how to use them.
 
 ## Getting started
 
 First of all, let's install the CLI:
 
 ```
->>> pip install -U "huggingface_hub[cli]"
+>>> pip install -U "old_huggingface_hub[cli]"
 ```
 
 <Tip>
@@ -92,7 +92,7 @@ Once you have your token, run the following command in your terminal:
 >>> huggingface-cli login
 ```
 
-This command will prompt you for a token. Copy-paste yours and press *Enter*. Then, you'll be asked if the token should also be saved as a git credential. Press *Enter* again (default to yes) if you plan to use `git` locally. Finally, it will call the Hub to check that your token is valid and save it locally.
+This command will prompt you for a token. Copy-paste yours and press *Enter*. Then you'll be asked if the token should also be saved as a git credential. Press *Enter* again (default to yes) if you plan to use `git` locally. Finally, it will call the Hub to check that your token is valid and save it locally.
 
 ```
 _|    _|  _|    _|    _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|_|_|_|    _|_|      _|_|_|  _|_|_|_|
@@ -101,8 +101,8 @@ _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|
 _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
 _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
 
-To log in, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
-Enter your token (input will not be visible):
+To login, `old_huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
+Token:
 Add token as git credential? (Y/n)
 Token is valid (permission: write).
 Your token has been saved in your configured git credential helpers (store).
@@ -114,13 +114,11 @@ Alternatively, if you want to log-in without being prompted, you can pass the to
 
 ```bash
 # Or using an environment variable
->>> huggingface-cli login --token $HF_TOKEN --add-to-git-credential
+>>> huggingface-cli login --token $HUGGINGFACE_TOKEN --add-to-git-credential
 Token is valid (permission: write).
-The token `token_name` has been saved to /home/wauplin/.cache/huggingface/stored_tokens
 Your token has been saved in your configured git credential helpers (store).
 Your token has been saved to /home/wauplin/.cache/huggingface/token
 Login successful
-The current active token is: `token_name`
 ```
 
 For more details about authentication, check out [this section](../quick-start#authentication).
@@ -139,7 +137,7 @@ If you are not logged in, an error message will be printed.
 
 ## huggingface-cli logout
 
-This command logs you out. In practice, it will delete all tokens stored on your machine. If you want to remove a specific token, you can specify the token name as an argument.
+This commands logs you out. In practice, it will delete the token saved on your machine.
 
 This command will not log you out if you are logged in using the `HF_TOKEN` environment variable (see [reference](../package_reference/environment_variables#hftoken)). If that is the case, you must unset the environment variable in your machine configuration.
 
@@ -164,12 +162,6 @@ downloading https://huggingface.co/gpt2/resolve/main/config.json to /home/waupli
 ```
 
 The command will always print on the last line the path to the file on your local machine.
-
-To download a file located in a subdirectory of the repo, you should provide the path of the file in the repo in posix format like this:
-
-```bash
->>> huggingface-cli download HiDream-ai/HiDream-I1-Full text_encoder/model.safetensors
-```
 
 ### Download an entire repository
 
@@ -232,13 +224,13 @@ The examples above show how to download from the latest commit on the main branc
 
 ### Download to a local folder
 
-The recommended (and default) way to download files from the Hub is to use the cache-system. However, in some cases you want to download files and move them to a specific folder. This is useful to get a workflow closer to what git commands offer. You can do that using the `--local-dir` option.
+The recommended (and default) way to download files from the Hub is to use the cache-system. However, in some cases you want to download files and move them to a specific folder. This is useful to get a workflow closer to what git commands offer. You can do that using the `--local_dir` option.
 
-A `.cache/huggingface/` folder is created at the root of your local directory containing metadata about the downloaded files. This prevents re-downloading files if they're already up-to-date. If the metadata has changed, then the new file version is downloaded. This makes the `local-dir` optimized for pulling only the latest changes.
+A `./huggingface/` folder is created at the root of your local directory containing metadata about the downloaded files. This prevents re-downloading files if they're already up-to-date. If the metadata has changed, then the new file version is downloaded. This makes the `local_dir` optimized for pulling only the latest changes.
 
 <Tip>
 
-For more details on how downloading to a local file works, check out the [download](./download#download-files-to-a-local-folder) guide.
+For more details on how downloading to a local file works, check out the [download](./download.md#download-files-to-a-local-folder) guide.
 
 </Tip>
 
@@ -250,7 +242,7 @@ fuyu/model-00001-of-00002.safetensors
 
 ### Specify cache directory
 
-If not using `--local-dir`, all files will be downloaded by default to the cache directory defined by the `HF_HOME` [environment variable](../package_reference/environment_variables#hfhome). You can specify a custom cache using `--cache-dir`:
+By default, all files will be download to the cache directory defined by the `HF_HOME` [environment variable](../package_reference/environment_variables#hfhome). You can also specify a custom cache using `--cache-dir`:
 
 ```bash
 >>> huggingface-cli download adept/fuyu-8b --cache-dir ./path/to/cache
@@ -288,7 +280,7 @@ To mitigate this issue, you can set the `HF_HUB_DOWNLOAD_TIMEOUT` environment va
 export HF_HUB_DOWNLOAD_TIMEOUT=30
 ```
 
-For more details, check out the [environment variables reference](../package_reference/environment_variables#hfhubdownloadtimeout). And rerun your download command.
+For more details, check out the [environment variables reference](../package_reference/environment_variables#hfhubdownloadtimeout).And rerun your download command.
 
 ## huggingface-cli upload
 
@@ -437,40 +429,6 @@ By default, the `huggingface-cli upload` command will be verbose. It will print 
 https://huggingface.co/Wauplin/my-cool-model/tree/main
 ```
 
-## huggingface-cli repo-files
-
-If you want to delete files from a Hugging Face repository, use the `huggingface-cli repo-files` command.
-
-### Delete files
-
-The `huggingface-cli repo-files <repo_id> delete` sub-command allows you to delete files from a repository. Here are some usage examples.
-
-Delete a folder :
-```bash
->>> huggingface-cli repo-files Wauplin/my-cool-model delete folder/
-Files correctly deleted from repo. Commit: https://huggingface.co/Wauplin/my-cool-mo...
-```
-
-Delete multiple files:
-```bash
->>> huggingface-cli repo-files Wauplin/my-cool-model delete file.txt folder/pytorch_model.bin
-Files correctly deleted from repo. Commit: https://huggingface.co/Wauplin/my-cool-mo...
-```
-
-Use Unix-style wildcards to delete sets of files:
-```bash
->>> huggingface-cli repo-files Wauplin/my-cool-model delete "*.txt" "folder/*.bin"
-Files correctly deleted from repo. Commit: https://huggingface.co/Wauplin/my-cool-mo...
-```
-
-### Specify a token
-
-To delete files from a repo you must be authenticated and authorized. By default, the token saved locally (using `huggingface-cli login`) will be used. If you want to authenticate explicitly, use the `--token` option:
-
-```bash
->>> huggingface-cli repo-files --token=hf_**** Wauplin/my-cool-model delete file.txt
-```
-
 ## huggingface-cli scan-cache
 
 Scanning your cache directory is useful if you want to know which repos you have downloaded and how much space it takes on your disk. You can do that by running `huggingface-cli scan-cache`:
@@ -560,14 +518,14 @@ You can also pass `-y` to skip the confirmation step.
 
 ## huggingface-cli env
 
-The `huggingface-cli env` command prints details about your machine setup. This is useful when you open an issue on [GitHub](https://github.com/huggingface/huggingface_hub) to help the maintainers investigate your problem.
+The `huggingface-cli env` command prints details about your machine setup. This is useful when you open an issue on [GitHub](https://github.com/huggingface/old_huggingface_hub) to help the maintainers investigate your problem.
 
 ```bash
 >>> huggingface-cli env
 
 Copy-and-paste the text below in your GitHub issue.
 
-- huggingface_hub version: 0.19.0.dev0
+- old_huggingface_hub version: 0.19.0.dev0
 - Platform: Linux-6.2.0-36-generic-x86_64-with-glibc2.35
 - Python version: 3.10.12
 - Running in iPython ?: No

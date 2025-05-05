@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -14,22 +14,22 @@ Hub의 Space를 관리하는 메소드에 대한 자세한 설명은 [`HfApi`]�
 
 ## 데이터 구조[[data-structures]]
 
-### SpaceRuntime[[huggingface_hub.SpaceRuntime]]
+### SpaceRuntime[[old_huggingface_hub.SpaceRuntime]]
 
 [[autodoc]] SpaceRuntime
 
-### SpaceHardware[[huggingface_hub.SpaceHardware]]
+### SpaceHardware[[old_huggingface_hub.SpaceHardware]]
 
 [[autodoc]] SpaceHardware
 
-### SpaceStage[[huggingface_hub.SpaceStage]]
+### SpaceStage[[old_huggingface_hub.SpaceStage]]
 
 [[autodoc]] SpaceStage
 
-### SpaceStorage[[huggingface_hub.SpaceStorage]]
+### SpaceStorage[[old_huggingface_hub.SpaceStorage]]
 
 [[autodoc]] SpaceStorage
 
-### SpaceVariable[[huggingface_hub.SpaceVariable]]
+### SpaceVariable[[old_huggingface_hub.SpaceVariable]]
 
 [[autodoc]] SpaceVariable

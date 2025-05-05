@@ -7,16 +7,17 @@ from unittest.mock import Mock
 
 import pytest
 
-from huggingface_hub._snapshot_download import snapshot_download
-from huggingface_hub.commands.scan_cache import ScanCacheCommand
-from huggingface_hub.utils import DeleteCacheStrategy, HFCacheInfo, capture_output, scan_cache_dir
-from huggingface_hub.utils._cache_manager import (
+from old_huggingface_hub._snapshot_download import snapshot_download
+from old_huggingface_hub.commands.scan_cache import ScanCacheCommand
+from old_huggingface_hub.utils import DeleteCacheStrategy, HFCacheInfo, capture_output, scan_cache_dir
+from old_huggingface_hub.utils._cache_manager import (
     CacheNotFound,
     _format_size,
     _format_timesince,
     _try_delete_path,
 )
 
+from .testing_constants import TOKEN
 from .testing_utils import (
     rmtree_with_retry,
     with_production_testing,
@@ -63,19 +64,48 @@ class TestValidCacheUtils(unittest.TestCase):
     def setUp(self) -> None:
         """Setup a clean cache for tests that will remain valid in all tests."""
         # Download latest main
-        snapshot_download(repo_id=MODEL_ID, repo_type="model", cache_dir=self.cache_dir)
+        snapshot_download(
+            repo_id=MODEL_ID,
+            repo_type="model",
+            cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
+        )
 
         # Download latest commit which is same as `main`
-        snapshot_download(repo_id=MODEL_ID, revision=REPO_A_MAIN_HASH, repo_type="model", cache_dir=self.cache_dir)
+        snapshot_download(
+            repo_id=MODEL_ID,
+            revision=REPO_A_MAIN_HASH,
+            repo_type="model",
+            cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
+        )
 
         # Download the first commit
-        snapshot_download(repo_id=MODEL_ID, revision=REPO_A_OTHER_HASH, repo_type="model", cache_dir=self.cache_dir)
+        snapshot_download(
+            repo_id=MODEL_ID,
+            revision=REPO_A_OTHER_HASH,
+            repo_type="model",
+            cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
+        )
 
         # Download from a PR
-        snapshot_download(repo_id=MODEL_ID, revision="refs/pr/1", repo_type="model", cache_dir=self.cache_dir)
+        snapshot_download(
+            repo_id=MODEL_ID,
+            revision="refs/pr/1",
+            repo_type="model",
+            cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
+        )
 
         # Download a Dataset repo from "main"
-        snapshot_download(repo_id=DATASET_ID, revision="main", repo_type="dataset", cache_dir=self.cache_dir)
+        snapshot_download(
+            repo_id=DATASET_ID,
+            revision="main",
+            repo_type="dataset",
+            cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
+        )
 
     @unittest.skipIf(os.name == "nt", "Windows cache is tested separately")
     def test_scan_cache_on_valid_cache_unix(self) -> None:
@@ -327,7 +357,12 @@ class TestCorruptedCacheUtils(unittest.TestCase):
     def setUp(self) -> None:
         """Setup a clean cache for tests that will get corrupted/modified in tests."""
         # Download latest main
-        snapshot_download(repo_id=MODEL_ID, repo_type="model", cache_dir=self.cache_dir)
+        snapshot_download(
+            repo_id=MODEL_ID,
+            repo_type="model",
+            cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
+        )
 
         self.repo_path = self.cache_dir / MODEL_PATH
         self.refs_path = self.repo_path / "refs"
@@ -457,7 +492,7 @@ class TestCorruptedCacheUtils(unittest.TestCase):
         self.assertEqual(
             str(report.warnings[0]),
             "Reference(s) refer to missing commit hashes: {'revision_hash_that_does_not_exist': {'not_main'}} "
-            + f"({self.repo_path}).",
+            + f"({self.repo_path }).",
         )
 
     @xfail_on_windows("Last modified/last accessed work a bit differently on Windows.")
@@ -774,7 +809,7 @@ class TestTryDeletePath(unittest.TestCase):
         self.assertEqual(len(captured.output), 1)
         self.assertTrue(
             captured.output[0].startswith(
-                "WARNING:huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
+                "WARNING:old_huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
                 f" file not found ({file_path})\nTraceback (most recent call last):"
             )
         )
@@ -790,7 +825,7 @@ class TestTryDeletePath(unittest.TestCase):
         self.assertEqual(len(captured.output), 1)
         self.assertTrue(
             captured.output[0].startswith(
-                "WARNING:huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
+                "WARNING:old_huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
                 f" file not found ({dir_path})\nTraceback (most recent call last):"
             )
         )
@@ -814,7 +849,7 @@ class TestTryDeletePath(unittest.TestCase):
         self.assertEqual(len(captured.output), 1)
         self.assertTrue(
             captured.output[0].startswith(
-                "WARNING:huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
+                "WARNING:old_huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
                 f" permission denied ({dir_path})\nTraceback (most recent call last):"
             )
         )

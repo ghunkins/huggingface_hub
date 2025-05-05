@@ -1,18 +1,18 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Hub에서 검색하기[[search-the-hub]]
 
-이 튜토리얼에서는 `huggingface_hub`를 사용하여 Hub에서 모델, 데이터 세트 및 Spaces를 검색하는 방법을 배웁니다.
+이 튜토리얼에서는 `old_huggingface_hub`를 사용하여 Hub에서 모델, 데이터 세트 및 Spaces를 검색하는 방법을 배웁니다.
 
 ## 리포지토리를 어떻게 나열하나요?[[how-to-list-repositories-]]
 
-`huggingface_hub` 라이브러리에는 Hub와 상호작용하기 위한 HTTP 클라이언트[`HfApi`]가 포함되어 있습니다.
+`old_huggingface_hub` 라이브러리에는 Hub와 상호작용하기 위한 HTTP 클라이언트[`HfApi`]가 포함되어 있습니다.
 이를 통해, Hub에 저장된 모델, 데이터셋, 그리고 Spaces를 나열할 수 있습니다.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> models = api.list_models()
 ```

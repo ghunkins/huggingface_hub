@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -6,12 +6,12 @@ rendered properly in your Markdown viewer.
 
 The Hugging Face Hub makes hosting and sharing models with the community easy. It supports
 [dozens of libraries](https://huggingface.co/docs/hub/models-libraries) in the Open Source ecosystem. We are always
-working on expanding this support to push collaborative Machine Learning forward. The `huggingface_hub` library plays a
+working on expanding this support to push collaborative Machine Learning forward. The `old_huggingface_hub` library plays a
 key role in this process, allowing any Python script to easily push and load files.
 
 There are four main ways to integrate a library with the Hub:
 1. **Push to Hub:** implement a method to upload a model to the Hub. This includes the model weights, as well as
-   [the model card](https://huggingface.co/docs/huggingface_hub/how-to-model-cards) and any other relevant information
+   [the model card](https://huggingface.co/docs/old_huggingface_hub/how-to-model-cards) and any other relevant information
    or data necessary to run the model (for example, training logs). This method is often called `push_to_hub()`.
 2. **Download from Hub:** implement a method to load a model from the Hub. The method should download the model
    configuration/weights and load the model. This method is often called `from_pretrained` or `load_from_hub()`.
@@ -39,7 +39,7 @@ Implementation can differ between libraries, but the workflow is often similar.
 
 ### from_pretrained
 
-This is how a `from_pretrained` method usually looks like:
+This is how a `from_pretrained` method usually look like:
 
 ```python
 def from_pretrained(model_id: str) -> MyModelClass:
@@ -93,7 +93,7 @@ weights on the fly, persist weights locally, etc.) please refer to the [upload f
 ### Limitations
 
 While being flexible, this approach has some drawbacks, especially in terms of maintenance. Hugging Face users are often
-used to additional features when working with `huggingface_hub`. For example, when loading files from the Hub, it is
+used to additional features when working with `old_huggingface_hub`. For example, when loading files from the Hub, it is
 common to offer parameters like:
 - `token`: to download from a private repo
 - `revision`: to download from a specific branch
@@ -110,7 +110,7 @@ When pushing models, similar parameters are supported:
 - `token`
 - ...
 
-All of these parameters can be added to the implementations we saw above and passed to the `huggingface_hub` methods.
+All of these parameters can be added to the implementations we saw above and passed to the `old_huggingface_hub` methods.
 However, if a parameter changes or a new feature is added, you will need to update your package. Supporting those
 parameters also means more documentation to maintain on your side. To see how to mitigate these limitations, let's jump
 to our next section **class inheritance**.
@@ -119,12 +119,12 @@ to our next section **class inheritance**.
 
 As we saw above, there are two main methods to include in your library to integrate it with the Hub: upload files
 (`push_to_hub`) and download files (`from_pretrained`). You can implement those methods by yourself but it comes with
-caveats. To tackle this, `huggingface_hub` provides a tool that uses class inheritance. Let's see how it works!
+caveats. To tackle this, `old_huggingface_hub` provides a tool that uses class inheritance. Let's see how it works!
 
 In a lot of cases, a library already implements its model using a Python class. The class contains the properties of
 the model and methods to load, run, train, and evaluate it. Our approach is to extend this class to include upload and
 download features using mixins. A [Mixin](https://stackoverflow.com/a/547714) is a class that is meant to extend an
-existing class with a set of specific features using multiple inheritance. `huggingface_hub` provides its own mixin,
+existing class with a set of specific features using multiple inheritance. `old_huggingface_hub` provides its own mixin,
 the [`ModelHubMixin`]. The key here is to understand its behavior and how to customize it.
 
 The [`ModelHubMixin`] class implements 3 *public* methods (`push_to_hub`, `save_pretrained` and `from_pretrained`). Those
@@ -156,7 +156,7 @@ Here is how any user can load/save a PyTorch model from/to the Hub:
 ```python
 >>> import torch
 >>> import torch.nn as nn
->>> from huggingface_hub import PyTorchModelHubMixin
+>>> from old_huggingface_hub import PyTorchModelHubMixin
 
 
 # Define your Pytorch model exactly the same way you are used to
@@ -196,7 +196,7 @@ Here is how any user can load/save a PyTorch model from/to the Hub:
 128
 
 # Model card has been correctly populated
->>> from huggingface_hub import ModelCard
+>>> from old_huggingface_hub import ModelCard
 >>> card = ModelCard.load("username/my-awesome-model")
 >>> card.data.tags
 ["keras", "pytorch_model_hub_mixin", "model_hub_mixin"]
@@ -206,12 +206,12 @@ Here is how any user can load/save a PyTorch model from/to the Hub:
 
 #### Implementation
 
-The implementation is actually very straightforward, and the full implementation can be found [here](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/hub_mixin.py).
+The implementation is actually very straightforward, and the full implementation can be found [here](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/hub_mixin.py).
 
 1. First, inherit your class from `ModelHubMixin`:
 
 ```python
-from huggingface_hub import ModelHubMixin
+from old_huggingface_hub import ModelHubMixin
 
 class PyTorchModelHubMixin(ModelHubMixin):
    (...)
@@ -220,7 +220,7 @@ class PyTorchModelHubMixin(ModelHubMixin):
 2. Implement the `_save_pretrained` method:
 
 ```py
-from huggingface_hub import ModelHubMixin
+from old_huggingface_hub import ModelHubMixin
 
 class PyTorchModelHubMixin(ModelHubMixin):
    (...)
@@ -338,7 +338,7 @@ class VoiceCraft(
 Finally, if you want to extend the model card generation process with dynamic values, you can override the [`~ModelHubMixin.generate_model_card`] method:
 
 ```py
-from huggingface_hub import ModelCard, PyTorchModelHubMixin
+from old_huggingface_hub import ModelCard, PyTorchModelHubMixin
 
 class UniDepthV1(nn.Module, PyTorchModelHubMixin, ...):
    (...)
@@ -390,7 +390,7 @@ class VoiceCraft(nn.Module):
       ...
 ```
 
-One solution can be to update the `__init__` signature to `def __init__(self, pattern: str, hidden_size: int)` and update all snippets that instantiate your class. This is a perfectly valid way to fix it but it might break downstream applications using your library.
+One solution can be to update the `__init__` signature to `def __init__(self, pattern: str, hidden_size: int)` and update all snippets that instantiates your class. This is a perfectly valid way to fix it but it might break downstream applications using your library.
 
 Another solution is to provide a simple encoder/decoder to convert `argparse.Namespace` to a dictionary.
 
@@ -399,9 +399,9 @@ from argparse import Namespace
 
 class VoiceCraft(
    nn.Module,
-   PyTorchModelHubMixin,  # inherit from mixin
-   coders={
-      Namespace : (
+   PytorchModelHubMixin,  # inherit from mixin
+   coders: {
+      Namespace = (
          lambda x: vars(x),  # Encoder: how to convert a `Namespace` to a valid jsonable value?
          lambda data: Namespace(**data),  # Decoder: how to reconstruct a `Namespace` from a dictionary?
       )
@@ -433,7 +433,7 @@ ideas on how to handle integration. In any case, feel free to contact us if you 
 |:---:|:---:|:---:|
 | User experience | `model = load_from_hub(...)`<br>`push_to_hub(model, ...)` | `model = MyModel.from_pretrained(...)`<br>`model.push_to_hub(...)` |
 | Flexibility | Very flexible.<br>You fully control the implementation. | Less flexible.<br>Your framework must have a model class. |
-| Maintenance | More maintenance to add support for configuration, and new features. Might also require fixing issues reported by users. | Less maintenance as most of the interactions with the Hub are implemented in `huggingface_hub`. |
-| Documentation / Type annotation | To be written manually. | Partially handled by `huggingface_hub`. |
+| Maintenance | More maintenance to add support for configuration, and new features. Might also require fixing issues reported by users. | Less maintenance as most of the interactions with the Hub are implemented in `old_huggingface_hub`. |
+| Documentation / Type annotation | To be written manually. | Partially handled by `old_huggingface_hub`. |
 | Download counter | To be handled manually. | Enabled by default if class has a `config` attribute. |
 | Model card | To be handled manually | Generated by default with library_name, tags, etc. |

@@ -1,13 +1,13 @@
 import os
 from unittest import TestCase, skip
 
-from huggingface_hub import HfApi
-from huggingface_hub.fastai_utils import (
+from old_huggingface_hub import HfApi
+from old_huggingface_hub.fastai_utils import (
     _save_pretrained_fastai,
     from_pretrained_fastai,
     push_to_hub_fastai,
 )
-from huggingface_hub.utils import (
+from old_huggingface_hub.utils import (
     SoftTemporaryDirectory,
     is_fastai_available,
     is_fastcore_available,
@@ -86,8 +86,8 @@ class TestFastaiUtils(TestCase):
 
         push_to_hub_fastai(learner=dummy_model, repo_id=repo_id, token=TOKEN, config=dummy_config)
         model_info = api.model_info(repo_id)
-        assert model_info.id == repo_id
+        self.assertEqual(model_info.modelId, repo_id)
         loaded_model = from_pretrained_fastai(repo_id)
-        assert dummy_model.show_training_loop() == loaded_model.show_training_loop()
+        self.assertEqual(dummy_model.show_training_loop(), loaded_model.show_training_loop())
 
         api.delete_repo(repo_id=repo_id)

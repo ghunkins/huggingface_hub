@@ -39,10 +39,10 @@ jobs:
       - name: Install ${{ matrix.contrib }}
         run: pip install -r contrib/${{ matrix.contrib }}/requirements.txt
 
-      # Install huggingface_hub from source code + testing extras
-      - name: Install `huggingface_hub`
+      # Install old_huggingface_hub from source code + testing extras
+      - name: Install `old_huggingface_hub`
         run: |
-          pip uninstall -y huggingface_hub
+          pip uninstall -y old_huggingface_hub
           pip install .[testing]
 
       # Run tests

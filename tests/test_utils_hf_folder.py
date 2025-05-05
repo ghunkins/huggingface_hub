@@ -17,7 +17,7 @@ import os
 import unittest
 from uuid import uuid4
 
-from huggingface_hub.utils import HfFolder
+from old_huggingface_hub.utils import HfFolder
 
 
 def _generate_token() -> str:

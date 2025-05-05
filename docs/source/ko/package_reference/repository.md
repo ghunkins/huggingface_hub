@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -17,19 +17,19 @@ rendered properly in your Markdown viewer.
 
 ## 도우미 메소드[[helper-methods]]
 
-[[autodoc]] huggingface_hub.repository.is_git_repo
+[[autodoc]] old_huggingface_hub.repository.is_git_repo
 
-[[autodoc]] huggingface_hub.repository.is_local_clone
+[[autodoc]] old_huggingface_hub.repository.is_local_clone
 
-[[autodoc]] huggingface_hub.repository.is_tracked_with_lfs
+[[autodoc]] old_huggingface_hub.repository.is_tracked_with_lfs
 
-[[autodoc]] huggingface_hub.repository.is_git_ignored
+[[autodoc]] old_huggingface_hub.repository.is_git_ignored
 
-[[autodoc]] huggingface_hub.repository.files_to_be_staged
+[[autodoc]] old_huggingface_hub.repository.files_to_be_staged
 
-[[autodoc]] huggingface_hub.repository.is_tracked_upstream
+[[autodoc]] old_huggingface_hub.repository.is_tracked_upstream
 
-[[autodoc]] huggingface_hub.repository.commits_to_push
+[[autodoc]] old_huggingface_hub.repository.commits_to_push
 
 ## 후속 비동기 명령[[following-asynchronous-commands]]
 
@@ -46,4 +46,4 @@ rendered properly in your Markdown viewer.
     - commands_in_progress
     - wait_for_commands
 
-[[autodoc]] huggingface_hub.repository.CommandInProgress
+[[autodoc]] old_huggingface_hub.repository.CommandInProgress

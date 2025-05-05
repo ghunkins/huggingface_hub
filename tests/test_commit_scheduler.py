@@ -6,8 +6,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from huggingface_hub import CommitOperationAdd, HfApi, hf_hub_download
-from huggingface_hub._commit_scheduler import CommitScheduler, PartialFileIO
+from old_huggingface_hub import CommitOperationAdd, HfApi, hf_hub_download
+from old_huggingface_hub._commit_scheduler import CommitScheduler, PartialFileIO
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN
 from .testing_utils import repo_name
@@ -32,7 +32,7 @@ class TestCommitScheduler(unittest.TestCase):
         except Exception:
             pass
 
-    @patch("huggingface_hub._commit_scheduler.CommitScheduler.push_to_hub")
+    @patch("old_huggingface_hub._commit_scheduler.CommitScheduler.push_to_hub")
     def test_mocked_push_to_hub(self, push_to_hub_mock: MagicMock) -> None:
         self.scheduler = CommitScheduler(
             folder_path=self.cache_dir,
@@ -158,24 +158,7 @@ class TestCommitScheduler(unittest.TestCase):
         # Branch history has been squashed
         commits = self.api.list_repo_commits(repo_id=self.scheduler.repo_id)
         self.assertEqual(len(commits), 1)
-        self.assertEqual(commits[0].title, "Super-squash branch 'main' using huggingface_hub")
-
-    def test_context_manager(self) -> None:
-        watched_folder = self.cache_dir / "watched_folder"
-        watched_folder.mkdir(exist_ok=True, parents=True)
-        file_path = watched_folder / "file.txt"
-
-        with CommitScheduler(
-            folder_path=watched_folder,
-            repo_id=self.repo_name,
-            every=5,  # every 5min
-            hf_api=self.api,
-        ) as scheduler:
-            with file_path.open("w") as f:
-                f.write("first line\n")
-
-        assert "file.txt" in self.api.list_repo_files(scheduler.repo_id)
-        assert scheduler._CommitScheduler__stopped  # means the scheduler has been stopped when exiting the context
+        self.assertEqual(commits[0].title, "Super-squash branch 'main' using old_huggingface_hub")
 
 
 @pytest.mark.usefixtures("fx_cache_dir")

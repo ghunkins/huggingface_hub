@@ -1,10 +1,10 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Webhooks Server
 
-Webhooks sind ein Grundpfeiler für MLOps-bezogene Funktionen. Sie ermöglichen es Ihnen, auf neue Änderungen in bestimmten Repos oder auf alle Repos, die bestimmten Benutzern/Organisationen gehören, die Sie interessieren, zu hören. Dieser Leitfaden erklärt, wie Sie den `huggingface_hub` nutzen können, um einen Server zu erstellen, der auf Webhooks hört und ihn in einen Space zu implementieren. Es wird davon ausgegangen, dass Sie mit dem Konzept der Webhooks auf dem Huggingface Hub vertraut sind. Um mehr über Webhooks selbst zu erfahren, können Sie zuerst diesen [Leitfaden](https://huggingface.co/docs/hub/webhooks) lesen.
+Webhooks sind ein Grundpfeiler für MLOps-bezogene Funktionen. Sie ermöglichen es Ihnen, auf neue Änderungen in bestimmten Repos oder auf alle Repos, die bestimmten Benutzern/Organisationen gehören, die Sie interessieren, zu hören. Dieser Leitfaden erklärt, wie Sie den `old_huggingface_hub` nutzen können, um einen Server zu erstellen, der auf Webhooks hört und ihn in einen Space zu implementieren. Es wird davon ausgegangen, dass Sie mit dem Konzept der Webhooks auf dem Huggingface Hub vertraut sind. Um mehr über Webhooks selbst zu erfahren, können Sie zuerst diesen [Leitfaden](https://huggingface.co/docs/hub/webhooks) lesen.
 
 Die Basis-Klasse, die wir in diesem Leitfaden verwenden werden, ist der [`WebhooksServer`]. Es handelt sich um eine Klasse, mit der sich ein Server leicht konfigurieren lässt, der Webhooks vom Huggingface Hub empfangen kann. Der Server basiert auf einer Gradio-App. Er verfügt über eine Benutzeroberfläche zur Anzeige von Anweisungen für Sie oder Ihre Benutzer und eine API zum Hören auf Webhooks.
 
@@ -16,7 +16,7 @@ Um ein Beispiel eines laufenden Webhook-Servers zu sehen, werfen Sie einen Blick
 
 <Tip warning={true}>
 
-Dies ist ein [experimentelles Feature](../package_reference/environment_variables#hfhubdisableexperimentalwarning). Das bedeutet, dass wir noch daran arbeiten, die API zu verbessern. Es könnten in der Zukunft ohne vorherige Ankündigung Änderungen vorgenommen werden. Stellen Sie sicher, dass Sie die Version des `huggingface_hub` in Ihren Anforderungen festlegen.
+Dies ist ein [experimentelles Feature](../package_reference/environment_variables#hfhubdisableexperimentalwarning). Das bedeutet, dass wir noch daran arbeiten, die API zu verbessern. Es könnten in der Zukunft ohne vorherige Ankündigung Änderungen vorgenommen werden. Stellen Sie sicher, dass Sie die Version des `old_huggingface_hub` in Ihren Anforderungen festlegen.
 
 </Tip>
 
@@ -27,7 +27,7 @@ Das Implementieren eines Webhook-Endpunkts ist so einfach wie das Dekorieren ein
 
 ```python
 # app.py
-from huggingface_hub import webhook_endpoint, WebhookPayload
+from old_huggingface_hub import webhook_endpoint, WebhookPayload
 
 @webhook_endpoint
 async def trigger_training(payload: WebhookPayload) -> None:
@@ -96,7 +96,7 @@ Sie können mehrere Endpunkte auf demselben Server registrieren. Beispielsweise 
 
 ```python
 # app.py
-from huggingface_hub import webhook_endpoint, WebhookPayload
+from old_huggingface_hub import webhook_endpoint, WebhookPayload
 
 @webhook_endpoint
 async def trigger_training(payload: WebhookPayload) -> None:
@@ -129,7 +129,7 @@ Hier ist ein vollständiges Beispiel:
 ```python
 import gradio as gr
 from fastapi import Request
-from huggingface_hub import WebhooksServer, WebhookPayload
+from old_huggingface_hub import WebhooksServer, WebhookPayload
 
 # 1. Benutzerdefinierte UI definieren
 with gr.Blocks() as ui:

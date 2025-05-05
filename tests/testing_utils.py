@@ -15,7 +15,11 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 
-from huggingface_hub.utils import is_package_available, logging, reset_sessions
+from old_huggingface_hub.utils import (
+    is_package_available,
+    logging,
+    reset_sessions,
+)
 from tests.testing_constants import ENDPOINT_PRODUCTION, ENDPOINT_PRODUCTION_URL_SCHEME
 
 
@@ -43,22 +47,11 @@ DUMMY_RENAMED_NEW_MODEL_ID = "hf-internal-testing/dummy-renamed"
 
 SAMPLE_DATASET_IDENTIFIER = "lhoestq/custom_squad"
 # Example dataset ids
-DUMMY_DATASET_ID = "gaia-benchmark/GAIA"
-DUMMY_DATASET_ID_REVISION_ONE_SPECIFIC_COMMIT = "c603981e170e9e333934a39781d2ae3a2677e81f"  # on branch "test-branch"
+DUMMY_DATASET_ID = "lhoestq/test"
+DUMMY_DATASET_ID_REVISION_ONE_SPECIFIC_COMMIT = "81d06f998585f8ee10e6e3a2ea47203dc75f2a16"  # on branch "test-branch"
 
 YES = ("y", "yes", "t", "true", "on", "1")
 NO = ("n", "no", "f", "false", "off", "0")
-
-
-# Xet testing
-DUMMY_XET_MODEL_ID = "celinah/dummy-xet-testing"
-DUMMY_XET_FILE = "dummy.safetensors"
-DUMMY_XET_REGULAR_FILE = "dummy.txt"
-
-# extra large file for testing on production
-DUMMY_EXTRA_LARGE_FILE_MODEL_ID = "brianronan/dummy-xet-edge-case-files"
-DUMMY_EXTRA_LARGE_FILE_NAME = "verylargemodel.safetensors"  # > 50GB file
-DUMMY_TINY_FILE_NAME = "tiny.safetensors"  # 45 byte file
 
 
 def repo_name(id: Optional[str] = None, prefix: str = "repo") -> str:
@@ -93,7 +86,7 @@ def parse_flag_from_env(key: str, default: bool = False) -> bool:
         return False
     else:
         # More values are supported, but let's keep the message simple.
-        raise ValueError(f"If set, '{key}' must be one of {YES + NO}. Got '{value}'.")
+        raise ValueError(f"If set, '{key}' must be one of {YES+NO}. Got '{value}'.")
 
 
 def parse_int_from_env(key, default=None):
@@ -193,17 +186,19 @@ def offline(mode=OfflineSimulationMode.CONNECTION_FAILS, timeout=1e-16):
     if mode is OfflineSimulationMode.CONNECTION_FAILS:
         # inspired from https://stackoverflow.com/a/18601897
         with patch("socket.socket", offline_socket):
-            with patch("huggingface_hub.utils._http.get_session") as get_session_mock:
-                get_session_mock.return_value = requests.Session()  # not an existing one
-                yield
+            with patch("old_huggingface_hub.utils._http.get_session") as get_session_mock:
+                with patch("old_huggingface_hub.file_download.get_session") as get_session_mock:
+                    get_session_mock.return_value = requests.Session()  # not an existing one
+                    yield
     elif mode is OfflineSimulationMode.CONNECTION_TIMES_OUT:
         # inspired from https://stackoverflow.com/a/904609
         with patch("requests.request", timeout_request):
-            with patch("huggingface_hub.utils._http.get_session") as get_session_mock:
-                get_session_mock().request = timeout_request
-                yield
+            with patch("old_huggingface_hub.utils._http.get_session") as get_session_mock:
+                with patch("old_huggingface_hub.file_download.get_session") as get_session_mock:
+                    get_session_mock().request = timeout_request
+                    yield
     elif mode is OfflineSimulationMode.HF_HUB_OFFLINE_SET_TO_1:
-        with patch("huggingface_hub.constants.HF_HUB_OFFLINE", True):
+        with patch("old_huggingface_hub.constants.HF_HUB_OFFLINE", True):
             reset_sessions()
             yield
         reset_sessions()
@@ -221,8 +216,8 @@ def rmtree_with_retry(path: Union[str, Path]) -> None:
 
 
 def with_production_testing(func):
-    file_download = patch("huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE", ENDPOINT_PRODUCTION_URL_SCHEME)
-    hf_api = patch("huggingface_hub.constants.ENDPOINT", ENDPOINT_PRODUCTION)
+    file_download = patch("old_huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE", ENDPOINT_PRODUCTION_URL_SCHEME)
+    hf_api = patch("old_huggingface_hub.hf_api.ENDPOINT", ENDPOINT_PRODUCTION)
     return hf_api(file_download(func))
 
 
@@ -241,7 +236,7 @@ def expect_deprecation(function_name: str):
              In order to keep old tests during the deprecation phase (before removing
              the feature completely) without changing them internally, we can flag
              them with this decorator.
-    See full discussion in https://github.com/huggingface/huggingface_hub/pull/952.
+    See full discussion in https://github.com/huggingface/old_huggingface_hub/pull/952.
 
     This decorator works hand-in-hand with the `_deprecate_arguments` and
     `_deprecate_positional_args` decorators.
@@ -401,9 +396,9 @@ def handle_injection_in_test(fn: Callable) -> Callable:
             if name == "self":
                 continue
             assert parameter.annotation is Mock
-            assert name in mocks, (
-                f"Mock `{name}` not found for test `{fn.__name__}`. Available: {', '.join(sorted(mocks.keys()))}"
-            )
+            assert (
+                name in mocks
+            ), f"Mock `{name}` not found for test `{fn.__name__}`. Available: {', '.join(sorted(mocks.keys()))}"
             new_kwargs[name] = mocks[name]
 
         # Run test only with a subset of mocks
@@ -420,7 +415,7 @@ def use_tmp_repo(repo_type: str = "model") -> Callable[[T], T]:
 
     Example:
     ```py
-    from huggingface_hub import RepoUrl
+    from old_huggingface_hub import RepoUrl
     from .testing_utils import use_tmp_repo
 
     class HfApiCommonTest(unittest.TestCase):
@@ -441,13 +436,8 @@ def use_tmp_repo(repo_type: str = "model") -> Callable[[T], T]:
         def _inner(*args, **kwargs):
             self = args[0]
             assert isinstance(self, unittest.TestCase)
-            create_repo_kwargs = {}
-            if repo_type == "space":
-                create_repo_kwargs["space_sdk"] = "gradio"
 
-            repo_url = self._api.create_repo(
-                repo_id=repo_name(prefix=repo_type), repo_type=repo_type, **create_repo_kwargs
-            )
+            repo_url = self._api.create_repo(repo_id=repo_name(prefix=repo_type), repo_type=repo_type)
             try:
                 return test_fn(*args, **kwargs, repo_url=repo_url)
             finally:
@@ -456,9 +446,3 @@ def use_tmp_repo(repo_type: str = "model") -> Callable[[T], T]:
         return _inner
 
     return _inner_use_tmp_repo
-
-
-def assert_in_logs(caplog: pytest.LogCaptureFixture, expected_output):
-    """Helper to check if a message appears in logs."""
-    log_text = "\n".join(record.message for record in caplog.records)
-    assert expected_output in log_text, f"Expected '{expected_output}' not found in logs"

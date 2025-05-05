@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import pytest
 
-from huggingface_hub import cached_assets_path
+from old_huggingface_hub import cached_assets_path
 
 
 @pytest.mark.usefixtures("fx_cache_dir")
@@ -55,7 +55,7 @@ class CacheAssetsTest(unittest.TestCase):
 
     def test_cached_assets_path_default_assets_dir(self) -> None:
         with patch(
-            "huggingface_hub.utils._cache_assets.HF_ASSETS_CACHE",
+            "old_huggingface_hub.utils._cache_assets.HF_ASSETS_CACHE",
             self.cache_dir,
         ):  # Uses environment variable from HF_ASSETS_CACHE
             self.assertEqual(

@@ -1,11 +1,11 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # How-to guides
 
 In this section, you will find practical guides to help you achieve a specific goal.
-Take a look at these guides to learn how to use huggingface_hub to solve real-world problems:
+Take a look at these guides to learn how to use old_huggingface_hub to solve real-world problems:
 
 <div class="mt-10">
   <div class="w-full flex flex-col space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-y-4 md:gap-x-5">
@@ -60,7 +60,7 @@ Take a look at these guides to learn how to use huggingface_hub to solve real-wo
       <div class="w-full text-center bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-lg py-1.5 font-semibold mb-5 text-white text-lg leading-relaxed">
         Inference
       </div><p class="text-gray-700">
-        How to make predictions using the HF Inference API and other Inference Providers?
+        How to make predictions using the accelerated Inference API?
       </p>
     </a>
 

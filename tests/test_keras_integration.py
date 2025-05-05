@@ -5,14 +5,14 @@ from pathlib import Path
 
 import pytest
 
-from huggingface_hub import HfApi, hf_hub_download, snapshot_download
-from huggingface_hub.keras_mixin import (
+from old_huggingface_hub import HfApi, hf_hub_download, snapshot_download
+from old_huggingface_hub.keras_mixin import (
     KerasModelHubMixin,
     from_pretrained_keras,
     push_to_hub_keras,
     save_pretrained_keras,
 )
-from huggingface_hub.utils import is_graphviz_available, is_pydot_available, is_tf_available, logging
+from old_huggingface_hub.utils import is_graphviz_available, is_pydot_available, is_tf_available, logging
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN, USER
 from .testing_utils import repo_name
@@ -117,14 +117,15 @@ class HubMixinTestKeras(CommonKerasTest):
         model.push_to_hub(repo_id=repo_id, token=TOKEN, config={"num": 7, "act": "gelu_fast"})
 
         # Test model id exists
-        assert self._api.model_info(repo_id).id == repo_id
+        model_info = self._api.model_info(repo_id)
+        self.assertEqual(model_info.modelId, repo_id)
 
         # Test config has been pushed to hub
         config_path = hf_hub_download(
             repo_id=repo_id, filename="config.json", use_auth_token=TOKEN, cache_dir=self.cache_dir
         )
         with open(config_path) as f:
-            assert json.load(f) == {"num": 7, "act": "gelu_fast"}
+            self.assertEqual(json.load(f), {"num": 7, "act": "gelu_fast"})
 
         # Delete tmp file and repo
         self._api.delete_repo(repo_id=repo_id)
@@ -242,10 +243,11 @@ class HubKerasSequentialTest(CommonKerasTest):
         model = self.model_fit(model)
 
         push_to_hub_keras(model, repo_id=repo_id, token=TOKEN, api_endpoint=ENDPOINT_STAGING)
-        assert self._api.model_info(repo_id).id == repo_id
+        model_info = self._api.model_info(repo_id)
+        self.assertEqual(model_info.modelId, repo_id)
         repo_files = self._api.list_repo_files(repo_id)
-        assert "README.md" in repo_files
-        assert "model.png" in repo_files
+        self.assertIn("README.md", repo_files)
+        self.assertIn("model.png", repo_files)
         self._api.delete_repo(repo_id=repo_id)
 
     def test_push_to_hub_keras_sequential_via_http_plot_false(self):
@@ -295,7 +297,8 @@ class HubKerasSequentialTest(CommonKerasTest):
             save_traces=False,
         )
 
-        assert self._api.model_info(repo_id).id == repo_id
+        model_info = self._api.model_info(repo_id)
+        self.assertEqual(model_info.modelId, repo_id)
 
         snapshot_path = snapshot_download(repo_id=repo_id, cache_dir=self.cache_dir)
         from_pretrained_keras(snapshot_path)

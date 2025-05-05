@@ -1,10 +1,10 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # 서버에서 추론 진행하기[[run-inference-on-servers]]
 
-추론은 훈련된 모델을 사용하여 새 데이터에 대한 예측을 수행하는 과정입니다. 이 과정은 계산이 많이 필요할 수 있으므로, 전용 서버에서 실행하는 것이 좋은 방안이 될 수 있습니다. `huggingface_hub` 라이브러리는 호스팅된 모델에 대한 추론을 실행하는 서비스를 호출하는 간편한 방법을 제공합니다. 다음과 같은 여러 서비스에 연결할 수 있습니다:
+추론은 훈련된 모델을 사용하여 새 데이터에 대한 예측을 수행하는 과정입니다. 이 과정은 계산이 많이 필요할 수 있으므로, 전용 서버에서 실행하는 것이 좋은 방안이 될 수 있습니다. `old_huggingface_hub` 라이브러리는 호스팅된 모델에 대한 추론을 실행하는 서비스를 호출하는 간편한 방법을 제공합니다. 다음과 같은 여러 서비스에 연결할 수 있습니다:
 - [추론 API](https://huggingface.co/docs/api-inference/index): Hugging Face의 인프라에서 가속화된 추론을 실행할 수 있는 서비스로 무료로 제공됩니다. 이 서비스는 추론을 시작하고 다양한 모델을 테스트하며 AI 제품의 프로토타입을 만드는 빠른 방법입니다.
 - [추론 엔드포인트](https://huggingface.co/docs/inference-endpoints/index): 모델을 제품 환경에 쉽게 배포할 수 있는 제품입니다. 사용자가 선택한 클라우드 환경에서 완전 관리되는 전용 인프라에서 Hugging Face를 통해 추론이 실행됩니다.
 
@@ -23,7 +23,7 @@ rendered properly in your Markdown viewer.
 text-to-image 작업을 시작해보겠습니다.
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient()
 
 >>> image = client.text_to_image("An astronaut riding a horse on the moon.")
@@ -43,7 +43,7 @@ API는 간단하게 설계되었습니다. 모든 매개변수와 옵션이 사�
 특정 모델을 사용하고 싶다면 어떻게 해야 할까요? 매개변수로 직접 지정하거나 인스턴스 수준에서 직접 지정할 수 있습니다:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 # 특정 모델을 위한 클라이언트를 초기화합니다.
 >>> client = InferenceClient(model="prompthero/openjourney-v4")
 >>> client.text_to_image(...)
@@ -63,7 +63,7 @@ Hugging Face Hub에는 20만 개가 넘는 모델이 있습니다! [`InferenceCl
 위에서 본 예제들은 서버리스 추론 API를 사용합니다. 이는 빠르게 프로토타입을 정하고 테스트할 때 매우 유용합니다. 모델을 프로덕션 환경에 배포할 준비가 되면 전용 인프라를 사용해야 합니다. 그것이 [추론 엔드포인트](https://huggingface.co/docs/inference-endpoints/index)가 필요한 이유입니다. 이를 사용하면 모든 모델을 배포하고 개인 API로 노출시킬 수 있습니다. 한 번 배포되면 이전과 완전히 동일한 코드를 사용하여 연결할 수 있는 URL을 얻게 됩니다. `model` 매개변수만 변경하면 됩니다:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient(model="https://uu149rez6gw9ehej.eu-west-1.aws.endpoints.huggingface.cloud/deepfloyd-if")
 # 또는
 >>> client = InferenceClient()
@@ -72,10 +72,10 @@ Hugging Face Hub에는 20만 개가 넘는 모델이 있습니다! [`InferenceCl
 
 ### 인증[[authentication]]
 
-[`InferenceClient`]로 수행된 호출은 [사용자 액세스 토큰](https://huggingface.co/docs/hub/security-tokens)을 사용하여 인증할 수 있습니다. 기본적으로 로그인한 경우 기기에 저장된 토큰을 사용합니다 ([인증 방법](https://huggingface.co/docs/huggingface_hub/quick-start#authentication)을 확인하세요). 로그인하지 않은 경우 인스턴스 매개변수로 토큰을 전달할 수 있습니다.
+[`InferenceClient`]로 수행된 호출은 [사용자 액세스 토큰](https://huggingface.co/docs/hub/security-tokens)을 사용하여 인증할 수 있습니다. 기본적으로 로그인한 경우 기기에 저장된 토큰을 사용합니다 ([인증 방법](https://huggingface.co/docs/old_huggingface_hub/quick-start#authentication)을 확인하세요). 로그인하지 않은 경우 인스턴스 매개변수로 토큰을 전달할 수 있습니다.
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient(token="hf_***")
 ```
 
@@ -125,14 +125,24 @@ Hugging Face Hub에는 20만 개가 넘는 모델이 있습니다! [`InferenceCl
 
 </Tip>
 
+## 사용자 정의 요청[[custom-requests]]
 
+그러나 모든 경우를 항상 완벽하게 다루는 것은 어렵습니다. 사용자 정의 요청의 경우, [`InferenceClient.post`] 메소드를 사용하여 Inference API로 요청을 보낼 수 있습니다. 예를 들어, 입력 및 출력을 어떻게 파싱할지 지정할 수 있습니다. 아래 예시에서 생성된 이미지는 `PIL Image`로 파싱하는 대신 원본 바이트로 반환됩니다. 이는 설치된 `Pillow`가 없고 이미지의 이진 콘텐츠에만 관심이 있는 경우에 유용합니다. [`InferenceClient.post`]는 아직 공식적으로 지원되지 않는 작업을 처리하는 데도 유용합니다.
+
+```python
+>>> from old_huggingface_hub import InferenceClient
+>>> client = InferenceClient()
+>>> response = client.post(json={"inputs": "An astronaut riding a horse on the moon."}, model="stabilityai/stable-diffusion-2-1")
+>>> response.content # 원시 바이트
+b'...'
+```
 
 ## 비동기 클라이언트[[async-client]]
 
 `asyncio`와 `aiohttp`를 기반으로 한 클라이언트의 비동기 버전도 제공됩니다. `aiohttp`를 직접 설치하거나 `[inference]` 추가 옵션을 사용할 수 있습니다:
 
 ```sh
-pip install --upgrade huggingface_hub[inference]
+pip install --upgrade old_huggingface_hub[inference]
 # 또는
 # pip install aiohttp
 ```
@@ -142,7 +152,7 @@ pip install --upgrade huggingface_hub[inference]
 ```py
 # 코드는 비동기 asyncio 라이브러리 동시성 컨텍스트에서 실행되어야 합니다.
 # $ python -m asyncio
->>> from huggingface_hub import AsyncInferenceClient
+>>> from old_huggingface_hub import AsyncInferenceClient
 >>> client = AsyncInferenceClient()
 
 >>> image = await client.text_to_image("An astronaut riding a horse on the moon.")
@@ -168,7 +178,7 @@ pip install --upgrade huggingface_hub[inference]
 [`InferenceClient`]에는 이 두 가지를 처리하기 위한 전역 `timeout` 매개변수가 있습니다. 기본값은 `None`으로 설정되어 있으며, 클라이언트가 추론이 완료될 때까지 무기한으로 기다리게 합니다. 워크플로우에서 더 많은 제어를 원하는 경우 초 단위의 특정한 값으로 설정할 수 있습니다. 타임아웃 딜레이가 만료되면 [`InferenceTimeoutError`]가 발생합니다. 이를 코드에서 처리할 수 있습니다:
 
 ```python
->>> from huggingface_hub import InferenceClient, InferenceTimeoutError
+>>> from old_huggingface_hub import InferenceClient, InferenceTimeoutError
 >>> client = InferenceClient(timeout=30)
 >>> try:
 ...     client.text_to_image(...)
@@ -185,7 +195,7 @@ pip install --upgrade huggingface_hub[inference]
 - 원격 파일을 가리키는 URL (`str`) (예: `https://...`). 이 경우 파일은 Inference API로 전송되기 전에 로컬로 다운로드됩니다.
 
 ```py
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient()
 >>> client.image_classification("https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/320px-Cute_dog.jpg")
 [{'score': 0.9779096841812134, 'label': 'Blenheim spaniel'}, ...]
@@ -202,14 +212,14 @@ pip install --upgrade huggingface_hub[inference]
 변경 전:
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="bert-base-uncased", token=API_TOKEN)
 ```
 
 변경 후:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> inference = InferenceClient(model="bert-base-uncased", token=API_TOKEN)
 ```
 
@@ -218,7 +228,7 @@ pip install --upgrade huggingface_hub[inference]
 변경 전:
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="paraphrase-xlm-r-multilingual-v1", task="feature-extraction")
 >>> inference(...)
 ```
@@ -226,7 +236,7 @@ pip install --upgrade huggingface_hub[inference]
 변경 후:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> inference = InferenceClient()
 >>> inference.feature_extraction(..., model="paraphrase-xlm-r-multilingual-v1")
 ```
@@ -242,9 +252,19 @@ pip install --upgrade huggingface_hub[inference]
 변경 전:
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="bert-base-uncased")
 >>> inference(inputs="The goal of life is [MASK].")
+[{'sequence': 'the goal of life is life.', 'score': 0.10933292657136917, 'token': 2166, 'token_str': 'life'}]
+```
+
+변경 후:
+
+```python
+>>> from old_huggingface_hub import InferenceClient
+>>> client = InferenceClient()
+>>> response = client.post(json={"inputs": "The goal of life is [MASK]."}, model="bert-base-uncased")
+>>> response.json()
 [{'sequence': 'the goal of life is life.', 'score': 0.10933292657136917, 'token': 2166, 'token_str': 'life'}]
 ```
 
@@ -253,10 +273,22 @@ pip install --upgrade huggingface_hub[inference]
 변경 전:
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="typeform/distilbert-base-uncased-mnli")
 >>> inputs = "Hi, I recently bought a device from your company but it is not working as advertised and I would like to get reimbursed!"
 >>> params = {"candidate_labels":["refund", "legal", "faq"]}
 >>> inference(inputs, params)
+{'sequence': 'Hi, I recently bought a device from your company but it is not working as advertised and I would like to get reimbursed!', 'labels': ['refund', 'faq', 'legal'], 'scores': [0.9378499388694763, 0.04914155602455139, 0.013008488342165947]}
+```
+
+변경 후:
+
+```python
+>>> from old_huggingface_hub import InferenceClient
+>>> client = InferenceClient()
+>>> inputs = "Hi, I recently bought a device from your company but it is not working as advertised and I would like to get reimbursed!"
+>>> params = {"candidate_labels":["refund", "legal", "faq"]}
+>>> response = client.post(json={"inputs": inputs, "parameters": params}, model="typeform/distilbert-base-uncased-mnli")
+>>> response.json()
 {'sequence': 'Hi, I recently bought a device from your company but it is not working as advertised and I would like to get reimbursed!', 'labels': ['refund', 'faq', 'legal'], 'scores': [0.9378499388694763, 0.04914155602455139, 0.013008488342165947]}
 ```

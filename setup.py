@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 
 def get_version() -> str:
-    rel_path = "src/huggingface_hub/__init__.py"
+    rel_path = "src/old_huggingface_hub/__init__.py"
     with open(rel_path, "r") as fp:
         for line in fp.read().splitlines():
             if line.startswith("__version__"):
@@ -14,7 +14,6 @@ def get_version() -> str:
 install_requires = [
     "filelock",
     "fsspec>=2023.5.0",
-    "hf-xet>=1.0.2,<2.0.0; platform_machine=='x86_64' or platform_machine=='amd64' or platform_machine=='arm64' or platform_machine=='aarch64'",
     "packaging>=20.9",
     "pyyaml>=5.1",
     "requests",
@@ -30,11 +29,12 @@ extras["cli"] = [
 
 extras["inference"] = [
     "aiohttp",  # for AsyncInferenceClient
+    "minijinja>=1.0",  # for chat-completion if not TGI-served
 ]
 
 extras["torch"] = [
     "torch",
-    "safetensors[torch]",
+    "safetensors",
 ]
 extras["hf_transfer"] = [
     "hf_transfer>=0.1.4",  # Pin for progress bars
@@ -56,7 +56,6 @@ extras["tensorflow-testing"] = [
     "keras<3.0",
 ]
 
-extras["hf_xet"] = ["hf_xet>=1.0.2,<2.0.0"]
 
 extras["testing"] = (
     extras["cli"]
@@ -64,18 +63,17 @@ extras["testing"] = (
     + [
         "jedi",
         "Jinja2",
-        "pytest>=8.1.1,<8.2.2",  # at least until 8.2.3 is released with https://github.com/pytest-dev/pytest/pull/12436
+        "pytest",
         "pytest-cov",
         "pytest-env",
         "pytest-xdist",
         "pytest-vcr",  # to mock Inference
         "pytest-asyncio",  # for AsyncInferenceClient
         "pytest-rerunfailures",  # to rerun flaky tests in CI
-        "pytest-mock",
         "urllib3<2.0",  # VCR.py broken with urllib3 2.0 (see https://urllib3.readthedocs.io/en/stable/v2-migration-guide.html)
         "soundfile",
         "Pillow",
-        "gradio>=4.0.0",  # to test webhooks # pin to avoid issue on Python3.12
+        "gradio",  # to test webhooks
         "numpy",  # for embeddings
         "fastapi",  # To build the documentation
     ]
@@ -94,9 +92,8 @@ extras["typing"] = [
 ]
 
 extras["quality"] = [
-    "ruff>=0.9.0",
+    "ruff>=0.3.0",
     "mypy==1.5.1",
-    "libcst==1.4.0",
 ]
 
 extras["all"] = extras["testing"] + extras["quality"] + extras["typing"]
@@ -104,7 +101,7 @@ extras["all"] = extras["testing"] + extras["quality"] + extras["typing"]
 extras["dev"] = extras["all"]
 
 setup(
-    name="huggingface_hub",
+    name="old_huggingface_hub",
     version=get_version(),
     author="Hugging Face, Inc.",
     author_email="julien@huggingface.co",
@@ -113,13 +110,13 @@ setup(
     long_description_content_type="text/markdown",
     keywords="model-hub machine-learning models natural-language-processing deep-learning pytorch pretrained-models",
     license="Apache",
-    url="https://github.com/huggingface/huggingface_hub",
+    url="https://github.com/ghunkins/old_huggingface_hub",
     package_dir={"": "src"},
     packages=find_packages("src"),
     extras_require=extras,
     entry_points={
-        "console_scripts": ["huggingface-cli=huggingface_hub.commands.huggingface_cli:main"],
-        "fsspec.specs": "hf=huggingface_hub.HfFileSystem",
+        "console_scripts": ["huggingface-cli=old_huggingface_hub.commands.huggingface_cli:main"],
+        "fsspec.specs": "hf=old_huggingface_hub.HfFileSystem",
     },
     python_requires=">=3.8.0",
     install_requires=install_requires,
@@ -135,10 +132,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3.12",
-        "Programming Language :: Python :: 3.13",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
     include_package_data=True,
-    package_data={"huggingface_hub": ["py.typed"]},  # Needed for wheel installation
 )

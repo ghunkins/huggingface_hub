@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Contains a tool to add/check the definition of "async" methods of `HfApi` in `huggingface_hub.hf_api.py`.
+"""Contains a tool to add/check the definition of "async" methods of `HfApi` in `old_huggingface_hub.hf_api.py`.
 
 WARNING: this is a script kept to help with `@future_compatible` methods of `HfApi` but it is not 100% correct.
 Keeping it here for reference but it is not used in the CI/Makefile.
@@ -38,7 +38,7 @@ from typing import Callable, NoReturn
 
 from ruff.__main__ import find_ruff_bin
 
-from huggingface_hub.hf_api import HfApi
+from old_huggingface_hub.hf_api import HfApi
 
 
 STUBS_SECTION_TEMPLATE = """
@@ -57,7 +57,7 @@ STUBS_SECTION_TEMPLATE = """
     # 2. Why not a separate `hf_api.pyi` file? Would require to re-defined all the existing annotations from `hf_api.py`.
     # 3. Why not at the end of the module? Because `@overload` methods must be defined first.
     # 4. Why not another solution? I'd be glad, but this is the "less worse" I could find.
-    # For more details, see https://github.com/huggingface/huggingface_hub/pull/1458
+    # For more details, see https://github.com/huggingface/old_huggingface_hub/pull/1458
 
 
     {stubs}
@@ -93,7 +93,7 @@ SIGNATURE_REGEX_RETURN_TYPE = re.compile(r"-> (.*?):")
 SIGNATURE_REGEX_RETURN_TYPE_WITH_FUTURE = re.compile(r"-> Union\[(.*?), (.*?)\]:")
 
 
-HF_API_FILE_PATH = Path(__file__).parents[1] / "src" / "huggingface_hub" / "hf_api.py"
+HF_API_FILE_PATH = Path(__file__).parents[1] / "src" / "old_huggingface_hub" / "hf_api.py"
 HF_API_FILE_CONTENT = HF_API_FILE_PATH.read_text()
 
 
@@ -202,12 +202,12 @@ def check_future_compatible_hf_api(update: bool) -> NoReturn:
 
             print(
                 "✅ Signature/docstring/annotations for Future-compatible methods have been updated in"
-                " `./src/huggingface_hub/hf_api.py`.\n   Please make sure the changes are accurate and commit them."
+                " `./src/old_huggingface_hub/hf_api.py`.\n   Please make sure the changes are accurate and commit them."
             )
             exit(0)
         else:
             print(
-                "❌ Expected content mismatch for Future compatible methods in `./src/huggingface_hub/hf_api.py`.\n  "
+                "❌ Expected content mismatch for Future compatible methods in `./src/old_huggingface_hub/hf_api.py`.\n  "
                 " Please run `make style` or `python utils/check_future_compatible_signatures.py --update`."
             )
             exit(1)
@@ -221,7 +221,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--update",
         action="store_true",
-        help="Whether to override `./src/huggingface_hub/hf_api.py` if a change is detected.",
+        help="Whether to override `./src/old_huggingface_hub/hf_api.py` if a change is detected.",
     )
     args = parser.parse_args()
 

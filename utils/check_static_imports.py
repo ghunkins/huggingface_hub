@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Contains a tool to reformat static imports in `huggingface_hub.__init__.py`."""
+"""Contains a tool to reformat static imports in `old_huggingface_hub.__init__.py`."""
 
 import argparse
 import os
@@ -23,10 +23,10 @@ from typing import NoReturn
 
 from ruff.__main__ import find_ruff_bin
 
-from huggingface_hub import _SUBMOD_ATTRS
+from old_huggingface_hub import _SUBMOD_ATTRS
 
 
-INIT_FILE_PATH = Path(__file__).parents[1] / "src" / "huggingface_hub" / "__init__.py"
+INIT_FILE_PATH = Path(__file__).parents[1] / "src" / "old_huggingface_hub" / "__init__.py"
 
 IF_TYPE_CHECKING_LINE = "\nif TYPE_CHECKING:  # pragma: no cover\n"
 SUBMOD_ATTRS_PATTERN = re.compile("_SUBMOD_ATTRS = {[^}]+}")  # match the all dict
@@ -35,7 +35,7 @@ SUBMOD_ATTRS_PATTERN = re.compile("_SUBMOD_ATTRS = {[^}]+}")  # match the all di
 def check_static_imports(update: bool) -> NoReturn:
     """Check all imports are made twice (1 in lazy-loading and 1 in static checks).
 
-    For more explanations, see `./src/huggingface_hub/__init__.py`.
+    For more explanations, see `./src/old_huggingface_hub/__init__.py`.
     This script is used in the `make style` and `make quality` checks.
     """
     with INIT_FILE_PATH.open() as f:
@@ -49,16 +49,16 @@ def check_static_imports(update: bool) -> NoReturn:
     # Search and replace `_SUBMOD_ATTRS` dictionary definition. This ensures modules
     # and functions that can be lazy-loaded are alphabetically ordered for readability.
     if SUBMOD_ATTRS_PATTERN.search(init_content_before_static_checks) is None:
-        print("Error: _SUBMOD_ATTRS dictionary definition not found in `./src/huggingface_hub/__init__.py`.")
+        print("Error: _SUBMOD_ATTRS dictionary definition not found in `./src/old_huggingface_hub/__init__.py`.")
         exit(1)
 
     _submod_attrs_definition = (
         "_SUBMOD_ATTRS = {\n"
         + "\n".join(
             f'    "{module}": [\n'
-            + "\n".join(f'        "{attr}",' for attr in sorted(set(_SUBMOD_ATTRS[module])))
+            + "\n".join(f'        "{attr}",' for attr in sorted(_SUBMOD_ATTRS[module]))
             + "\n    ],"
-            for module in sorted(set(_SUBMOD_ATTRS.keys()))
+            for module in sorted(_SUBMOD_ATTRS.keys())
         )
         + "\n}"
     )
@@ -80,7 +80,7 @@ def check_static_imports(update: bool) -> NoReturn:
             reordered_content_before_static_checks + IF_TYPE_CHECKING_LINE + "\n".join(static_imports) + "\n"
         )
         ruff_bin = find_ruff_bin()
-        os.spawnv(os.P_WAIT, ruff_bin, ["ruff", "check", str(filepath), "--fix", "--quiet"])
+        os.spawnv(os.P_WAIT, ruff_bin, ["ruff", str(filepath), "--fix", "--quiet"])
         os.spawnv(os.P_WAIT, ruff_bin, ["ruff", "format", str(filepath), "--quiet"])
         expected_init_content = filepath.read_text()
 
@@ -92,14 +92,14 @@ def check_static_imports(update: bool) -> NoReturn:
                 f.write(expected_init_content)
 
             print(
-                "✅ Imports have been updated in `./src/huggingface_hub/__init__.py`."
+                "✅ Imports have been updated in `./src/old_huggingface_hub/__init__.py`."
                 "\n   Please make sure the changes are accurate and commit them."
             )
             exit(0)
         else:
             print(
                 "❌ Expected content mismatch in"
-                " `./src/huggingface_hub/__init__.py`.\n   It is most likely that you"
+                " `./src/old_huggingface_hub/__init__.py`.\n   It is most likely that you"
                 " added a module/function to `_SUBMOD_ATTRS` and did not update the"
                 " 'static import'-part.\n   Please run `make style` or `python"
                 " utils/check_static_imports.py --update`."
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--update",
         action="store_true",
-        help="Whether to fix `./src/huggingface_hub/__init__.py` if a change is detected.",
+        help="Whether to fix `./src/old_huggingface_hub/__init__.py` if a change is detected.",
     )
     args = parser.parse_args()
 

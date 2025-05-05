@@ -5,10 +5,11 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from huggingface_hub import hf_hub_download, scan_cache_dir
-from huggingface_hub.constants import CONFIG_NAME, HF_HUB_CACHE
-from huggingface_hub.file_download import are_symlinks_supported
+from old_huggingface_hub import hf_hub_download, scan_cache_dir
+from old_huggingface_hub.constants import CONFIG_NAME, HF_HUB_CACHE
+from old_huggingface_hub.file_download import are_symlinks_supported
 
+from .testing_constants import TOKEN
 from .testing_utils import DUMMY_MODEL_ID, with_production_testing
 
 
@@ -18,14 +19,14 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
     cache_dir: Path
 
     @patch(
-        "huggingface_hub.file_download._are_symlinks_supported_in_dir",
+        "old_huggingface_hub.file_download._are_symlinks_supported_in_dir",
         {HF_HUB_CACHE: True},
     )
     def test_are_symlinks_supported_default(self) -> None:
         self.assertTrue(are_symlinks_supported())
 
-    @patch("huggingface_hub.file_download.os.symlink")
-    @patch("huggingface_hub.file_download._are_symlinks_supported_in_dir", {})
+    @patch("old_huggingface_hub.file_download.os.symlink")
+    @patch("old_huggingface_hub.file_download._are_symlinks_supported_in_dir", {})
     def test_are_symlinks_supported_windows_specific_dir(self, mock_symlink: Mock) -> None:
         mock_symlink.side_effect = [OSError(), None]  # First dir not supported then yes
         this_dir = Path(__file__).parent
@@ -45,7 +46,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
             # Try with another directory: symlinks are supported, no warnings
             self.assertTrue(are_symlinks_supported())  # True
 
-    @patch("huggingface_hub.file_download.are_symlinks_supported")
+    @patch("old_huggingface_hub.file_download.are_symlinks_supported")
     def test_download_no_symlink_new_file(self, mock_are_symlinks_supported: Mock) -> None:
         mock_are_symlinks_supported.return_value = False
         filepath = Path(
@@ -54,6 +55,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
                 filename=CONFIG_NAME,
                 cache_dir=self.cache_dir,
                 local_files_only=False,
+                use_auth_token=TOKEN,
             )
         )
         # Not a symlink !
@@ -63,7 +65,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
         # Blobs directory is empty
         self.assertEqual(len(list((Path(filepath).parents[2] / "blobs").glob("*"))), 0)
 
-    @patch("huggingface_hub.file_download.are_symlinks_supported")
+    @patch("old_huggingface_hub.file_download.are_symlinks_supported")
     def test_download_no_symlink_existing_file(self, mock_are_symlinks_supported: Mock) -> None:
         mock_are_symlinks_supported.return_value = True
         filepath = Path(
@@ -72,6 +74,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
                 filename=CONFIG_NAME,
                 cache_dir=self.cache_dir,
                 local_files_only=False,
+                use_auth_token=TOKEN,
             )
         )
         self.assertTrue(filepath.is_symlink())
@@ -89,6 +92,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
                 filename=CONFIG_NAME,
                 cache_dir=self.cache_dir,
                 local_files_only=False,
+                use_auth_token=TOKEN,
             )
         )
         # File exist but is not a symlink
@@ -99,7 +103,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
         # => duplicate file on disk
         self.assertTrue(blob_path.is_file())
 
-    @patch("huggingface_hub.file_download.are_symlinks_supported")
+    @patch("old_huggingface_hub.file_download.are_symlinks_supported")
     def test_scan_and_delete_cache_no_symlinks(self, mock_are_symlinks_supported: Mock) -> None:
         """Test scan_cache_dir works as well when cache-system doesn't use symlinks."""
         OLDER_REVISION = "44c70f043cfe8162efc274ff531575e224a0e6f0"
@@ -112,6 +116,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
             DUMMY_MODEL_ID,
             filename=CONFIG_NAME,
             cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
         )
 
         # Download README.md from main
@@ -119,6 +124,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
             DUMMY_MODEL_ID,
             filename="README.md",
             cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
         )
 
         # Download config.json from older revision
@@ -126,6 +132,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
             DUMMY_MODEL_ID,
             filename=CONFIG_NAME,
             cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
             revision=OLDER_REVISION,
         )
 
@@ -137,6 +144,7 @@ class TestCacheLayoutIfSymlinksNotSupported(unittest.TestCase):
             DUMMY_MODEL_ID,
             filename="merges.txt",
             cache_dir=self.cache_dir,
+            use_auth_token=TOKEN,
             revision=OLDER_REVISION,
         )
 

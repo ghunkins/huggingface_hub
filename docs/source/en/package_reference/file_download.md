@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -8,25 +8,25 @@ rendered properly in your Markdown viewer.
 
 ### hf_hub_download
 
-[[autodoc]] huggingface_hub.hf_hub_download
+[[autodoc]] old_huggingface_hub.hf_hub_download
 
 ### hf_hub_url
 
-[[autodoc]] huggingface_hub.hf_hub_url
+[[autodoc]] old_huggingface_hub.hf_hub_url
 
 ## Download a snapshot of the repo
 
-[[autodoc]] huggingface_hub.snapshot_download
+[[autodoc]] old_huggingface_hub.snapshot_download
 
 ## Get metadata about a file
 
 ### get_hf_file_metadata
 
-[[autodoc]] huggingface_hub.get_hf_file_metadata
+[[autodoc]] old_huggingface_hub.get_hf_file_metadata
 
 ### HfFileMetadata
 
-[[autodoc]] huggingface_hub.HfFileMetadata
+[[autodoc]] old_huggingface_hub.HfFileMetadata
 
 ## Caching
 

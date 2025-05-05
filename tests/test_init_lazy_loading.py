@@ -4,23 +4,20 @@ import jedi
 
 
 class TestHuggingfaceHubInit(unittest.TestCase):
-    @unittest.skip(
-        reason="`jedi.Completion.get_signatures()` output differs between Python 3.12 and earlier versions, affecting test consistency"
-    )
     def test_autocomplete_on_root_imports(self) -> None:
-        """Test autocomplete with `huggingface_hub` works with Jedi.
+        """Test autocomplete with `old_huggingface_hub` works with Jedi.
 
         Not all autocomplete systems are based on Jedi but if this one works we can
         assume others do as well.
         """
-        source = """from huggingface_hub import c"""
+        source = """from old_huggingface_hub import c"""
         script = jedi.Script(source, path="example.py")
         completions = script.complete(1, len(source))
 
         for completion in completions:
             if completion.name == "create_commit":
-                # Assert `create_commit` is suggestion from `huggingface_hub` lib
-                self.assertEqual(completion.module_name, "huggingface_hub")
+                # Assert `create_commit` is suggestion from `old_huggingface_hub` lib
+                self.assertEqual(completion.module_name, "old_huggingface_hub")
 
                 # Assert autocomplete knows where `create_commit` lives
                 # It would not be the case with a dynamic import.
@@ -37,6 +34,6 @@ class TestHuggingfaceHubInit(unittest.TestCase):
             self.fail(
                 "Jedi autocomplete did not suggest `create_commit` to complete the"
                 f" line `{source}`. It is most probable that static imports are not"
-                " correct in `./src/huggingface_hub/__init__.py`. Please run `make"
+                " correct in `./src/old_huggingface_hub/__init__.py`. Please run `make"
                 " style` to fix this."
             )

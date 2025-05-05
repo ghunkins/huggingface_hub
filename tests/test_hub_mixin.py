@@ -4,15 +4,14 @@ import os
 import unittest
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Optional, Union, get_type_hints
+from typing import Dict, Optional, Union
 from unittest.mock import Mock, patch
 
-import jedi
 import pytest
 
-from huggingface_hub import HfApi, hf_hub_download
-from huggingface_hub.hub_mixin import ModelHubMixin
-from huggingface_hub.utils import SoftTemporaryDirectory
+from old_huggingface_hub import HfApi, hf_hub_download
+from old_huggingface_hub.hub_mixin import ModelHubMixin
+from old_huggingface_hub.utils import SoftTemporaryDirectory
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN, USER
 from .testing_utils import repo_name
@@ -91,19 +90,6 @@ class DummyModelFromPretrainedExpectsConfig(ModelHubMixin):
         return cls(**kwargs)
 
 
-class BaseModelForInheritance(
-    ModelHubMixin,
-    repo_url="https://hf.co/my-repo",
-    paper_url="https://arxiv.org/abs/2304.12244",
-    library_name="my-cool-library",
-):
-    pass
-
-
-class DummyModelInherited(BaseModelForInheritance):
-    pass
-
-
 class DummyModelSavingConfig(ModelHubMixin):
     def _save_pretrained(self, save_directory: Path) -> None:
         """Implementation that uses `config.json` to serialize the config.
@@ -150,47 +136,16 @@ class DummyModelWithCustomTypes(
     },
 ):
     def __init__(
-        self,
-        foo: int,
-        bar: str,
-        baz: Union[int, str],
-        custom: CustomType,
-        optional_custom_1: Optional[CustomType],
-        optional_custom_2: Optional[CustomType],
-        custom_default: CustomType = CustomType("default"),
-        **kwargs,
+        self, foo: int, bar: str, custom: CustomType, custom_default: CustomType = CustomType("default"), **kwargs
     ):
         self.foo = foo
         self.bar = bar
-        self.baz = baz
         self.custom = custom
-        self.optional_custom_1 = optional_custom_1
-        self.optional_custom_2 = optional_custom_2
         self.custom_default = custom_default
 
     @classmethod
     def _from_pretrained(cls, **kwargs):
         return cls(**kwargs)
-
-    @classmethod
-    def _save_pretrained(cls, save_directory: Path):
-        return
-
-
-@dataclass
-class DummyDataclass:
-    foo: int
-    bar: str
-
-
-class DummyWithDataclassInputs(ModelHubMixin):
-    def __init__(self, arg1: DummyDataclass, arg2: DummyDataclass):
-        self.arg1 = arg1
-        self.arg2 = arg2
-
-    @classmethod
-    def _from_pretrained(cls, **kwargs):
-        return cls(arg1=kwargs["arg1"], arg2=kwargs["arg2"])
 
     @classmethod
     def _save_pretrained(cls, save_directory: Path):
@@ -265,7 +220,7 @@ class HubMixinTest(unittest.TestCase):
         """
         Test that if `__init__` accepts **kwargs and config file doesn't exist then no 'config' kwargs is passed.
 
-        Regression test. See https://github.com/huggingface/huggingface_hub/pull/2058.
+        Regression test. See https://github.com/huggingface/old_huggingface_hub/pull/2058.
         """
         model = DummyModelWithKwargs()
         model.save_pretrained(self.cache_dir)
@@ -280,8 +235,8 @@ class HubMixinTest(unittest.TestCase):
         Test that if `config_inject_mode="as_kwargs"` and config file exists then the 'config' kwarg is passed.
 
         Regression test.
-        See https://github.com/huggingface/huggingface_hub/pull/2058.
-        And https://github.com/huggingface/huggingface_hub/pull/2099.
+        See https://github.com/huggingface/old_huggingface_hub/pull/2058.
+        And https://github.com/huggingface/old_huggingface_hub/pull/2099.
         """
         model = DummyModelFromPretrainedExpectsConfig()
         model.save_pretrained(self.cache_dir, config=CONFIG_AS_DICT)
@@ -319,11 +274,11 @@ class HubMixinTest(unittest.TestCase):
 
         # Push to hub with repo_id (config is pushed)
         mocked_model.save_pretrained(save_directory, push_to_hub=True, repo_id="CustomID")
-        mocked_model.push_to_hub.assert_called_with(repo_id="CustomID", config=CONFIG_AS_DICT, model_card_kwargs={})
+        mocked_model.push_to_hub.assert_called_with(repo_id="CustomID", config=CONFIG_AS_DICT)
 
         # Push to hub with default repo_id (based on dir name)
         mocked_model.save_pretrained(save_directory, push_to_hub=True)
-        mocked_model.push_to_hub.assert_called_with(repo_id=repo_id, config=CONFIG_AS_DICT, model_card_kwargs={})
+        mocked_model.push_to_hub.assert_called_with(repo_id=repo_id, config=CONFIG_AS_DICT)
 
     @patch.object(DummyModelNoConfig, "_from_pretrained")
     def test_from_pretrained_model_id_only(self, from_pretrained_mock: Mock) -> None:
@@ -334,7 +289,7 @@ class HubMixinTest(unittest.TestCase):
     @patch.object(DummyModelNoConfig, "_from_pretrained")
     def test_from_pretrained_model_id_and_revision(self, from_pretrained_mock: Mock) -> None:
         """Regression test for #1313.
-        See https://github.com/huggingface/huggingface_hub/issues/1313."""
+        See https://github.com/huggingface/old_huggingface_hub/issues/1313."""
         model = DummyModelNoConfig.from_pretrained("namespace/repo_name", revision="123456789")
         from_pretrained_mock.assert_called_once_with(
             model_id="namespace/repo_name",
@@ -401,7 +356,7 @@ class HubMixinTest(unittest.TestCase):
         self._api.delete_repo(repo_id=repo_id)
 
     def test_save_pretrained_do_not_overwrite_new_config(self):
-        """Regression test for https://github.com/huggingface/huggingface_hub/issues/2102.
+        """Regression test for https://github.com/huggingface/old_huggingface_hub/issues/2102.
 
         If `_from_pretrained` does save a config file, we should not overwrite it.
         """
@@ -412,7 +367,7 @@ class HubMixinTest(unittest.TestCase):
             assert json.load(f) == {"custom_config": "custom_config"}
 
     def test_save_pretrained_does_overwrite_legacy_config(self):
-        """Regression test for https://github.com/huggingface/huggingface_hub/issues/2142.
+        """Regression test for https://github.com/huggingface/old_huggingface_hub/issues/2142.
 
         If a previously existing config file exists, it should be overwritten.
         """
@@ -434,7 +389,7 @@ class HubMixinTest(unittest.TestCase):
         inspecting it. However, due to how dataclasses work, we cannot forward arbitrary kwargs to the `__init__`.
         This test ensures that the `from_pretrained` method does not raise an error when the class is a dataclass.
 
-        See https://github.com/huggingface/huggingface_hub/issues/2157.
+        See https://github.com/huggingface/old_huggingface_hub/issues/2157.
         """
         (self.cache_dir / "config.json").write_text('{"foo": 42, "bar": "baz", "other": "value"}')
         model = DummyModelThatIsAlsoADataclass.from_pretrained(self.cache_dir)
@@ -443,100 +398,19 @@ class HubMixinTest(unittest.TestCase):
         assert not hasattr(model, "other")
 
     def test_from_cls_with_custom_type(self):
-        model = DummyModelWithCustomTypes(
-            1,
-            bar="bar",
-            baz=1.0,
-            custom=CustomType("custom"),
-            optional_custom_1=CustomType("optional"),
-            optional_custom_2=None,
-        )
+        model = DummyModelWithCustomTypes(1, bar="bar", custom=CustomType("custom"))
         model.save_pretrained(self.cache_dir)
 
         config = json.loads((self.cache_dir / "config.json").read_text())
         assert config == {
             "foo": 1,
             "bar": "bar",
-            "baz": 1.0,
             "custom": {"value": "custom"},
-            "optional_custom_1": {"value": "optional"},
-            "optional_custom_2": None,
             "custom_default": {"value": "default"},
         }
 
         model_reloaded = DummyModelWithCustomTypes.from_pretrained(self.cache_dir)
         assert model_reloaded.foo == 1
         assert model_reloaded.bar == "bar"
-        assert model_reloaded.baz == 1.0
         assert model_reloaded.custom.value == "custom"
-        assert model_reloaded.optional_custom_1 is not None and model_reloaded.optional_custom_1.value == "optional"
-        assert model_reloaded.optional_custom_2 is None
         assert model_reloaded.custom_default.value == "default"
-
-    def test_inherited_class(self):
-        """Test MixinInfo attributes are inherited from the parent class."""
-        model = DummyModelInherited()
-        assert model._hub_mixin_info.repo_url == "https://hf.co/my-repo"
-        assert model._hub_mixin_info.paper_url == "https://arxiv.org/abs/2304.12244"
-        assert model._hub_mixin_info.model_card_data.library_name == "my-cool-library"
-
-    def test_autocomplete_works_as_expected(self):
-        """Regression test for #2694.
-
-        Ensure that autocomplete works as expected when inheriting from `ModelHubMixin`.
-
-        See https://github.com/huggingface/huggingface_hub/issues/2694.
-        """
-        source = """
-from huggingface_hub import ModelHubMixin
-
-class Dummy(ModelHubMixin):
-    def dummy_example_for_test(self, x: str) -> str:
-        return x
-
-a = Dummy()
-a.dum""".strip()
-        script = jedi.Script(source, path="example.py")
-        source_lines = source.split("\n")
-        completions = script.complete(len(source_lines), len(source_lines[-1]))
-        assert any(completion.name == "dummy_example_for_test" for completion in completions)
-
-    def test_get_type_hints_works_as_expected(self):
-        """
-        Ensure that `typing.get_type_hints` works as expected when inheriting from `ModelHubMixin`.
-
-        See https://github.com/huggingface/huggingface_hub/issues/2727.
-        """
-
-        class ModelWithHints(ModelHubMixin):
-            def method_with_hints(self, x: int) -> str:
-                return str(x)
-
-        assert get_type_hints(ModelWithHints) != {}
-
-        # Test method type hints on class
-        hints = get_type_hints(ModelWithHints.method_with_hints)
-        assert hints == {"x": int, "return": str}
-
-        # Test method type hints on instance
-        model = ModelWithHints()
-        assert get_type_hints(model.method_with_hints) == {"x": int, "return": str}
-
-    def test_with_dataclass_inputs(self):
-        model = DummyWithDataclassInputs(
-            arg1=DummyDataclass(foo=1, bar="1"),
-            arg2=DummyDataclass(foo=2, bar="2"),
-        )
-        model.save_pretrained(self.cache_dir)
-
-        config = json.loads((self.cache_dir / "config.json").read_text())
-        assert config == {
-            "arg1": {"foo": 1, "bar": "1"},
-            "arg2": {"foo": 2, "bar": "2"},
-        }
-
-        model_reloaded = DummyWithDataclassInputs.from_pretrained(self.cache_dir)
-        assert model_reloaded.arg1.foo == 1
-        assert model_reloaded.arg1.bar == "1"
-        assert model_reloaded.arg2.foo == 2
-        assert model_reloaded.arg2.bar == "2"

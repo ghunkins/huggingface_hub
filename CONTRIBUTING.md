@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# How to contribute to huggingface_hub, the GitHub repository?
+# How to contribute to old_huggingface_hub, the GitHub repository?
 
 Everyone is welcome to contribute, and we value everybody's contribution. Code is not the only way to help the community.
 Answering questions, helping others, reaching out and improving the documentations are immensely valuable to the community.
@@ -24,16 +24,16 @@ on the awesome projects it made possible, shout out on Twitter every time it has
 helped you, or simply star the repo to say "thank you".
 
 Whichever way you choose to contribute, please be mindful to respect our
-[code of conduct](https://github.com/huggingface/huggingface_hub/blob/main/CODE_OF_CONDUCT.md).
+[code of conduct](https://github.com/huggingface/old_huggingface_hub/blob/main/CODE_OF_CONDUCT.md).
 
 > Looking for a good first issue to work on?
-> Please check out our contributing guide below and then select an issue from our [curated list](https://github.com/huggingface/huggingface_hub/contribute).
+> Please check out our contributing guide below and then select an issue from our [curated list](https://github.com/huggingface/old_huggingface_hub/contribute).
 > Pick one and get started with it!
 
-### The client library, `huggingface_hub`
+### The client library, `old_huggingface_hub`
 
-This repository hosts the `huggingface_hub`, the client library that interfaces any Python script with the Hugging Face Hub.
-Its implementation lives in `src/huggingface_hub`, while the tests are located in `tests/`.
+This repository hosts the `old_huggingface_hub`, the client library that interfaces any Python script with the Hugging Face Hub.
+Its implementation lives in `src/old_huggingface_hub`, while the tests are located in `tests/`.
 
 There are many ways you can contribute to this client library:
 
@@ -49,7 +49,7 @@ feedback.
 
 ### Did you find a bug?
 
-The `huggingface_hub` library is robust and reliable thanks to the users who notify us of
+The `old_huggingface_hub` library is robust and reliable thanks to the users who notify us of
 the problems they encounter. So thank you for reporting an issue.
 
 First, we would really appreciate it if you could **make sure the bug was not
@@ -88,13 +88,13 @@ issues to make sure that nobody is already working on the same thing. If you are
 unsure, it is always a good idea to open an issue to get some feedback.
 
 You will need basic `git` proficiency to be able to contribute to
-`huggingface_hub`. `git` is not the easiest tool to use but it has the greatest
+`old_huggingface_hub`. `git` is not the easiest tool to use but it has the greatest
 manual. Type `git --help` in a shell and enjoy. If you prefer books, [Pro
 Git](https://git-scm.com/book/en/v2) is a very good reference.
 
 Follow these steps to start contributing:
 
-1. Fork the [repository](https://github.com/huggingface/huggingface_hub) by
+1. Fork the [repository](https://github.com/huggingface/old_huggingface_hub) by
    clicking on the 'Fork' button on the repository's page. This creates a copy of the code
    under your GitHub user account.
 
@@ -103,9 +103,9 @@ Follow these steps to start contributing:
    [information](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 
    ```bash
-   $ git clone git@github.com:<your Github handle>/huggingface_hub.git
-   $ cd huggingface_hub
-   $ git remote add upstream https://github.com/huggingface/huggingface_hub.git
+   $ git clone git@github.com:<your Github handle>/old_huggingface_hub.git
+   $ cd old_huggingface_hub
+   $ git remote add upstream https://github.com/huggingface/old_huggingface_hub.git
    ```
 
 3. Create a new branch to hold your development changes, and do this for every new PR you work on.
@@ -129,7 +129,7 @@ Follow these steps to start contributing:
 4. Set up a development environment by running the following command in a [virtual environment](https://docs.python.org/3/library/venv.html#creating-virtual-environments) or a conda environment you've created for working on this library:
 
    ```bash
-   $ pip uninstall huggingface_hub # make sure huggingface_hub is not already installed
+   $ pip uninstall old_huggingface_hub # make sure old_huggingface_hub is not already installed
    $ pip install -e ".[dev]" # install in editable (-e) mode
    ```
 
@@ -148,14 +148,14 @@ Follow these steps to start contributing:
 
 7. Format your code.
 
-   `huggingface_hub` relies on [`ruff`](https://github.com/astral-sh/ruff) to format its source code consistently. You
+   `hugginface_hub` relies on [`ruff`](https://github.com/astral-sh/ruff) to format its source code consistently. You
    can apply automatic style corrections and code verifications with the following command:
 
    ```bash
    $ make style
    ```
 
-   This command will update your code to comply with the standards of the `huggingface_hub` repository. A few custom
+   This command will update your code to comply with the standards of the `old_huggingface_hub` repository. A few custom
    scripts are also run to ensure consistency. Once automatic style corrections have been applied, you must test that
    it passes the quality checks:
 
@@ -214,7 +214,7 @@ Follow these steps to start contributing:
    $ git push -u origin a-descriptive-name-for-my-changes
    ```
 
-10. Once you are satisfied (**and the [checklist below](https://github.com/huggingface/huggingface_hub/blob/main/CONTRIBUTING.md#checklist)
+10. Once you are satisfied (**and the [checklist below](https://github.com/huggingface/old_huggingface_hub/blob/main/CONTRIBUTING.md#checklist)
     is happy too**), go to the webpage of your fork on GitHub. Click on 'Pull request' to send your changes to the project maintainers for review.
 
 11. It's ok if maintainers ask you for changes. It happens all the time to core contributors
@@ -245,7 +245,7 @@ Follow these steps to start contributing:
 ### Tests
 
 An extensive test suite is included to test the library behavior and several examples. Library tests can be found in
-the [tests folder](https://github.com/huggingface/huggingface_hub/tree/main/tests).
+the [tests folder](https://github.com/huggingface/old_huggingface_hub/tree/main/tests).
 
 We use `pytest` in order to run the tests for the library.
 From the root of the repository they can be run with the following:

@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -6,7 +6,7 @@ rendered properly in your Markdown viewer.
 
 In diesem Leitfaden werden wir sehen, wie man den Laufzeitbereich eines Space
 ([Geheimnisse (Secrets)](https://huggingface.co/docs/hub/spaces-overview#managing-secrets),
-[Hardware](https://huggingface.co/docs/hub/spaces-gpus) und Speicher (Storage)) mit `huggingface_hub` verwaltet.
+[Hardware](https://huggingface.co/docs/hub/spaces-gpus) und Speicher (Storage)) mit `old_huggingface_hub` verwaltet.
 
 ## Ein einfaches Beispiel: Konfigurieren von Geheimnissen und Hardware
 
@@ -15,7 +15,7 @@ Hier ist ein End-to-End-Beispiel, um einen Space auf dem Hub zu erstellen und ei
 **1. Einen Space auf dem Hub erstellen.**
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> repo_id = "Wauplin/my-cool-training-space"
 >>> api = HfApi()
 
@@ -99,7 +99,7 @@ Space zu aktualisieren. Siehe [Dokumentation](https://huggingface.co/docs/hub/sp
 
 ```py
 # Verwenden von `SpaceHardware` Enum
->>> from huggingface_hub import SpaceHardware
+>>> from old_huggingface_hub import SpaceHardware
 >>> api.request_space_hardware(repo_id=repo_id, hardware=SpaceHardware.T4_MEDIUM)
 
 # Oder einfach einen String-Wert angeben
@@ -207,7 +207,7 @@ Aufgewertete Hardware wird Ihrem Space automatisch zugewiesen, sobald er erstell
 Sie können den Speicher-Tier Ihrer Wahl auswählen, um auf Festplattenspeicher zuzugreifen, der Neustarts Ihres Space überdauert. Dies bedeutet, dass Sie von der Festplatte lesen und darauf schreiben können, wie Sie es von einer herkömmlichen Festplatte gewöhnt sind. Weitere Informationen finden Sie in der [Dokumentation](https://huggingface.co/docs/hub/spaces-storage#persistent-storage) .
 
 ```py
->>> from huggingface_hub import SpaceStorage
+>>> from old_huggingface_hub import SpaceStorage
 >>> api.request_space_storage(repo_id=repo_id, storage=SpaceStorage.LARGE)
 ```
 
@@ -280,7 +280,7 @@ HF_TOKEN = os.environ.get("HF_TOKEN")
 # Eigene repo_id des Space
 TRAINING_SPACE_ID = "Wauplin/dreambooth-training"
 
-from huggingface_hub import HfApi, SpaceHardware
+from old_huggingface_hub import HfApi, SpaceHardware
 api = HfApi(token=HF_TOKEN)
 
 # Beim Start des Space überprüfen, ob eine Aufgabe geplant ist. Wenn ja, finetunen Sie das Modell.

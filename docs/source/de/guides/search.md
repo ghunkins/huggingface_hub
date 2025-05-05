@@ -1,18 +1,18 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Den Hub durchsuchen
 
-In diesem Tutorial lernen Sie, wie Sie Modelle, Datensätze und Spaces auf dem Hub mit `huggingface_hub` durchsuchen können.
+In diesem Tutorial lernen Sie, wie Sie Modelle, Datensätze und Spaces auf dem Hub mit `old_huggingface_hub` durchsuchen können.
 
 ## Wie listet man Repositories auf?
 
-Die `huggingface_hub`-Bibliothek enthält einen HTTP-Client [`HfApi`], um mit dem Hub zu interagieren.
+Die `old_huggingface_hub`-Bibliothek enthält einen HTTP-Client [`HfApi`], um mit dem Hub zu interagieren.
 Unter anderem kann er Modelle, Datensätze und Spaces auflisten, die auf dem Hub gespeichert sind:
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> models = api.list_models()
 ```

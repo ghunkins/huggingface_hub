@@ -1,4 +1,4 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
@@ -29,7 +29,7 @@ Hub에 리포지토리를 생성하고 관리하려면, 로그인이 되어 있�
 [`create_repo`] 함수로 함께 빈 리포지토리를 만들고 `repo_id` 매개변수를 사용하여 이름을 정하세요. `repo_id`는 사용자 이름 또는 조직 이름 뒤에 리포지토리 이름이 따라옵니다: `username_or_org/repo_name`.
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-model")
 'https://huggingface.co/lysandre/test-model'
 ```
@@ -37,7 +37,7 @@ Hub에 리포지토리를 생성하고 관리하려면, 로그인이 되어 있�
 기본적으로 [`create_repo`]는 모델 리포지토리를 만듭니다. 하지만 `repo_type` 매개변수를 사용하여 다른 유형의 리포지토리를 지정할 수 있습니다. 예를 들어 데이터셋 리포지토리를 만들고 싶다면:
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-dataset", repo_type="dataset")
 'https://huggingface.co/datasets/lysandre/test-dataset'
 ```
@@ -45,11 +45,11 @@ Hub에 리포지토리를 생성하고 관리하려면, 로그인이 되어 있�
 리포지토리를 만들 때, `private` 매개변수를 사용하여 가시성을 설정할 수 있습니다.
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-private", private=True)
 ```
 
-추후 리포지토리 가시성을 변경하고 싶다면, [`update_repo_settings`] 함수를 이용해 바꿀 수 있습니다.
+추후 리포지토리 가시성을 변경하고 싶다면, [`update_repo_visibility`] 함수를 이용해 바꿀 수 있습니다.
 
 ### 리포지토리 삭제[[delete-a-repository]]
 
@@ -66,7 +66,7 @@ Hub에 리포지토리를 생성하고 관리하려면, 로그인이 되어 있�
 가끔 다른 누군가의 리포지토리를 복사하여, 상황에 맞게 수정하고 싶을 때가 있습니다. 이는 [`duplicate_space`]를 사용하여 Space에 복사할 수 있습니다. 이 함수를 사용하면 리포지토리 전체를 복제할 수 있습니다. 그러나 여전히 하드웨어, 절전 시간, 리포지토리, 변수 및 비밀번호와 같은 자체 설정을 구성해야 합니다. 자세한 내용은 [Manage your Space](./manage-spaces) 문서를 참조하십시오.
 
 ```py
->>> from huggingface_hub import duplicate_space
+>>> from old_huggingface_hub import duplicate_space
 >>> duplicate_space("multimodalart/dreambooth-training", private=False)
 RepoUrl('https://huggingface.co/spaces/nateraw/dreambooth-training',...)
 ```
@@ -87,7 +87,7 @@ Git 리포지토리는 동일한 리포지토리의 다른 버전을 저장하�
 [`create_branch`]와 [`create_tag`]를 이용하여 새로운 브랜치와 태그를 생성할 수 있습니다.
 
 ```py
->>> from huggingface_hub import create_branch, create_tag
+>>> from old_huggingface_hub import create_branch, create_tag
 
 # `main` 브랜치를 기반으로 Space 저장소에 새 브랜치를 생성합니다.
 >>> create_branch("Matthijs/speecht5-tts-demo", repo_type="space", branch="handle-dog-speaker")
@@ -103,7 +103,7 @@ Git 리포지토리는 동일한 리포지토리의 다른 버전을 저장하�
 [`list_repo_refs`]를 사용하여 리포지토리로부터 현재 존재하는 git 참조를 나열할 수 있습니다:
 
 ```py
->>> from huggingface_hub import list_repo_refs
+>>> from old_huggingface_hub import list_repo_refs
 >>> list_repo_refs("bigcode/the-stack", repo_type="dataset")
 GitRefs(
    branches=[
@@ -119,7 +119,7 @@ GitRefs(
 
 ## 리포지토리 설정 변경[[change-repository-settings]]
 
-리포지토리는 구성할 수 있는 몇 가지 설정이 있습니다. 대부분의 경우 브라우저의 리포지토리 설정 페이지에서 직접 설정할 것입니다. 설정을 바꾸려면 리포지토리에 대한 쓰기 액세스 권한이 있어야 합니다(사용자 리포지토리거나, 조직의 구성원이어야 함). 이 주제에서는 `huggingface_hub`를 사용하여 프로그래밍 방식으로 구성할 수 있는 설정을 알아보겠습니다.
+리포지토리는 구성할 수 있는 몇 가지 설정이 있습니다. 대부분의 경우 브라우저의 리포지토리 설정 페이지에서 직접 설정할 것입니다. 설정을 바꾸려면 리포지토리에 대한 쓰기 액세스 권한이 있어야 합니다(사용자 리포지토리거나, 조직의 구성원이어야 함). 이 주제에서는 `old_huggingface_hub`를 사용하여 프로그래밍 방식으로 구성할 수 있는 설정을 알아보겠습니다.
 
 Spaces를 위한 특정 설정들(하드웨어, 환경변수 등)을 구성하기 위해서는 [Manage your Spaces](../guides/manage-spaces) 문서를 참조하세요.
 
@@ -128,8 +128,8 @@ Spaces를 위한 특정 설정들(하드웨어, 환경변수 등)을 구성하�
 리포지토리는 공개 또는 비공개로 설정할 수 있습니다. 비공개 리포지토리는 해당 저장소의 사용자 혹은 소속된 조직의 구성원만 볼 수 있습니다. 다음과 같이 리포지토리를 비공개로 변경할 수 있습니다.
 
 ```py
->>> from huggingface_hub import update_repo_settings
->>> update_repo_settings(repo_id=repo_id, private=True)
+>>> from old_huggingface_hub import update_repo_visibility
+>>> update_repo_visibility(repo_id=repo_id, private=True)
 ```
 
 ### 리포지토리 이름 변경[[rename-your-repository]]
@@ -137,7 +137,7 @@ Spaces를 위한 특정 설정들(하드웨어, 환경변수 등)을 구성하�
 [`move_repo`]를 사용하여 Hub에 있는 리포지토리 이름을 변경할 수 있습니다. 이 함수를 사용하여 개인에서 조직 리포지토리로 이동할 수도 있습니다. 이렇게 하면 [일부 제한 사항](https://hf.co/docs/hub/repositories-settings#renaming-or-transferring-a-repo)이 있으므로 주의해야 합니다. 예를 들어, 다른 사용자에게 리포지토리를 이전할 수는 없습니다.
 
 ```py
->>> from huggingface_hub import move_repo
+>>> from old_huggingface_hub import move_repo
 >>> move_repo(from_id="Wauplin/cool-model", to_id="huggingface/cool-model")
 ```
 
@@ -158,7 +158,7 @@ Spaces를 위한 특정 설정들(하드웨어, 환경변수 등)을 구성하�
 로컬 리포지토리 경로를 사용하여 [`Repository`] 객체를 생성하세요:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="<path>/<to>/<folder>")
 ```
 
@@ -167,14 +167,14 @@ Spaces를 위한 특정 설정들(하드웨어, 환경변수 등)을 구성하�
 `clone_from` 매개변수는 Hugging Face 리포지토리 ID에서 로컬 디렉터리로 리포지토리를 복제합니다. 이때 `local_dir` 매개변수를 사용하여 로컬 디렉터리에 저장합니다:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="w2v2", clone_from="facebook/wav2vec2-large-960h-lv60")
 ```
 
 `clone_from`은 URL을 사용해 리포지토리를 복제할 수 있습니다.
 
 ```py
->>> repo = Repository(local_dir="huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
 ```
 
 `clone_from` 매개변수를 [`create_repo`]와 결합하여 리포지토리를 만들고 복제할 수 있습니다.
@@ -202,8 +202,8 @@ Spaces를 위한 특정 설정들(하드웨어, 환경변수 등)을 구성하�
 브랜치는 현재 코드와 파일에 영향을 미치지 않으면서 협업과 실험에 중요합니다.[`~Repository.git_checkout`]을 사용하여 브랜치 간에 전환할 수 있습니다. 예를 들어, `branch1`에서 `branch2`로 전환하려면:
 
 ```py
->>> from huggingface_hub import Repository
->>> repo = Repository(local_dir="huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
+>>> from old_huggingface_hub import Repository
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
 >>> repo.git_checkout("branch2")
 ```
 
@@ -212,7 +212,7 @@ Spaces를 위한 특정 설정들(하드웨어, 환경변수 등)을 구성하�
 [`~Repository.git_pull`]은 원격 리포지토리로부터의 변경사항을 현재 로컬 브랜치에 업데이트하게 합니다.
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo.git_pull()
 ```
 

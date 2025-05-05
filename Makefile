@@ -10,9 +10,7 @@ quality:
 	python utils/check_inference_input_params.py
 	python utils/check_contrib_list.py
 	python utils/check_static_imports.py
-	python utils/check_all_variable.py
 	python utils/generate_async_inference_client.py
-
 	mypy src
 
 style:
@@ -20,17 +18,13 @@ style:
 	ruff check --fix $(check_dirs) # linter
 	python utils/check_contrib_list.py --update
 	python utils/check_static_imports.py --update
-	python utils/check_all_variable.py --update
 	python utils/generate_async_inference_client.py --update
 
-inference_check:
+inference_types_check:
 	python utils/generate_inference_types.py
-	python utils/check_task_parameters.py
 
-inference_update:
+inference_types_update:
 	python utils/generate_inference_types.py --update
-	python utils/check_task_parameters.py --update
-
 
 repocard:
 	python utils/push_repocard_examples.py
@@ -63,7 +57,7 @@ contrib_clear_%:
 contrib_setup_%:
 	python3 -m venv contrib/$*/.venv
 	./contrib/$*/.venv/bin/pip install -r contrib/$*/requirements.txt
-	./contrib/$*/.venv/bin/pip uninstall -y huggingface_hub
+	./contrib/$*/.venv/bin/pip uninstall -y old_huggingface_hub
 	./contrib/$*/.venv/bin/pip install -e .[testing]
 
 contrib_test_%:

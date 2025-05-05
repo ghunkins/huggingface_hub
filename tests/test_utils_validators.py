@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-from huggingface_hub.utils import (
+from old_huggingface_hub.utils import (
     HFValidationError,
     smoothly_deprecate_use_auth_token,
     validate_hf_hub_args,
@@ -10,7 +10,7 @@ from huggingface_hub.utils import (
 )
 
 
-@patch("huggingface_hub.utils._validators.validate_repo_id")
+@patch("old_huggingface_hub.utils._validators.validate_repo_id")
 class TestHfHubValidator(unittest.TestCase):
     """Test `validate_hf_hub_args` decorator calls all default validators."""
 

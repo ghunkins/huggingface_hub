@@ -3,7 +3,7 @@ import time
 import pytest
 from sentence_transformers import SentenceTransformer, util
 
-from huggingface_hub import model_info
+from old_huggingface_hub import model_info
 
 from ..utils import production_endpoint
 

@@ -1,10 +1,10 @@
-<!--⚠️ Note that this file is in Markdown but contains specific syntax for our doc-builder (similar to MDX) that may not be
+<!--⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
 rendered properly in your Markdown viewer.
 -->
 
 # Download files from the Hub
 
-The `huggingface_hub` library provides functions to download files from the repositories
+The `old_huggingface_hub` library provides functions to download files from the repositories
 stored on the Hub. You can use these functions independently or integrate them into your
 own library, making it more convenient for your users to interact with the Hub. This
 guide will show you how to:
@@ -32,7 +32,7 @@ Select the file to download using the `repo_id`, `repo_type` and `filename` para
 be considered as being part of a `model` repo.
 
 ```python
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(repo_id="lysandre/arxiv-nlp", filename="config.json")
 '/root/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade/config.json'
 
@@ -76,7 +76,7 @@ means all downloaded files are also cached on your local disk. Downloads are mad
 To download a whole repository, just pass the `repo_id` and `repo_type`:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp")
 '/home/lysandre/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade'
 
@@ -89,7 +89,7 @@ To download a whole repository, just pass the `repo_id` and `repo_type`:
 `revision` parameter:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", revision="refs/pr/1")
 ```
 
@@ -106,7 +106,7 @@ based on [`fnmatch`](https://docs.python.org/3/library/fnmatch.html).
 For example, you can use `allow_patterns` to only download JSON configuration files:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", allow_patterns="*.json")
 ```
 
@@ -114,7 +114,7 @@ On the other hand, `ignore_patterns` can exclude certain files from being downlo
 following example ignores the `.msgpack` and `.h5` file extensions:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", ignore_patterns=["*.msgpack", "*.h5"])
 ```
 
@@ -122,7 +122,7 @@ Finally, you can combine both to precisely filter your download. Here is an exam
 files except `vocab.json`.
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="gpt2", allow_patterns=["*.md", "*.json"], ignore_patterns="vocab.json")
 ```
 
@@ -132,13 +132,13 @@ By default, we recommend using the [cache system](./manage-cache) to download fi
 
 However, if you need to download files to a specific folder, you can pass a `local_dir` parameter to the download function. This is useful to get a workflow closer to what the `git` command offers. The downloaded files will maintain their original file structure within the specified folder. For example, if `filename="data/train.csv"` and `local_dir="path/to/folder"`, the resulting filepath will be `"path/to/folder/data/train.csv"`.
 
-A `.cache/huggingface/` folder is created at the root of your local directory containing metadata about the downloaded files. This prevents re-downloading files if they're already up-to-date. If the metadata has changed, then the new file version is downloaded. This makes the `local_dir` optimized for pulling only the latest changes.
+A `./huggingface/` folder is created at the root of your local directory containing metadata about the downloaded files. This prevents re-downloading files if they're already up-to-date. If the metadata has changed, then the new file version is downloaded. This makes the `local_dir` optimized for pulling only the latest changes.
 
-After completing the download, you can safely remove the `.cache/huggingface/` folder if you no longer need it. However, be aware that re-running your script without this folder may result in longer recovery times, as metadata will be lost. Rest assured that your local data will remain intact and unaffected.
+After completing the download, you can safely remove the `.huggingface/` folder if you no longer need it. However, be aware that re-running your script without this folder may result in longer recovery times, as metadata will be lost. Rest assured that your local data will remain intact and unaffected.
 
 <Tip>
 
-Don't worry about the `.cache/huggingface/` folder when committing changes to the Hub! This folder is automatically ignored by both `git` and [`upload_folder`].
+Don't worry about the `.huggingface/` folder when committing changes to the Hub! This folder is automatically ignored by both `git` and [`upload_folder`].
 
 </Tip>
 
@@ -166,37 +166,13 @@ For more details about the CLI download command, please refer to the [CLI guide]
 
 ## Faster downloads
 
-There are two options to speed up downloads. Both involve installing a Python package written in Rust.
-
-* `hf_xet` is newer and uses the Xet storage backend for upload/download. It is available in production, but is in the process of being rolled out to all users, so join the [waitlist](https://huggingface.co/join/xet) to get onboarded soon!
-* `hf_transfer` is a power-tool to download and upload to our LFS storage backend (note: this is less future-proof than Xet). It is thoroughly tested and has been in production for a long time, but it has some limitations. 
-
-### hf_xet
-
-Take advantage of faster downloads through `hf_xet`, the Python binding to the [`xet-core`](https://github.com/huggingface/xet-core) library that enables 
-chunk-based deduplication for faster downloads and uploads. `hf_xet` integrates seamlessly with `huggingface_hub`, but uses the Rust `xet-core` library and Xet storage instead of LFS.
-
-`hf_xet` uses the Xet storage system, which breaks files down into immutable chunks, storing collections of these chunks (called blocks or xorbs) remotely and retrieving them to reassemble the file when requested. When downloading, after confirming the user is authorized to access the files, `hf_xet` will query the Xet content-addressable service (CAS) with the LFS SHA256 hash for this file to receive the reconstruction metadata (ranges within xorbs) to assemble these files, along with presigned URLs to download the xorbs directly. Then `hf_xet` will efficiently download the xorb ranges necessary and will write out the files on disk. `hf_xet` uses a local disk cache to only download chunks once, learn more in the [Chunk-based caching(Xet)](./manage-cache#chunk-based-caching-xet) section.
-
-To enable it, specify the `hf_xet` package when installing `huggingface_hub`:
-
-```bash
-pip install -U "huggingface_hub[hf_xet]"
-```
-
-Note: `hf_xet` will only be utilized when the files being downloaded are being stored with Xet Storage.
-
-All other `huggingface_hub` APIs will continue to work without any modification. To learn more about the benefits of Xet storage and `hf_xet`, refer to this [section](https://huggingface.co/docs/hub/storage-backends).
-
-### hf_transfer
-
 If you are running on a machine with high bandwidth,
 you can increase your download speed with [`hf_transfer`](https://github.com/huggingface/hf_transfer),
 a Rust-based library developed to speed up file transfers with the Hub.
 To enable it:
 
-1. Specify the `hf_transfer` extra when installing `huggingface_hub`
-   (e.g. `pip install huggingface_hub[hf_transfer]`).
+1. Specify the `hf_transfer` extra when installing `old_huggingface_hub`
+   (e.g. `pip install old_huggingface_hub[hf_transfer]`).
 2. Set `HF_HUB_ENABLE_HF_TRANSFER=1` as an environment variable.
 
 <Tip warning={true}>
@@ -204,6 +180,6 @@ To enable it:
 `hf_transfer` is a power user tool!
 It is tested and production-ready,
 but it lacks user-friendly features like advanced error handling or proxies.
-For more details, please take a look at this [section](https://huggingface.co/docs/huggingface_hub/hf_transfer).
+For more details, please take a look at this [section](https://huggingface.co/docs/old_huggingface_hub/hf_transfer).
 
 </Tip>

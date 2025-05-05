@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, List, Optional, Union
 
-from huggingface_hub.utils import DEFAULT_IGNORE_PATTERNS, filter_repo_objects
+from old_huggingface_hub.utils import DEFAULT_IGNORE_PATTERNS, filter_repo_objects
 
 
 @dataclass
@@ -81,20 +81,6 @@ class TestPathsUtils(unittest.TestCase):
                 )
             )
 
-    def test_filter_object_with_folder(self) -> None:
-        self._check(
-            items=[
-                "file.txt",
-                "lfs.bin",
-                "path/to/file.txt",
-                "path/to/lfs.bin",
-                "nested/path/to/file.txt",
-                "nested/path/to/lfs.bin",
-            ],
-            expected_items=["path/to/file.txt", "path/to/lfs.bin"],
-            allow_patterns=["path/to/"],
-        )
-
     def _check(
         self,
         items: List[Any],
@@ -125,11 +111,11 @@ class TestDefaultIgnorePatterns(unittest.TestCase):
         "path/to/folder/.git",
         "path/to/folder/.git/file.txt",
         "path/to/.git/folder/file.txt",
-        ".cache/huggingface",
-        ".cache/huggingface/file.txt",
-        ".cache/huggingface/folder/file.txt",
-        "path/to/.cache/huggingface",
-        "path/to/.cache/huggingface/file.txt",
+        ".huggingface",
+        ".huggingface/file.txt",
+        ".huggingface/folder/file.txt",
+        "path/to/.huggingface",
+        "path/to/.huggingface/file.txt",
     ]
 
     VALID_PATHS = [
@@ -139,8 +125,8 @@ class TestDefaultIgnorePatterns(unittest.TestCase):
         "path/to/file.git",
         "file.huggingface",
         "path/file.huggingface",
-        ".cache/huggingface_folder",
-        ".cache/huggingface_folder/file.txt",
+        ".huggingface_folder",
+        ".huggingface_folder/file.txt",
     ]
 
     def test_exclude_git_folder(self):

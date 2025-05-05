@@ -5,10 +5,10 @@ from unittest.mock import patch
 
 @contextlib.contextmanager
 def production_endpoint() -> Generator:
-    """Patch huggingface_hub to connect to production server in a context manager.
+    """Patch old_huggingface_hub to connect to production server in a context manager.
 
     Ugly way to patch all constants at once.
-    TODO: refactor when https://github.com/huggingface/huggingface_hub/issues/1172 is fixed.
+    TODO: refactor when https://github.com/huggingface/old_huggingface_hub/issues/1172 is fixed.
 
     Example:
     ```py
@@ -23,21 +23,21 @@ def production_endpoint() -> Generator:
     """
     PROD_ENDPOINT = "https://huggingface.co"
     ENDPOINT_TARGETS = [
-        "huggingface_hub.constants",
-        "huggingface_hub._commit_api",
-        "huggingface_hub.hf_api",
-        "huggingface_hub.lfs",
-        "huggingface_hub.commands.user",
-        "huggingface_hub.utils._git_credential",
+        "old_huggingface_hub.constants",
+        "old_huggingface_hub._commit_api",
+        "old_huggingface_hub.hf_api",
+        "old_huggingface_hub.lfs",
+        "old_huggingface_hub.commands.user",
+        "old_huggingface_hub.utils._git_credential",
     ]
 
     PROD_URL_TEMPLATE = PROD_ENDPOINT + "/{repo_id}/resolve/{revision}/{filename}"
     URL_TEMPLATE_TARGETS = [
-        "huggingface_hub.constants",
-        "huggingface_hub.file_download",
+        "old_huggingface_hub.constants",
+        "old_huggingface_hub.file_download",
     ]
 
-    from huggingface_hub.hf_api import api
+    from old_huggingface_hub.hf_api import api
 
     patchers = (
         [patch(target + ".ENDPOINT", PROD_ENDPOINT) for target in ENDPOINT_TARGETS]

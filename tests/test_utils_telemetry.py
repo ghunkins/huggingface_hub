@@ -2,19 +2,19 @@ import unittest
 from queue import Queue
 from unittest.mock import Mock, patch
 
-from huggingface_hub.utils._telemetry import send_telemetry
+from old_huggingface_hub.utils._telemetry import send_telemetry
 
 from .testing_constants import ENDPOINT_STAGING
 
 
-@patch("huggingface_hub.utils._telemetry._TELEMETRY_QUEUE", new_callable=Queue)
-@patch("huggingface_hub.utils._telemetry._TELEMETRY_THREAD", None)
+@patch("old_huggingface_hub.utils._telemetry._TELEMETRY_QUEUE", new_callable=Queue)
+@patch("old_huggingface_hub.utils._telemetry._TELEMETRY_THREAD", None)
 class TestSendTelemetry(unittest.TestCase):
     def setUp(self) -> None:
         get_session_mock = Mock()
         self.mock_head = get_session_mock().head
 
-        self.patcher = patch("huggingface_hub.utils._telemetry.get_session", get_session_mock)
+        self.patcher = patch("old_huggingface_hub.utils._telemetry.get_session", get_session_mock)
         self.patcher.start()
 
     def tearDown(self) -> None:
@@ -49,19 +49,19 @@ class TestSendTelemetry(unittest.TestCase):
         self.mock_head.assert_called_once()
         self.assertEqual(self.mock_head.call_args[0][0], f"{ENDPOINT_STAGING}/api/telemetry/foo%20bar")
 
-    @patch("huggingface_hub.utils._telemetry.constants.HF_HUB_OFFLINE", True)
+    @patch("old_huggingface_hub.utils._telemetry.constants.HF_HUB_OFFLINE", True)
     def test_hub_offline(self, queue: Queue) -> None:
         send_telemetry(topic="topic")
         self.assertTrue(queue.empty())  # no tasks
         self.mock_head.assert_not_called()
 
-    @patch("huggingface_hub.utils._telemetry.constants.HF_HUB_DISABLE_TELEMETRY", True)
+    @patch("old_huggingface_hub.utils._telemetry.constants.HF_HUB_DISABLE_TELEMETRY", True)
     def test_telemetry_disabled(self, queue: Queue) -> None:
         send_telemetry(topic="topic")
         self.assertTrue(queue.empty())  # no tasks
         self.mock_head.assert_not_called()
 
-    @patch("huggingface_hub.utils._telemetry.build_hf_headers")
+    @patch("old_huggingface_hub.utils._telemetry.build_hf_headers")
     def test_telemetry_use_build_hf_headers(self, mock_headers: Mock, queue: Queue) -> None:
         send_telemetry(topic="topic")
         queue.join()  # Wait for the telemetry tasks to be completed
@@ -70,21 +70,21 @@ class TestSendTelemetry(unittest.TestCase):
         self.assertEqual(self.mock_head.call_args[1]["headers"], mock_headers.return_value)
 
 
-@patch("huggingface_hub.utils._telemetry._TELEMETRY_QUEUE", new_callable=Queue)
-@patch("huggingface_hub.utils._telemetry._TELEMETRY_THREAD", None)
+@patch("old_huggingface_hub.utils._telemetry._TELEMETRY_QUEUE", new_callable=Queue)
+@patch("old_huggingface_hub.utils._telemetry._TELEMETRY_THREAD", None)
 class TestSendTelemetryConnectionError(unittest.TestCase):
     def setUp(self) -> None:
         get_session_mock = Mock()
         get_session_mock().head.side_effect = Exception("whatever")
 
-        self.patcher = patch("huggingface_hub.utils._telemetry.get_session", get_session_mock)
+        self.patcher = patch("old_huggingface_hub.utils._telemetry.get_session", get_session_mock)
         self.patcher.start()
 
     def tearDown(self) -> None:
         self.patcher.stop()
 
     def test_telemetry_exception_silenced(self, queue: Queue) -> None:
-        with self.assertLogs(logger="huggingface_hub.utils._telemetry", level="DEBUG") as captured:
+        with self.assertLogs(logger="old_huggingface_hub.utils._telemetry", level="DEBUG") as captured:
             send_telemetry(topic="topic")
             queue.join()
 
@@ -92,5 +92,5 @@ class TestSendTelemetryConnectionError(unittest.TestCase):
         self.assertEqual(len(captured.output), 1)
         self.assertEqual(
             captured.output[0],
-            "DEBUG:huggingface_hub.utils._telemetry:Error while sending telemetry: whatever",
+            "DEBUG:old_huggingface_hub.utils._telemetry:Error while sending telemetry: whatever",
         )

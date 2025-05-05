@@ -9,9 +9,9 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from huggingface_hub import HfApi, hf_hub_download
-from huggingface_hub.hub_mixin import ModelHubMixin
-from huggingface_hub.utils import SoftTemporaryDirectory
+from old_huggingface_hub import HfApi, hf_hub_download
+from old_huggingface_hub.hub_mixin import ModelHubMixin
+from old_huggingface_hub.utils import SoftTemporaryDirectory
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN, USER
 from .testing_utils import repo_name
@@ -220,7 +220,7 @@ class HubMixinTest(unittest.TestCase):
         """
         Test that if `__init__` accepts **kwargs and config file doesn't exist then no 'config' kwargs is passed.
 
-        Regression test. See https://github.com/huggingface/huggingface_hub/pull/2058.
+        Regression test. See https://github.com/huggingface/old_huggingface_hub/pull/2058.
         """
         model = DummyModelWithKwargs()
         model.save_pretrained(self.cache_dir)
@@ -235,8 +235,8 @@ class HubMixinTest(unittest.TestCase):
         Test that if `config_inject_mode="as_kwargs"` and config file exists then the 'config' kwarg is passed.
 
         Regression test.
-        See https://github.com/huggingface/huggingface_hub/pull/2058.
-        And https://github.com/huggingface/huggingface_hub/pull/2099.
+        See https://github.com/huggingface/old_huggingface_hub/pull/2058.
+        And https://github.com/huggingface/old_huggingface_hub/pull/2099.
         """
         model = DummyModelFromPretrainedExpectsConfig()
         model.save_pretrained(self.cache_dir, config=CONFIG_AS_DICT)
@@ -289,7 +289,7 @@ class HubMixinTest(unittest.TestCase):
     @patch.object(DummyModelNoConfig, "_from_pretrained")
     def test_from_pretrained_model_id_and_revision(self, from_pretrained_mock: Mock) -> None:
         """Regression test for #1313.
-        See https://github.com/huggingface/huggingface_hub/issues/1313."""
+        See https://github.com/huggingface/old_huggingface_hub/issues/1313."""
         model = DummyModelNoConfig.from_pretrained("namespace/repo_name", revision="123456789")
         from_pretrained_mock.assert_called_once_with(
             model_id="namespace/repo_name",
@@ -356,7 +356,7 @@ class HubMixinTest(unittest.TestCase):
         self._api.delete_repo(repo_id=repo_id)
 
     def test_save_pretrained_do_not_overwrite_new_config(self):
-        """Regression test for https://github.com/huggingface/huggingface_hub/issues/2102.
+        """Regression test for https://github.com/huggingface/old_huggingface_hub/issues/2102.
 
         If `_from_pretrained` does save a config file, we should not overwrite it.
         """
@@ -367,7 +367,7 @@ class HubMixinTest(unittest.TestCase):
             assert json.load(f) == {"custom_config": "custom_config"}
 
     def test_save_pretrained_does_overwrite_legacy_config(self):
-        """Regression test for https://github.com/huggingface/huggingface_hub/issues/2142.
+        """Regression test for https://github.com/huggingface/old_huggingface_hub/issues/2142.
 
         If a previously existing config file exists, it should be overwritten.
         """
@@ -389,7 +389,7 @@ class HubMixinTest(unittest.TestCase):
         inspecting it. However, due to how dataclasses work, we cannot forward arbitrary kwargs to the `__init__`.
         This test ensures that the `from_pretrained` method does not raise an error when the class is a dataclass.
 
-        See https://github.com/huggingface/huggingface_hub/issues/2157.
+        See https://github.com/huggingface/old_huggingface_hub/issues/2157.
         """
         (self.cache_dir / "config.json").write_text('{"foo": 42, "bar": "baz", "other": "value"}')
         model = DummyModelThatIsAlsoADataclass.from_pretrained(self.cache_dir)

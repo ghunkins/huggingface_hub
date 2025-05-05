@@ -29,7 +29,7 @@ Der erste Schritt besteht darin, zu wissen, wie man Repositories erstellt und l�
 Erstellen Sie ein leeres Repository mit [`create_repo`] und geben Sie ihm mit dem Parameter `repo_id` einen Namen. Die `repo_id` ist Ihr Namensraum gefolgt vom Repository-Namen: `username_or_org/repo_name`.
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-model")
 'https://huggingface.co/lysandre/test-model'
 ```
@@ -37,7 +37,7 @@ Erstellen Sie ein leeres Repository mit [`create_repo`] und geben Sie ihm mit de
 Standardmäßig erstellt [`create_repo`] ein Modellrepository. Sie können jedoch den Parameter `repo_type` verwenden, um einen anderen Repository-Typ anzugeben. Wenn Sie beispielsweise ein Dataset-Repository erstellen möchten:
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-dataset", repo_type="dataset")
 'https://huggingface.co/datasets/lysandre/test-dataset'
 ```
@@ -45,7 +45,7 @@ Standardmäßig erstellt [`create_repo`] ein Modellrepository. Sie können jedoc
 Wenn Sie ein Repository erstellen, können Sie mit dem Parameter `private` die Sichtbarkeit Ihres Repositories festlegen.
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-private", private=True)
 ```
 
@@ -67,7 +67,7 @@ In einigen Fällen möchten Sie möglicherweise das Repo von jemand anderem kopi
 Sie müssen jedoch noch Ihre eigenen Einstellungen konfigurieren (Hardware, Schlafzeit, Speicher, Variablen und Geheimnisse). Weitere Informationen finden Sie in unserem Leitfaden [Verwalten Ihres Spaces](./manage-spaces).
 
 ```py
->>> from huggingface_hub import duplicate_space
+>>> from old_huggingface_hub import duplicate_space
 >>> duplicate_space("multimodalart/dreambooth-training", private=False)
 RepoUrl('https://huggingface.co/spaces/nateraw/dreambooth-training',...)
 ```
@@ -89,7 +89,7 @@ Allgemeiner gesagt, werden Branches und Tags als [git-Referenzen](https://git-sc
 Sie können neue Branches und Tags mit [`create_branch`] und [`create_tag`] erstellen:
 
 ```py
->>> from huggingface_hub import create_branch, create_tag
+>>> from old_huggingface_hub import create_branch, create_tag
 
 # Erstellen Sie einen Branch auf einem Space-Repo vom `main` Branch
 >>> create_branch("Matthijs/speecht5-tts-demo", repo_type="space", branch="handle-dog-speaker")
@@ -105,7 +105,7 @@ Sie können die Funktionen [`delete_branch`] und [`delete_tag`] auf die gleiche 
 Sie können auch die vorhandenen git-Referenzen von einem Repository mit [`list_repo_refs`] auflisten:
 
 ```py
->>> from huggingface_hub import list_repo_refs
+>>> from old_huggingface_hub import list_repo_refs
 >>> list_repo_refs("bigcode/the-stack", repo_type="dataset")
 GitRefs(
    branches=[
@@ -121,7 +121,7 @@ GitRefs(
 
 ## Repository-Einstellungen ändern
 
-Repositories verfügen über einige Einstellungen, die Sie konfigurieren können. Die meiste Zeit möchten Sie dies manuell auf der Repo-Einstellungsseite in Ihrem Browser tun. Sie müssen Schreibzugriff auf ein Repo haben, um es zu konfigurieren (entweder besitzen oder Teil einer Organisation sein). In diesem Abschnitt werden wir die Einstellungen sehen, die Sie auch programmgesteuert mit `huggingface_hub` konfigurieren können.
+Repositories verfügen über einige Einstellungen, die Sie konfigurieren können. Die meiste Zeit möchten Sie dies manuell auf der Repo-Einstellungsseite in Ihrem Browser tun. Sie müssen Schreibzugriff auf ein Repo haben, um es zu konfigurieren (entweder besitzen oder Teil einer Organisation sein). In diesem Abschnitt werden wir die Einstellungen sehen, die Sie auch programmgesteuert mit `old_huggingface_hub` konfigurieren können.
 
 Einige Einstellungen sind spezifisch für Spaces (Hardware, Umgebungsvariablen,...). Um diese zu konfigurieren, lesen Sie bitte unseren [Verwalten Ihres Spaces](../guides/manage-spaces) Leitfaden.
 
@@ -130,7 +130,7 @@ Einige Einstellungen sind spezifisch für Spaces (Hardware, Umgebungsvariablen,.
 Ein Repository kann öffentlich oder privat sein. Ein privates Repository ist nur für Sie oder die Mitglieder der Organisation sichtbar, in der das Repository sich befindet. Ändern Sie ein Repository wie im Folgenden gezeigt in ein privates:
 
 ```py
->>> from huggingface_hub import update_repo_visibility
+>>> from old_huggingface_hub import update_repo_visibility
 >>> update_repo_visibility(repo_id=repo_id, private=True)
 ```
 
@@ -139,7 +139,7 @@ Ein Repository kann öffentlich oder privat sein. Ein privates Repository ist nu
 Sie können Ihr Repository auf dem Hub mit [`move_repo] umbenennen. Mit dieser Methode können Sie das Repo auch von einem Benutzer zu einer Organisation verschieben. Dabei gibt es [einige Einschränkungen](https://hf.co/docs/hub/repositories-settings#renaming-or-transferring-a-repo), die Sie beachten sollten. Zum Beispiel können Sie Ihr Repo nicht an einen anderen Benutzer übertragen.
 
 ```py
->>> from huggingface_hub import move_repo
+>>> from old_huggingface_hub import move_repo
 >>> move_repo(from_id="Wauplin/cool-model", to_id="huggingface/cool-model")
 ```
 
@@ -154,7 +154,7 @@ Die [`Repository`] Klasse ermöglicht es Ihnen, mit Dateien und Repositories auf
 Instanziieren Sie ein [`Repository`] Objekt mit einem Pfad zu einem lokalen Repository:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="<path>/<to>/<folder>")
 ```
 
@@ -163,14 +163,14 @@ Instanziieren Sie ein [`Repository`] Objekt mit einem Pfad zu einem lokalen Repo
 Der `clone_from` Parameter klont ein Repository von einer Hugging Face Repository-ID in ein lokales Verzeichnis, das durch das Argument `local_dir` angegeben wird:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="w2v2", clone_from="facebook/wav2vec2-large-960h-lv60")
 ```
 
 `clone_from` kann auch ein Repository mit einer URL klonen:
 
 ```py
->>> repo = Repository(local_dir="huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
 ```
 
 Sie können den `clone_from` Parameter mit [`create_repo`] kombinieren, um ein Repository zu erstellen und zu klonen:
@@ -198,8 +198,8 @@ Sie können auch einen Git-Benutzernamen und eine E-Mail zu einem geklonten Repo
 Branches sind wichtig für die Zusammenarbeit und das Experimentieren, ohne Ihre aktuellen Dateien und Codes zu beeinflussen. Wechseln Sie zwischen den Branches mit [`~Repository.git_checkout`]. Wenn Sie beispielsweise von `branch1` zu `branch2` wechseln möchten:
 
 ```py
->>> from huggingface_hub import Repository
->>> repo = Repository(local_dir="huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
+>>> from old_huggingface_hub import Repository
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
 >>> repo.git_checkout("branch2")
 ```
 
@@ -208,7 +208,7 @@ Branches sind wichtig für die Zusammenarbeit und das Experimentieren, ohne Ihre
 Mit [`~Repository.git_pull`] können Sie eine aktuelle lokale Branch mit Änderungen aus einem Remote-Repository aktualisieren:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo.git_pull()
 ```
 

@@ -5,17 +5,17 @@ rendered properly in your Markdown viewer.
 # जल्दी शुरू
 
 [Hugging Face Hub](https://huggingface.co/) मशीन लर्निंग साझा करने के लिए उपयुक्त जगह है
-मॉडल, डेमो, डेटासेट और मेट्रिक्स। `huggingface_hub` लाइब्रेरी आपको बातचीत करने में मदद करती है
+मॉडल, डेमो, डेटासेट और मेट्रिक्स। `old_huggingface_hub` लाइब्रेरी आपको बातचीत करने में मदद करती है
 अपने विकास परिवेश को छोड़े बिना हब। आप बना और प्रबंधित कर सकते हैं
 रिपॉजिटरी आसानी से, फ़ाइलें डाउनलोड और अपलोड करें, और उपयोगी मॉडल और डेटासेट प्राप्त करें
 हब से मेटाडेटा.
 
 ## इंस्टालेशन
 
-आरंभ करने के लिए, `huggingface_hub` लाइब्रेरी स्थापित करें:
+आरंभ करने के लिए, `old_huggingface_hub` लाइब्रेरी स्थापित करें:
 
 ```bash
-pip install --upgrade huggingface_hub
+pip install --upgrade old_huggingface_hub
 ```
 
 अधिक विवरण के लिए, [installation](इंस्टॉलेशन) गाइड देखें।
@@ -32,7 +32,7 @@ pip install --upgrade huggingface_hub
 विन्यास फाइल:
 
 ```py
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(repo_id="google/pegasus-xsum", filename="config.json")
 ```
 
@@ -41,7 +41,7 @@ pip install --upgrade huggingface_hub
 छोटे 7-वर्ण कमिट हैश के बजाय पूर्ण-लंबाई हैश:
 
 ```py
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(
 ...     repo_id="google/pegasus-xsum",
 ...     filename="config.json",
@@ -71,7 +71,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 वैकल्पिक रूप से, आप किसी नोटबुक या स्क्रिप्ट में [`लॉगिन`] का उपयोग करके प्रोग्रामेटिक रूप से लॉगिन कर सकते हैं:
 
 ```py
->>> from huggingface_hub import login
+>>> from old_huggingface_hub import login
 >>> login()
 ```
 
@@ -99,7 +99,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 समारोह:
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.create_repo(repo_id="super-cool-model")
 ```
@@ -107,7 +107,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 आपके कोष को निजी बनाएं
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.create_repo(repo_id="super-cool-model", private=True)
 ```
@@ -132,7 +132,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 3. जहां आप फ़ाइल जोड़ना चाहते हैं उसकी रिपॉजिटरी आईडी।
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.upload_file(
 ...     path_or_fileobj="/home/lysandre/dummy-test/README.md",

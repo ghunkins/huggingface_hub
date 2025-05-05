@@ -14,7 +14,7 @@ rendered properly in your Markdown viewer.
 다른 엔드포인트를 제공하거나 사용자정의 에이전트를 구성할 수도 있습니다.
 
 ```python
-from huggingface_hub import HfApi, list_models
+from old_huggingface_hub import HfApi, list_models
 
 # 루트 메서드를 사용하세요.
 models = list_models()
@@ -27,7 +27,7 @@ hf_api = HfApi(
 models = hf_api.list_models()
 ```
 
-## HfApi[[huggingface_hub.HfApi]]
+## HfApi[[old_huggingface_hub.HfApi]]
 
 [[autodoc]] HfApi
 
@@ -35,71 +35,71 @@ models = hf_api.list_models()
 
 ## API Dataclasses[[api-dataclasses]]
 
-### AccessRequest[[huggingface_hub.hf_api.AccessRequest]]
+### AccessRequest[[old_huggingface_hub.hf_api.AccessRequest]]
 
-[[autodoc]] huggingface_hub.hf_api.AccessRequest
+[[autodoc]] old_huggingface_hub.hf_api.AccessRequest
 
-### CommitInfo[[huggingface_hub.CommitInfo]]
+### CommitInfo[[old_huggingface_hub.CommitInfo]]
 
-[[autodoc]] huggingface_hub.hf_api.CommitInfo
+[[autodoc]] old_huggingface_hub.hf_api.CommitInfo
 
-### DatasetInfo[[huggingface_hub.hf_api.DatasetInfo]]
+### DatasetInfo[[old_huggingface_hub.hf_api.DatasetInfo]]
 
-[[autodoc]] huggingface_hub.hf_api.DatasetInfo
+[[autodoc]] old_huggingface_hub.hf_api.DatasetInfo
 
-### GitRefInfo[[huggingface_hub.GitRefInfo]]
+### GitRefInfo[[old_huggingface_hub.GitRefInfo]]
 
-[[autodoc]] huggingface_hub.hf_api.GitRefInfo
+[[autodoc]] old_huggingface_hub.hf_api.GitRefInfo
 
-### GitCommitInfo[[huggingface_hub.GitCommitInfo]]
+### GitCommitInfo[[old_huggingface_hub.GitCommitInfo]]
 
-[[autodoc]] huggingface_hub.hf_api.GitCommitInfo
+[[autodoc]] old_huggingface_hub.hf_api.GitCommitInfo
 
-### GitRefs[[huggingface_hub.GitRefs]]
+### GitRefs[[old_huggingface_hub.GitRefs]]
 
-[[autodoc]] huggingface_hub.hf_api.GitRefs
+[[autodoc]] old_huggingface_hub.hf_api.GitRefs
 
-### ModelInfo[[huggingface_hub.hf_api.ModelInfo]]
+### ModelInfo[[old_huggingface_hub.hf_api.ModelInfo]]
 
-[[autodoc]] huggingface_hub.hf_api.ModelInfo
+[[autodoc]] old_huggingface_hub.hf_api.ModelInfo
 
-### RepoSibling[[huggingface_hub.hf_api.RepoSibling]]
+### RepoSibling[[old_huggingface_hub.hf_api.RepoSibling]]
 
-[[autodoc]] huggingface_hub.hf_api.RepoSibling
+[[autodoc]] old_huggingface_hub.hf_api.RepoSibling
 
-### RepoFile[[huggingface_hub.hf_api.RepoFile]]
+### RepoFile[[old_huggingface_hub.hf_api.RepoFile]]
 
-[[autodoc]] huggingface_hub.hf_api.RepoFile
+[[autodoc]] old_huggingface_hub.hf_api.RepoFile
 
-### RepoUrl[[huggingface_hub.RepoUrl]]
+### RepoUrl[[old_huggingface_hub.RepoUrl]]
 
-[[autodoc]] huggingface_hub.hf_api.RepoUrl
+[[autodoc]] old_huggingface_hub.hf_api.RepoUrl
 
-### SafetensorsRepoMetadata[[huggingface_hub.utils.SafetensorsRepoMetadata]]
+### SafetensorsRepoMetadata[[old_huggingface_hub.utils.SafetensorsRepoMetadata]]
 
-[[autodoc]] huggingface_hub.utils.SafetensorsRepoMetadata
+[[autodoc]] old_huggingface_hub.utils.SafetensorsRepoMetadata
 
-### SafetensorsFileMetadata[[huggingface_hub.utils.SafetensorsFileMetadata]]
+### SafetensorsFileMetadata[[old_huggingface_hub.utils.SafetensorsFileMetadata]]
 
-[[autodoc]] huggingface_hub.utils.SafetensorsFileMetadata
+[[autodoc]] old_huggingface_hub.utils.SafetensorsFileMetadata
 
-### SpaceInfo[[huggingface_hub.hf_api.SpaceInfo]]
+### SpaceInfo[[old_huggingface_hub.hf_api.SpaceInfo]]
 
-[[autodoc]] huggingface_hub.hf_api.SpaceInfo
+[[autodoc]] old_huggingface_hub.hf_api.SpaceInfo
 
-### TensorInfo[[huggingface_hub.utils.TensorInfo]]
+### TensorInfo[[old_huggingface_hub.utils.TensorInfo]]
 
-[[autodoc]] huggingface_hub.utils.TensorInfo
+[[autodoc]] old_huggingface_hub.utils.TensorInfo
 
-### User[[huggingface_hub.User]]
+### User[[old_huggingface_hub.User]]
 
-[[autodoc]] huggingface_hub.hf_api.User
+[[autodoc]] old_huggingface_hub.hf_api.User
 
-### UserLikes[[huggingface_hub.UserLikes]]
+### UserLikes[[old_huggingface_hub.UserLikes]]
 
-[[autodoc]] huggingface_hub.hf_api.UserLikes
+[[autodoc]] old_huggingface_hub.hf_api.UserLikes
 
-## CommitOperation[[huggingface_hub.CommitOperationAdd]]
+## CommitOperation[[old_huggingface_hub.CommitOperationAdd]]
 
 [`CommitOperation`]에 지원되는 값은 다음과 같습니다:
 
@@ -109,18 +109,18 @@ models = hf_api.list_models()
 
 [[autodoc]] CommitOperationCopy
 
-## CommitScheduler[[huggingface_hub.CommitScheduler]]
+## CommitScheduler[[old_huggingface_hub.CommitScheduler]]
 
 [[autodoc]] CommitScheduler
 
 ## Search helpers[[search-helpers]]
 
-`huggingface_hub` 패키지에는 Hub에서 리포지토리를 필터링하는 데 도움되는 도구들이 포함되어 있습니다.
+`old_huggingface_hub` 패키지에는 Hub에서 리포지토리를 필터링하는 데 도움되는 도구들이 포함되어 있습니다.
 
-### DatasetFilter[[huggingface_hub.DatasetFilter]]
+### DatasetFilter[[old_huggingface_hub.DatasetFilter]]
 
 [[autodoc]] DatasetFilter
 
-### ModelFilter[[huggingface_hub.ModelFilter]]
+### ModelFilter[[old_huggingface_hub.ModelFilter]]
 
 [[autodoc]] ModelFilter

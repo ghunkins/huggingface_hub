@@ -5,7 +5,7 @@ rendered properly in your Markdown viewer.
 # Run Inference on servers
 
 Inference is the process of using a trained model to make predictions on new data. As this process can be compute-intensive,
-running on a dedicated server can be an interesting option. The `huggingface_hub` library provides an easy way to call a
+running on a dedicated server can be an interesting option. The `old_huggingface_hub` library provides an easy way to call a
 service that runs inference for hosted models. There are several services you can connect to:
 - [Inference API](https://huggingface.co/docs/api-inference/index): a service that allows you to run accelerated inference
 on Hugging Face's infrastructure for free. This service is a fast way to get started, test different models, and
@@ -34,7 +34,7 @@ If you are interested in game development, you might have a look at our [C# proj
 Let's get started with a text-to-image task:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient()
 
 >>> image = client.text_to_image("An astronaut riding a horse on the moon.")
@@ -59,7 +59,7 @@ all the parameters available for each task.
 What if you want to use a specific model? You can specify it either as a parameter or directly at an instance level:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 # Initialize client for a specific model
 >>> client = InferenceClient(model="prompthero/openjourney-v4")
 >>> client.text_to_image(...)
@@ -86,7 +86,7 @@ any model and expose it as a private API. Once deployed, you'll get a URL that y
 code as before, changing only the `model` parameter:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient(model="https://uu149rez6gw9ehej.eu-west-1.aws.endpoints.huggingface.cloud/deepfloyd-if")
 # or
 >>> client = InferenceClient()
@@ -97,11 +97,11 @@ code as before, changing only the `model` parameter:
 
 Calls made with the [`InferenceClient`] can be authenticated using a [User Access Token](https://huggingface.co/docs/hub/security-tokens).
 By default, it will use the token saved on your machine if you are logged in (check out
-[how to authenticate](https://huggingface.co/docs/huggingface_hub/quick-start#authentication)). If you are not logged in, you can pass
+[how to authenticate](https://huggingface.co/docs/old_huggingface_hub/quick-start#authentication)). If you are not logged in, you can pass
 your token as an instance parameter:
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient(token="hf_***")
 ```
 
@@ -165,7 +165,7 @@ This can be helpful if you don't have `Pillow` installed in your setup and just 
 image. [`InferenceClient.post`] is also useful to handle tasks that are not yet officially supported.
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient()
 >>> response = client.post(json={"inputs": "An astronaut riding a horse on the moon."}, model="stabilityai/stable-diffusion-2-1")
 >>> response.content # raw bytes
@@ -178,7 +178,7 @@ An async version of the client is also provided, based on `asyncio` and `aiohttp
 directly or use the `[inference]` extra:
 
 ```sh
-pip install --upgrade huggingface_hub[inference]
+pip install --upgrade old_huggingface_hub[inference]
 # or
 # pip install aiohttp
 ```
@@ -189,7 +189,7 @@ strictly the same as the sync-only version.
 ```py
 # Code must be run in a asyncio concurrent context.
 # $ python -m asyncio
->>> from huggingface_hub import AsyncInferenceClient
+>>> from old_huggingface_hub import AsyncInferenceClient
 >>> client = AsyncInferenceClient()
 
 >>> image = await client.text_to_image("An astronaut riding a horse on the moon.")
@@ -218,7 +218,7 @@ you can set it to a specific value in seconds. If the timeout delay expires, an 
 You can catch it and handle it in your code:
 
 ```python
->>> from huggingface_hub import InferenceClient, InferenceTimeoutError
+>>> from old_huggingface_hub import InferenceClient, InferenceTimeoutError
 >>> client = InferenceClient(timeout=30)
 >>> try:
 ...     client.text_to_image(...)
@@ -237,7 +237,7 @@ tries to be as permissive as possible and accept different types:
 sending it to the Inference API.
 
 ```py
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient()
 >>> client.image_classification("https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/320px-Cute_dog.jpg")
 [{'score': 0.9779096841812134, 'label': 'Blenheim spaniel'}, ...]
@@ -255,14 +255,14 @@ Here is a short guide to help you migrate from [`InferenceApi`] to [`InferenceCl
 Change from
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="bert-base-uncased", token=API_TOKEN)
 ```
 
 to
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> inference = InferenceClient(model="bert-base-uncased", token=API_TOKEN)
 ```
 
@@ -271,7 +271,7 @@ to
 Change from
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="paraphrase-xlm-r-multilingual-v1", task="feature-extraction")
 >>> inference(...)
 ```
@@ -279,7 +279,7 @@ Change from
 to
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> inference = InferenceClient()
 >>> inference.feature_extraction(..., model="paraphrase-xlm-r-multilingual-v1")
 ```
@@ -296,7 +296,7 @@ methods like `feature_extraction`.
 Change from
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="bert-base-uncased")
 >>> inference(inputs="The goal of life is [MASK].")
 [{'sequence': 'the goal of life is life.', 'score': 0.10933292657136917, 'token': 2166, 'token_str': 'life'}]
@@ -305,7 +305,7 @@ Change from
 to
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient()
 >>> response = client.post(json={"inputs": "The goal of life is [MASK]."}, model="bert-base-uncased")
 >>> response.json()
@@ -317,7 +317,7 @@ to
 Change from
 
 ```python
->>> from huggingface_hub import InferenceApi
+>>> from old_huggingface_hub import InferenceApi
 >>> inference = InferenceApi(repo_id="typeform/distilbert-base-uncased-mnli")
 >>> inputs = "Hi, I recently bought a device from your company but it is not working as advertised and I would like to get reimbursed!"
 >>> params = {"candidate_labels":["refund", "legal", "faq"]}
@@ -328,7 +328,7 @@ Change from
 to
 
 ```python
->>> from huggingface_hub import InferenceClient
+>>> from old_huggingface_hub import InferenceClient
 >>> client = InferenceClient()
 >>> inputs = "Hi, I recently bought a device from your company but it is not working as advertised and I would like to get reimbursed!"
 >>> params = {"candidate_labels":["refund", "legal", "faq"]}

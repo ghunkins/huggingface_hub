@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Upload files to the Hub
 
-Sharing your files and work is an important aspect of the Hub. The `huggingface_hub` offers several options for uploading your files to the Hub. You can use these functions independently or integrate them into your library, making it more convenient for your users to interact with the Hub. This guide will show you how to push files:
+Sharing your files and work is an important aspect of the Hub. The `old_huggingface_hub` offers several options for uploading your files to the Hub. You can use these functions independently or integrate them into your library, making it more convenient for your users to interact with the Hub. This guide will show you how to push files:
 
 - without using Git.
 - that are very large with [Git LFS](https://git-lfs.github.com/).
@@ -20,7 +20,7 @@ Once you've created a repository with [`create_repo`], you can upload a file to 
 Specify the path of the file to upload, where you want to upload the file to in the repository, and the name of the repository you want to add the file to. Depending on your repository type, you can optionally set the repository type as a `dataset`, `model`, or `space`.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.upload_file(
 ...     path_or_fileobj="/path/to/local/folder/README.md",
@@ -37,7 +37,7 @@ to upload, where you want to upload the folder to in the repository, and the nam
 folder to. Depending on your repository type, you can optionally set the repository type as a `dataset`, `model`, or `space`.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 
 # Upload all the content from the local folder to your remote Space.
@@ -106,7 +106,7 @@ For more details about the CLI upload command, please refer to the [CLI guide](.
 ## Advanced features
 
 In most cases, you won't need more than [`upload_file`] and [`upload_folder`] to upload your files to the Hub.
-However, `huggingface_hub` has more advanced features to make things easier. Let's have a look at them!
+However, `old_huggingface_hub` has more advanced features to make things easier. Let's have a look at them!
 
 
 ### Non-blocking uploads
@@ -117,7 +117,7 @@ artifacts while continuing a training. To do so, you can use the `run_as_future`
 object that you can use to check the status of the upload.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> future = api.upload_folder( # Upload in the background (non-blocking action)
 ...     repo_id="username/my-model",
@@ -144,7 +144,7 @@ Even though background jobs are mostly useful to upload data/create commits, you
 built-in `run_as_future` argument in upload methods is just an alias around it.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.run_as_future(api.create_repo, "username/my-model", exists_ok=True)
 Future(...)
@@ -164,7 +164,7 @@ hundreds of GB), it can still be challenging. If you have a folder with a lot of
 it in several commits. If you experience an error or a connection issue during the upload, you would not have to resume
 the process from the beginning.
 
-To upload a folder in multiple commits, just pass `multi_commits=True` as argument. Under the hood, `huggingface_hub`
+To upload a folder in multiple commits, just pass `multi_commits=True` as argument. Under the hood, `old_huggingface_hub`
 will list the files to upload/delete and split them in several commits. The "strategy" (i.e. how to split the commits)
 is based on the number and size of the files to upload. A PR is open on the Hub to push all the commits. Once the PR is
 ready, the commits are squashed into a single commit. If the process is interrupted before completing, you can rerun
@@ -212,7 +212,7 @@ upload it every 10 minutes. For example:
 >>> import uuid
 >>> from pathlib import Path
 >>> import gradio as gr
->>> from huggingface_hub import CommitScheduler
+>>> from old_huggingface_hub import CommitScheduler
 
 # Define the file where to save the data. Use UUID to make sure not to overwrite existing data from a previous run.
 >>> feedback_file = Path("user_feedback/") / f"data_{uuid.uuid4()}.json"
@@ -345,7 +345,7 @@ For example, if you want to upload two files and delete a file in a Hub reposito
 1. Use the appropriate `CommitOperation` to add or delete a file and to delete a folder:
 
 ```py
->>> from huggingface_hub import HfApi, CommitOperationAdd, CommitOperationDelete
+>>> from old_huggingface_hub import HfApi, CommitOperationAdd, CommitOperationDelete
 >>> api = HfApi()
 >>> operations = [
 ...     CommitOperationAdd(path_in_repo="LICENSE.md", path_or_fileobj="~/repo/LICENSE.md"),
@@ -395,7 +395,7 @@ the Hub. If you have a question, feel free to ping us on our Discord or in a Git
 Here is a simple example illustrating how to pre-upload files:
 
 ```py
->>> from huggingface_hub import CommitOperationAdd, preupload_lfs_files, create_commit, create_repo
+>>> from old_huggingface_hub import CommitOperationAdd, preupload_lfs_files, create_commit, create_repo
 
 >>> repo_id = create_repo("test_preupload").repo_id
 
@@ -435,8 +435,8 @@ be re-uploaded twice but checking it client-side can still save some time.
 - **Use `hf_transfer`**: this is a Rust-based [library](https://github.com/huggingface/hf_transfer) meant to speed up
   uploads on machines with very high bandwidth. To use `hf_transfer`:
 
-    1. Specify the `hf_transfer` extra when installing `huggingface_hub`
-       (e.g. `pip install huggingface_hub[hf_transfer]`).
+    1. Specify the `hf_transfer` extra when installing `old_huggingface_hub`
+       (e.g. `pip install old_huggingface_hub[hf_transfer]`).
     2. Set `HF_HUB_ENABLE_HF_TRANSFER=1` as an environment variable.
 
 <Tip warning={true}>
@@ -444,7 +444,7 @@ be re-uploaded twice but checking it client-side can still save some time.
 `hf_transfer` is a power user tool!
 It is tested and production-ready,
 but it lacks user-friendly features like advanced error handling or proxies.
-For more details, please take a look at this [section](https://huggingface.co/docs/huggingface_hub/hf_transfer).
+For more details, please take a look at this [section](https://huggingface.co/docs/old_huggingface_hub/hf_transfer).
 
 </Tip>
 
@@ -479,7 +479,7 @@ The `commit` context manager handles four of the most common Git commands: pull,
 4. Pushes the change to the `text-files` repository.
 
 ```python
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> with Repository(local_dir="text-files", clone_from="<user>/text-files").commit(commit_message="My first file :)"):
 ...     with open("file.txt", "w+") as f:
 ...         f.write(json.dumps({"hey": 8}))
@@ -535,7 +535,7 @@ The [`Repository`] class has a [`~Repository.push_to_hub`] function to add files
 For example, if you've already cloned a repository from the Hub, then you can initialize the `repo` from the local directory:
 
 ```python
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="path/to/local/repo")
 ```
 

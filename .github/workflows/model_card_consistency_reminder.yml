@@ -3,9 +3,9 @@ name: Model and Dataset Card consistency reminder
 on:
   pull_request:
     paths:
-      - src/huggingface_hub/repocard.py
-      - src/huggingface_hub/templates/modelcard_template.md
-      - src/huggingface_hub/templates/datasetcard_template.md
+      - src/old_huggingface_hub/repocard.py
+      - src/old_huggingface_hub/templates/modelcard_template.md
+      - src/old_huggingface_hub/templates/datasetcard_template.md
 
 jobs:
   comment:
@@ -18,9 +18,9 @@ jobs:
             It looks like you've updated code related to model or dataset cards in this PR.
 
             Some content is duplicated among the following files. Please make sure that everything stays consistent.
-              - [src/.../repocard.py](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/repocard.py)
-              - [src/.../datasetcard_template.md](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md)
-              - [src/.../modelcard_template.md](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md)
+              - [src/.../repocard.py](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/repocard.py)
+              - [src/.../datasetcard_template.md](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/templates/modelcard_template.md)
+              - [src/.../modelcard_template.md](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/templates/modelcard_template.md)
               - [modelcard.md](https://github.com/huggingface/hub-docs/blob/main/modelcard.md) (`hub-docs` repo)
               - [docs/hub/model-cards.md](https://github.com/huggingface/hub-docs/blob/main/docs/hub/model-cards.md) (`hub-docs` repo)
               - [docs/hub/model-card-annotated.md](https://github.com/huggingface/hub-docs/blob/main/docs/hub/model-card-annotated.md) (`hub-docs` repo)

@@ -1,7 +1,7 @@
 # Original implementation taken from the `text-generation` Python client (see https://pypi.org/project/text-generation/
 # and https://github.com/huggingface/text-generation-inference/tree/main/clients/python)
 #
-# See './src/huggingface_hub/inference/_text_generation.py' for details.
+# See './src/old_huggingface_hub/inference/_text_generation.py' for details.
 import json
 import unittest
 from typing import Dict
@@ -10,15 +10,15 @@ from unittest.mock import MagicMock, patch
 import pytest
 from requests import HTTPError
 
-from huggingface_hub import InferenceClient, TextGenerationOutputPrefillToken
-from huggingface_hub.inference._common import (
+from old_huggingface_hub import InferenceClient, TextGenerationOutputPrefillToken
+from old_huggingface_hub.inference._common import (
     _UNSUPPORTED_TEXT_GENERATION_KWARGS,
     GenerationError,
     IncompleteGenerationError,
     OverloadedError,
     raise_text_generation_error,
 )
-from huggingface_hub.inference._common import (
+from old_huggingface_hub.inference._common import (
     ValidationError as TextGenerationValidationError,
 )
 
@@ -52,7 +52,7 @@ def _mocked_error(payload: Dict) -> MagicMock:
 
 
 @pytest.mark.vcr
-@patch.dict("huggingface_hub.inference._common._UNSUPPORTED_TEXT_GENERATION_KWARGS", {})
+@patch.dict("old_huggingface_hub.inference._common._UNSUPPORTED_TEXT_GENERATION_KWARGS", {})
 class TestTextGenerationClientVCR(unittest.TestCase):
     """Use VCR test to avoid making requests to the prod infra."""
 
@@ -138,7 +138,7 @@ class TestTextGenerationClientVCR(unittest.TestCase):
             self.client.text_generation("0 1 2", model="gpt2", max_new_tokens=10, stream=True)
 
     def test_generate_non_tgi_endpoint_regression_test(self):
-        # Regression test for https://github.com/huggingface/huggingface_hub/issues/2135
+        # Regression test for https://github.com/huggingface/old_huggingface_hub/issues/2135
         with self.assertWarnsRegex(UserWarning, "Ignoring following parameters: return_full_text"):
             text = self.client.text_generation(
                 prompt="How are you today?", max_new_tokens=20, model="google/flan-t5-large", return_full_text=True

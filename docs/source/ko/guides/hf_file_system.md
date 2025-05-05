@@ -4,12 +4,12 @@ rendered properly in your Markdown viewer.
 
 # Hugging Face Hub에서 파일 시스템 API를 통해 상호작용하기[[interact-with-the-hub-through-the-filesystem-api]]
 
-`huggingface_hub` 라이브러리는 [`HfApi`] 외에도 Hugging Face Hub에 대한 파이써닉한 [fsspec-compatible](https://filesystem-spec.readthedocs.io/en/latest/) 파일 인터페이스인 [`HfFileSystem`]을 제공합니다. [`HfFileSystem`]은 [`HfApi`]을 기반으로 구축되며, `cp`, `mv`, `ls`, `du`, `glob`, `get_file` 및 `put_file`과 같은 일반적인 파일 시스템 스타일 작업을 제공합니다.
+`old_huggingface_hub` 라이브러리는 [`HfApi`] 외에도 Hugging Face Hub에 대한 파이써닉한 [fsspec-compatible](https://filesystem-spec.readthedocs.io/en/latest/) 파일 인터페이스인 [`HfFileSystem`]을 제공합니다. [`HfFileSystem`]은 [`HfApi`]을 기반으로 구축되며, `cp`, `mv`, `ls`, `du`, `glob`, `get_file` 및 `put_file`과 같은 일반적인 파일 시스템 스타일 작업을 제공합니다.
 
 ## 사용법[[usage]]
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem()
 
 >>> # 디렉터리의 모든 파일 나열하기
@@ -66,7 +66,7 @@ hf://[<repo_type_prefix>]<repo_id>[@<revision>]/<path/in/repo>
 * [DuckDB](https://duckdb.org/docs/guides/python/filesystems)를 사용하여 (원격) Hub 파일 쿼리:
 
   ```python
-  >>> from huggingface_hub import HfFileSystem
+  >>> from old_huggingface_hub import HfFileSystem
   >>> import duckdb
 
   >>> fs = HfFileSystem()
@@ -102,7 +102,7 @@ hf://[<repo_type_prefix>]<repo_id>[@<revision>]/<path/in/repo>
 또한 [`HfFileSystem`]에 `token`을 인수로 전달하여 프로그래밍 방식으로 로그인할 수 있습니다:
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem(token=token)
 ```
 

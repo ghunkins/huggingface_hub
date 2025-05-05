@@ -6,7 +6,7 @@ rendered properly in your Markdown viewer.
 
 웹훅은 MLOps 관련 기능의 기반이 됩니다. 이를 통해 특정 저장소의 새로운 변경 사항을 수신하거나,
 관심 있는 특정 사용자/조직에 속한 모든 저장소의 변경 사항을 받아볼 수 있습니다.
-이 가이드에서는 `huggingface_hub`를 활용하여 웹훅을 수신하는 서버를 만들고 Space에 배포하는 방법을 설명합니다. 
+이 가이드에서는 `old_huggingface_hub`를 활용하여 웹훅을 수신하는 서버를 만들고 Space에 배포하는 방법을 설명합니다. 
 이를 위해서는 Huggingface Hub의 웹훅 개념에 대해 익숙해야 합니다. 
 웹훅 자체에 대해 더 자세히 알아보려면 이 [가이드](https://huggingface.co/docs/hub/webhooks)를 먼저 읽어보세요.  
 
@@ -25,7 +25,7 @@ rendered properly in your Markdown viewer.
 
 이것은 [실험적 기능](../package_reference/environment_variables#hfhubdisableexperimentalwarning)입니다. 
 본 API는 현재 개선 작업 중이며, 향후 사전 통지 없이 주요 변경 사항이 도입될 수 있습니다. 
-requirements에서 `huggingface_hub`의 버전을 고정하는 것을 권장합니다.
+requirements에서 `old_huggingface_hub`의 버전을 고정하는 것을 권장합니다.
 
 </Tip>
 
@@ -37,7 +37,7 @@ requirements에서 `huggingface_hub`의 버전을 고정하는 것을 권장합�
 
 ```python
 # app.py
-from huggingface_hub import webhook_endpoint, WebhookPayload
+from old_huggingface_hub import webhook_endpoint, WebhookPayload
 
 @webhook_endpoint
 async def trigger_training(payload: WebhookPayload) -> None:
@@ -131,7 +131,7 @@ Space 설정 > "Repository secrets" 섹션 > "Add a secret" 로 이동합니다.
 
 ```python
 # app.py
-from huggingface_hub import webhook_endpoint, WebhookPayload
+from old_huggingface_hub import webhook_endpoint, WebhookPayload
 
 @webhook_endpoint
 async def trigger_training(payload: WebhookPayload) -> None:
@@ -168,7 +168,7 @@ Webhooks are correctly setup and ready to use:
 ```python
 import gradio as gr
 from fastapi import Request
-from huggingface_hub import WebhooksServer, WebhookPayload
+from old_huggingface_hub import WebhooksServer, WebhookPayload
 
 # 1. UI 정의
 with gr.Blocks() as ui:

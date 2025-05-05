@@ -16,364 +16,364 @@ rendered properly in your Markdown viewer.
 
 
 
-## audio_classification[[huggingface_hub.AudioClassificationInput]]
+## audio_classification[[old_huggingface_hub.AudioClassificationInput]]
 
-[[autodoc]] huggingface_hub.AudioClassificationInput
+[[autodoc]] old_huggingface_hub.AudioClassificationInput
 
-[[autodoc]] huggingface_hub.AudioClassificationOutputElement
+[[autodoc]] old_huggingface_hub.AudioClassificationOutputElement
 
-[[autodoc]] huggingface_hub.AudioClassificationParameters
+[[autodoc]] old_huggingface_hub.AudioClassificationParameters
 
 
 
-## audio_to_audio[[huggingface_hub.AudioToAudioInput]]
+## audio_to_audio[[old_huggingface_hub.AudioToAudioInput]]
 
-[[autodoc]] huggingface_hub.AudioToAudioInput
+[[autodoc]] old_huggingface_hub.AudioToAudioInput
 
-[[autodoc]] huggingface_hub.AudioToAudioOutputElement
+[[autodoc]] old_huggingface_hub.AudioToAudioOutputElement
 
 
 
-## automatic_speech_recognition[[huggingface_hub.AutomaticSpeechRecognitionGenerationParameters]]
+## automatic_speech_recognition[[old_huggingface_hub.AutomaticSpeechRecognitionGenerationParameters]]
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionGenerationParameters
+[[autodoc]] old_huggingface_hub.AutomaticSpeechRecognitionGenerationParameters
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionInput
+[[autodoc]] old_huggingface_hub.AutomaticSpeechRecognitionInput
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionOutput
+[[autodoc]] old_huggingface_hub.AutomaticSpeechRecognitionOutput
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionOutputChunk
+[[autodoc]] old_huggingface_hub.AutomaticSpeechRecognitionOutputChunk
 
-[[autodoc]] huggingface_hub.AutomaticSpeechRecognitionParameters
+[[autodoc]] old_huggingface_hub.AutomaticSpeechRecognitionParameters
 
 
 
-## chat_completion[[huggingface_hub.ChatCompletionInput]]
+## chat_completion[[old_huggingface_hub.ChatCompletionInput]]
 
-[[autodoc]] huggingface_hub.ChatCompletionInput
+[[autodoc]] old_huggingface_hub.ChatCompletionInput
 
-[[autodoc]] huggingface_hub.ChatCompletionInputFunctionDefinition
+[[autodoc]] old_huggingface_hub.ChatCompletionInputFunctionDefinition
 
-[[autodoc]] huggingface_hub.ChatCompletionInputMessage
+[[autodoc]] old_huggingface_hub.ChatCompletionInputMessage
 
-[[autodoc]] huggingface_hub.ChatCompletionInputTool
+[[autodoc]] old_huggingface_hub.ChatCompletionInputTool
 
-[[autodoc]] huggingface_hub.ChatCompletionInputToolCall
+[[autodoc]] old_huggingface_hub.ChatCompletionInputToolCall
 
-[[autodoc]] huggingface_hub.ChatCompletionInputToolTypeClass
+[[autodoc]] old_huggingface_hub.ChatCompletionInputToolTypeClass
 
-[[autodoc]] huggingface_hub.ChatCompletionOutput
+[[autodoc]] old_huggingface_hub.ChatCompletionOutput
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputComplete
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputComplete
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputFunctionDefinition
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputFunctionDefinition
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputLogprob
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputLogprob
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputLogprobs
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputLogprobs
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputMessage
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputMessage
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputToolCall
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputToolCall
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputTopLogprob
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputTopLogprob
 
-[[autodoc]] huggingface_hub.ChatCompletionOutputUsage
+[[autodoc]] old_huggingface_hub.ChatCompletionOutputUsage
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutput
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutput
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputChoice
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutputChoice
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputDelta
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutputDelta
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputDeltaToolCall
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutputDeltaToolCall
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputFunction
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutputFunction
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputLogprob
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutputLogprob
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputLogprobs
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutputLogprobs
 
-[[autodoc]] huggingface_hub.ChatCompletionStreamOutputTopLogprob
+[[autodoc]] old_huggingface_hub.ChatCompletionStreamOutputTopLogprob
 
 
 
-## depth_estimation[[huggingface_hub.DepthEstimationInput]]
+## depth_estimation[[old_huggingface_hub.DepthEstimationInput]]
 
-[[autodoc]] huggingface_hub.DepthEstimationInput
+[[autodoc]] old_huggingface_hub.DepthEstimationInput
 
-[[autodoc]] huggingface_hub.DepthEstimationOutput
+[[autodoc]] old_huggingface_hub.DepthEstimationOutput
 
 
 
-## document_question_answering[[huggingface_hub.DocumentQuestionAnsweringInput]]
+## document_question_answering[[old_huggingface_hub.DocumentQuestionAnsweringInput]]
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringInput
+[[autodoc]] old_huggingface_hub.DocumentQuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringInputData
+[[autodoc]] old_huggingface_hub.DocumentQuestionAnsweringInputData
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringOutputElement
+[[autodoc]] old_huggingface_hub.DocumentQuestionAnsweringOutputElement
 
-[[autodoc]] huggingface_hub.DocumentQuestionAnsweringParameters
+[[autodoc]] old_huggingface_hub.DocumentQuestionAnsweringParameters
 
 
 
-## feature_extraction[[huggingface_hub.FeatureExtractionInput]]
+## feature_extraction[[old_huggingface_hub.FeatureExtractionInput]]
 
-[[autodoc]] huggingface_hub.FeatureExtractionInput
+[[autodoc]] old_huggingface_hub.FeatureExtractionInput
 
 
 
-## fill_mask[[huggingface_hub.FillMaskInput]]
+## fill_mask[[old_huggingface_hub.FillMaskInput]]
 
-[[autodoc]] huggingface_hub.FillMaskInput
+[[autodoc]] old_huggingface_hub.FillMaskInput
 
-[[autodoc]] huggingface_hub.FillMaskOutputElement
+[[autodoc]] old_huggingface_hub.FillMaskOutputElement
 
-[[autodoc]] huggingface_hub.FillMaskParameters
+[[autodoc]] old_huggingface_hub.FillMaskParameters
 
 
 
-## image_classification[[huggingface_hub.ImageClassificationInput]]
+## image_classification[[old_huggingface_hub.ImageClassificationInput]]
 
-[[autodoc]] huggingface_hub.ImageClassificationInput
+[[autodoc]] old_huggingface_hub.ImageClassificationInput
 
-[[autodoc]] huggingface_hub.ImageClassificationOutputElement
+[[autodoc]] old_huggingface_hub.ImageClassificationOutputElement
 
-[[autodoc]] huggingface_hub.ImageClassificationParameters
+[[autodoc]] old_huggingface_hub.ImageClassificationParameters
 
 
 
-## image_segmentation[[huggingface_hub.ImageSegmentationInput]]
+## image_segmentation[[old_huggingface_hub.ImageSegmentationInput]]
 
-[[autodoc]] huggingface_hub.ImageSegmentationInput
+[[autodoc]] old_huggingface_hub.ImageSegmentationInput
 
-[[autodoc]] huggingface_hub.ImageSegmentationOutputElement
+[[autodoc]] old_huggingface_hub.ImageSegmentationOutputElement
 
-[[autodoc]] huggingface_hub.ImageSegmentationParameters
+[[autodoc]] old_huggingface_hub.ImageSegmentationParameters
 
 
 
-## image_to_image[[huggingface_hub.ImageToImageInput]]
+## image_to_image[[old_huggingface_hub.ImageToImageInput]]
 
-[[autodoc]] huggingface_hub.ImageToImageInput
+[[autodoc]] old_huggingface_hub.ImageToImageInput
 
-[[autodoc]] huggingface_hub.ImageToImageOutput
+[[autodoc]] old_huggingface_hub.ImageToImageOutput
 
-[[autodoc]] huggingface_hub.ImageToImageParameters
+[[autodoc]] old_huggingface_hub.ImageToImageParameters
 
-[[autodoc]] huggingface_hub.ImageToImageTargetSize
+[[autodoc]] old_huggingface_hub.ImageToImageTargetSize
 
 
 
-## image_to_text[[huggingface_hub.ImageToTextGenerationParameters]]
+## image_to_text[[old_huggingface_hub.ImageToTextGenerationParameters]]
 
-[[autodoc]] huggingface_hub.ImageToTextGenerationParameters
+[[autodoc]] old_huggingface_hub.ImageToTextGenerationParameters
 
-[[autodoc]] huggingface_hub.ImageToTextInput
+[[autodoc]] old_huggingface_hub.ImageToTextInput
 
-[[autodoc]] huggingface_hub.ImageToTextOutput
+[[autodoc]] old_huggingface_hub.ImageToTextOutput
 
-[[autodoc]] huggingface_hub.ImageToTextParameters
+[[autodoc]] old_huggingface_hub.ImageToTextParameters
 
 
 
-## object_detection[[huggingface_hub.ObjectDetectionBoundingBox]]
+## object_detection[[old_huggingface_hub.ObjectDetectionBoundingBox]]
 
-[[autodoc]] huggingface_hub.ObjectDetectionBoundingBox
+[[autodoc]] old_huggingface_hub.ObjectDetectionBoundingBox
 
-[[autodoc]] huggingface_hub.ObjectDetectionInput
+[[autodoc]] old_huggingface_hub.ObjectDetectionInput
 
-[[autodoc]] huggingface_hub.ObjectDetectionOutputElement
+[[autodoc]] old_huggingface_hub.ObjectDetectionOutputElement
 
-[[autodoc]] huggingface_hub.ObjectDetectionParameters
+[[autodoc]] old_huggingface_hub.ObjectDetectionParameters
 
 
 
-## question_answering[[huggingface_hub.QuestionAnsweringInput]]
+## question_answering[[old_huggingface_hub.QuestionAnsweringInput]]
 
-[[autodoc]] huggingface_hub.QuestionAnsweringInput
+[[autodoc]] old_huggingface_hub.QuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.QuestionAnsweringInputData
+[[autodoc]] old_huggingface_hub.QuestionAnsweringInputData
 
-[[autodoc]] huggingface_hub.QuestionAnsweringOutputElement
+[[autodoc]] old_huggingface_hub.QuestionAnsweringOutputElement
 
-[[autodoc]] huggingface_hub.QuestionAnsweringParameters
+[[autodoc]] old_huggingface_hub.QuestionAnsweringParameters
 
 
 
-## sentence_similarity[[huggingface_hub.SentenceSimilarityInput]]
+## sentence_similarity[[old_huggingface_hub.SentenceSimilarityInput]]
 
-[[autodoc]] huggingface_hub.SentenceSimilarityInput
+[[autodoc]] old_huggingface_hub.SentenceSimilarityInput
 
-[[autodoc]] huggingface_hub.SentenceSimilarityInputData
+[[autodoc]] old_huggingface_hub.SentenceSimilarityInputData
 
 
 
-## summarization[[huggingface_hub.SummarizationGenerationParameters]]
+## summarization[[old_huggingface_hub.SummarizationGenerationParameters]]
 
-[[autodoc]] huggingface_hub.SummarizationGenerationParameters
+[[autodoc]] old_huggingface_hub.SummarizationGenerationParameters
 
-[[autodoc]] huggingface_hub.SummarizationInput
+[[autodoc]] old_huggingface_hub.SummarizationInput
 
-[[autodoc]] huggingface_hub.SummarizationOutput
+[[autodoc]] old_huggingface_hub.SummarizationOutput
 
 
 
-## table_question_answering[[huggingface_hub.TableQuestionAnsweringInput]]
+## table_question_answering[[old_huggingface_hub.TableQuestionAnsweringInput]]
 
-[[autodoc]] huggingface_hub.TableQuestionAnsweringInput
+[[autodoc]] old_huggingface_hub.TableQuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.TableQuestionAnsweringInputData
+[[autodoc]] old_huggingface_hub.TableQuestionAnsweringInputData
 
-[[autodoc]] huggingface_hub.TableQuestionAnsweringOutputElement
+[[autodoc]] old_huggingface_hub.TableQuestionAnsweringOutputElement
 
 
 
-## text2text_generation[[huggingface_hub.Text2TextGenerationInput]]
+## text2text_generation[[old_huggingface_hub.Text2TextGenerationInput]]
 
-[[autodoc]] huggingface_hub.Text2TextGenerationInput
+[[autodoc]] old_huggingface_hub.Text2TextGenerationInput
 
-[[autodoc]] huggingface_hub.Text2TextGenerationOutput
+[[autodoc]] old_huggingface_hub.Text2TextGenerationOutput
 
-[[autodoc]] huggingface_hub.Text2TextGenerationParameters
+[[autodoc]] old_huggingface_hub.Text2TextGenerationParameters
 
 
 
-## text_classification[[huggingface_hub.TextClassificationInput]]
+## text_classification[[old_huggingface_hub.TextClassificationInput]]
 
-[[autodoc]] huggingface_hub.TextClassificationInput
+[[autodoc]] old_huggingface_hub.TextClassificationInput
 
-[[autodoc]] huggingface_hub.TextClassificationOutputElement
+[[autodoc]] old_huggingface_hub.TextClassificationOutputElement
 
-[[autodoc]] huggingface_hub.TextClassificationParameters
+[[autodoc]] old_huggingface_hub.TextClassificationParameters
 
 
 
-## text_generation[[huggingface_hub.TextGenerationInput]]
+## text_generation[[old_huggingface_hub.TextGenerationInput]]
 
-[[autodoc]] huggingface_hub.TextGenerationInput
+[[autodoc]] old_huggingface_hub.TextGenerationInput
 
-[[autodoc]] huggingface_hub.TextGenerationInputGenerateParameters
+[[autodoc]] old_huggingface_hub.TextGenerationInputGenerateParameters
 
-[[autodoc]] huggingface_hub.TextGenerationInputGrammarType
+[[autodoc]] old_huggingface_hub.TextGenerationInputGrammarType
 
-[[autodoc]] huggingface_hub.TextGenerationOutput
+[[autodoc]] old_huggingface_hub.TextGenerationOutput
 
-[[autodoc]] huggingface_hub.TextGenerationOutputBestOfSequence
+[[autodoc]] old_huggingface_hub.TextGenerationOutputBestOfSequence
 
-[[autodoc]] huggingface_hub.TextGenerationOutputDetails
+[[autodoc]] old_huggingface_hub.TextGenerationOutputDetails
 
-[[autodoc]] huggingface_hub.TextGenerationOutputPrefillToken
+[[autodoc]] old_huggingface_hub.TextGenerationOutputPrefillToken
 
-[[autodoc]] huggingface_hub.TextGenerationOutputToken
+[[autodoc]] old_huggingface_hub.TextGenerationOutputToken
 
-[[autodoc]] huggingface_hub.TextGenerationStreamOutput
+[[autodoc]] old_huggingface_hub.TextGenerationStreamOutput
 
-[[autodoc]] huggingface_hub.TextGenerationStreamOutputStreamDetails
+[[autodoc]] old_huggingface_hub.TextGenerationStreamOutputStreamDetails
 
-[[autodoc]] huggingface_hub.TextGenerationStreamOutputToken
+[[autodoc]] old_huggingface_hub.TextGenerationStreamOutputToken
 
 
 
-## text_to_audio[[huggingface_hub.TextToAudioGenerationParameters]]
+## text_to_audio[[old_huggingface_hub.TextToAudioGenerationParameters]]
 
-[[autodoc]] huggingface_hub.TextToAudioGenerationParameters
+[[autodoc]] old_huggingface_hub.TextToAudioGenerationParameters
 
-[[autodoc]] huggingface_hub.TextToAudioInput
+[[autodoc]] old_huggingface_hub.TextToAudioInput
 
-[[autodoc]] huggingface_hub.TextToAudioOutput
+[[autodoc]] old_huggingface_hub.TextToAudioOutput
 
-[[autodoc]] huggingface_hub.TextToAudioParameters
+[[autodoc]] old_huggingface_hub.TextToAudioParameters
 
 
 
-## text_to_image[[huggingface_hub.TextToImageInput]]
+## text_to_image[[old_huggingface_hub.TextToImageInput]]
 
-[[autodoc]] huggingface_hub.TextToImageInput
+[[autodoc]] old_huggingface_hub.TextToImageInput
 
-[[autodoc]] huggingface_hub.TextToImageOutput
+[[autodoc]] old_huggingface_hub.TextToImageOutput
 
-[[autodoc]] huggingface_hub.TextToImageParameters
+[[autodoc]] old_huggingface_hub.TextToImageParameters
 
-[[autodoc]] huggingface_hub.TextToImageTargetSize
+[[autodoc]] old_huggingface_hub.TextToImageTargetSize
 
 
 
-## token_classification[[huggingface_hub.TokenClassificationInput]]
+## token_classification[[old_huggingface_hub.TokenClassificationInput]]
 
-[[autodoc]] huggingface_hub.TokenClassificationInput
+[[autodoc]] old_huggingface_hub.TokenClassificationInput
 
-[[autodoc]] huggingface_hub.TokenClassificationOutputElement
+[[autodoc]] old_huggingface_hub.TokenClassificationOutputElement
 
-[[autodoc]] huggingface_hub.TokenClassificationParameters
+[[autodoc]] old_huggingface_hub.TokenClassificationParameters
 
 
 
-## translation[[huggingface_hub.TranslationGenerationParameters]]
+## translation[[old_huggingface_hub.TranslationGenerationParameters]]
 
-[[autodoc]] huggingface_hub.TranslationGenerationParameters
+[[autodoc]] old_huggingface_hub.TranslationGenerationParameters
 
-[[autodoc]] huggingface_hub.TranslationInput
+[[autodoc]] old_huggingface_hub.TranslationInput
 
-[[autodoc]] huggingface_hub.TranslationOutput
+[[autodoc]] old_huggingface_hub.TranslationOutput
 
 
 
-## video_classification[[huggingface_hub.VideoClassificationInput]]
+## video_classification[[old_huggingface_hub.VideoClassificationInput]]
 
-[[autodoc]] huggingface_hub.VideoClassificationInput
+[[autodoc]] old_huggingface_hub.VideoClassificationInput
 
-[[autodoc]] huggingface_hub.VideoClassificationOutputElement
+[[autodoc]] old_huggingface_hub.VideoClassificationOutputElement
 
-[[autodoc]] huggingface_hub.VideoClassificationParameters
+[[autodoc]] old_huggingface_hub.VideoClassificationParameters
 
 
 
-## visual_question_answering[[huggingface_hub.VisualQuestionAnsweringInput]]
+## visual_question_answering[[old_huggingface_hub.VisualQuestionAnsweringInput]]
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringInput
+[[autodoc]] old_huggingface_hub.VisualQuestionAnsweringInput
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringInputData
+[[autodoc]] old_huggingface_hub.VisualQuestionAnsweringInputData
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringOutputElement
+[[autodoc]] old_huggingface_hub.VisualQuestionAnsweringOutputElement
 
-[[autodoc]] huggingface_hub.VisualQuestionAnsweringParameters
+[[autodoc]] old_huggingface_hub.VisualQuestionAnsweringParameters
 
 
 
-## zero_shot_classification[[huggingface_hub.ZeroShotClassificationInput]]
+## zero_shot_classification[[old_huggingface_hub.ZeroShotClassificationInput]]
 
-[[autodoc]] huggingface_hub.ZeroShotClassificationInput
+[[autodoc]] old_huggingface_hub.ZeroShotClassificationInput
 
-[[autodoc]] huggingface_hub.ZeroShotClassificationInputData
+[[autodoc]] old_huggingface_hub.ZeroShotClassificationInputData
 
-[[autodoc]] huggingface_hub.ZeroShotClassificationOutputElement
+[[autodoc]] old_huggingface_hub.ZeroShotClassificationOutputElement
 
-[[autodoc]] huggingface_hub.ZeroShotClassificationParameters
+[[autodoc]] old_huggingface_hub.ZeroShotClassificationParameters
 
 
 
-## zero_shot_image_classification[[huggingface_hub.ZeroShotImageClassificationInput]]
+## zero_shot_image_classification[[old_huggingface_hub.ZeroShotImageClassificationInput]]
 
-[[autodoc]] huggingface_hub.ZeroShotImageClassificationInput
+[[autodoc]] old_huggingface_hub.ZeroShotImageClassificationInput
 
-[[autodoc]] huggingface_hub.ZeroShotImageClassificationInputData
+[[autodoc]] old_huggingface_hub.ZeroShotImageClassificationInputData
 
-[[autodoc]] huggingface_hub.ZeroShotImageClassificationOutputElement
+[[autodoc]] old_huggingface_hub.ZeroShotImageClassificationOutputElement
 
-[[autodoc]] huggingface_hub.ZeroShotImageClassificationParameters
+[[autodoc]] old_huggingface_hub.ZeroShotImageClassificationParameters
 
 
 
-## zero_shot_object_detection[[huggingface_hub.ZeroShotObjectDetectionBoundingBox]]
+## zero_shot_object_detection[[old_huggingface_hub.ZeroShotObjectDetectionBoundingBox]]
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionBoundingBox
+[[autodoc]] old_huggingface_hub.ZeroShotObjectDetectionBoundingBox
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionInput
+[[autodoc]] old_huggingface_hub.ZeroShotObjectDetectionInput
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionInputData
+[[autodoc]] old_huggingface_hub.ZeroShotObjectDetectionInputData
 
-[[autodoc]] huggingface_hub.ZeroShotObjectDetectionOutputElement
+[[autodoc]] old_huggingface_hub.ZeroShotObjectDetectionOutputElement
 
 

@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Interact with Discussions and Pull Requests
 
-The `huggingface_hub` library provides a Python interface to interact with Pull Requests and Discussions on the Hub.
+The `old_huggingface_hub` library provides a Python interface to interact with Pull Requests and Discussions on the Hub.
 Visit [the dedicated documentation page](https://huggingface.co/docs/hub/repositories-pull-requests-discussions)
 for a deeper view of what Discussions and Pull Requests on the Hub are, and how they work under the hood.
 
@@ -13,7 +13,7 @@ for a deeper view of what Discussions and Pull Requests on the Hub are, and how 
 The `HfApi` class allows you to retrieve Discussions and Pull Requests on a given repo:
 
 ```python
->>> from huggingface_hub import get_repo_discussions
+>>> from old_huggingface_hub import get_repo_discussions
 >>> for discussion in get_repo_discussions(repo_id="bigscience/bloom"):
 ...     print(f"{discussion.num} - {discussion.title}, pr: {discussion.is_pull_request}")
 
@@ -28,7 +28,7 @@ The `HfApi` class allows you to retrieve Discussions and Pull Requests on a give
 `HfApi.get_repo_discussions` supports filtering by author, type (Pull Request or Discussion) and status (`open` or `closed`):
 
 ```python
->>> from huggingface_hub import get_repo_discussions
+>>> from old_huggingface_hub import get_repo_discussions
 >>> for discussion in get_repo_discussions(
 ...    repo_id="bigscience/bloom",
 ...    author="ArthurZ",
@@ -44,7 +44,7 @@ The `HfApi` class allows you to retrieve Discussions and Pull Requests on a give
 [`Discussion`] objects. To get all the Discussions in a single list, run:
 
 ```python
->>> from huggingface_hub import get_repo_discussions
+>>> from old_huggingface_hub import get_repo_discussions
 >>> discussions_list = list(get_repo_discussions(repo_id="bert-base-uncased"))
 ```
 
@@ -52,7 +52,7 @@ The [`Discussion`] object returned by [`HfApi.get_repo_discussions`] contains hi
 Discussion or Pull Request. You can also get more detailed information using [`HfApi.get_discussion_details`]:
 
 ```python
->>> from huggingface_hub import get_discussion_details
+>>> from old_huggingface_hub import get_discussion_details
 
 >>> get_discussion_details(
 ...     repo_id="bigscience/bloom-1b3",
@@ -99,7 +99,7 @@ set the `create_pr` parameter to `True`. This parameter is also available on oth
     * [`metadata_update`]
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 
 >>> metadata_update(
 ...     repo_id="username/repo_name",
@@ -112,18 +112,18 @@ You can also use [`HfApi.create_discussion`] (respectively [`HfApi.create_pull_r
 Opening a Pull Request this way can be useful if you need to work on changes locally. Pull Requests opened this way will be in `"draft"` mode.
 
 ```python
->>> from huggingface_hub import create_discussion, create_pull_request
+>>> from old_huggingface_hub import create_discussion, create_pull_request
 
 >>> create_discussion(
 ...     repo_id="username/repo-name",
-...     title="Hi from the huggingface_hub library!",
+...     title="Hi from the old_huggingface_hub library!",
 ...     token="<insert your access token here>",
 ... )
 DiscussionWithDetails(...)
 
 >>> create_pull_request(
 ...     repo_id="username/repo-name",
-...     title="Hi from the huggingface_hub library!",
+...     title="Hi from the old_huggingface_hub library!",
 ...     token="<insert your access token here>",
 ... )
 DiscussionWithDetails(..., is_pull_request=True)

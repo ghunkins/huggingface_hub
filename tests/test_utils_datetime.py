@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from huggingface_hub.utils import parse_datetime
+from old_huggingface_hub.utils import parse_datetime
 
 
 class TestDatetimeUtils(unittest.TestCase):

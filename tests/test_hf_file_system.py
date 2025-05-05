@@ -11,9 +11,9 @@ from unittest.mock import patch
 import fsspec
 import pytest
 
-from huggingface_hub import hf_file_system
-from huggingface_hub.hf_file_system import HfFileSystem, HfFileSystemFile, HfFileSystemStreamFile
-from huggingface_hub.utils import RepositoryNotFoundError, RevisionNotFoundError
+from old_huggingface_hub import hf_file_system
+from old_huggingface_hub.hf_file_system import HfFileSystem, HfFileSystemFile, HfFileSystemStreamFile
+from old_huggingface_hub.utils import RepositoryNotFoundError, RevisionNotFoundError
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN
 from .testing_utils import repo_name
@@ -393,7 +393,7 @@ class HfFileSystemTests(unittest.TestCase):
         )
 
         # Copy the result to make it robust to the cache modifications
-        # See discussion in https://github.com/huggingface/huggingface_hub/pull/2103
+        # See discussion in https://github.com/huggingface/old_huggingface_hub/pull/2103
         # for info on why this is not done in `HfFileSystem.find` by default
         files = copy.deepcopy(self.hffs.find(self.hf_path, detail=True))
 
@@ -489,7 +489,7 @@ class HfFileSystemTests(unittest.TestCase):
         ("hf://datasets/squad", "dev", "dataset", "squad", "dev"),
         ("hf://datasets/squad@dev", None, "dataset", "squad", "dev"),
         # Parse with `refs/convert/parquet` and `refs/pr/(\d)+` revisions.
-        # Regression tests for https://github.com/huggingface/huggingface_hub/issues/1710.
+        # Regression tests for https://github.com/huggingface/old_huggingface_hub/issues/1710.
         ("datasets/squad@refs/convert/parquet", None, "dataset", "squad", "refs/convert/parquet"),
         (
             "hf://datasets/username/my_dataset@refs/convert/parquet",

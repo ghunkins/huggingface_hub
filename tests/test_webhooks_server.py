@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from fastapi import Request
 
-from huggingface_hub.utils import capture_output, is_gradio_available
+from old_huggingface_hub.utils import capture_output, is_gradio_available
 
 from .testing_utils import requires
 
@@ -12,8 +12,8 @@ if is_gradio_available():
     import gradio as gr
     from fastapi.testclient import TestClient
 
-    import huggingface_hub._webhooks_server
-    from huggingface_hub import WebhookPayload, WebhooksServer
+    import old_huggingface_hub._webhooks_server
+    from old_huggingface_hub import WebhookPayload, WebhooksServer
 
 
 # Taken from https://huggingface.co/docs/hub/webhooks#event
@@ -220,7 +220,7 @@ class TestWebhooksServerRun(unittest.TestCase):
     def mocked_run_app(self) -> "TestClient":
         with patch.object(self.ui, "block_thread"):
             # Run without blocking
-            with patch.object(huggingface_hub._webhooks_server, "_is_local", False):
+            with patch.object(old_huggingface_hub._webhooks_server, "_is_local", False):
                 # Run without tunnel
                 self.app.launch()
                 return TestClient(self.app.fastapi_app)

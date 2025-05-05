@@ -1,14 +1,14 @@
 import unittest
 from unittest.mock import Mock, call, patch
 
-from huggingface_hub.utils._pagination import paginate
+from old_huggingface_hub.utils._pagination import paginate
 
 from .testing_utils import handle_injection_in_test
 
 
 class TestPagination(unittest.TestCase):
-    @patch("huggingface_hub.utils._pagination.get_session")
-    @patch("huggingface_hub.utils._pagination.hf_raise_for_status")
+    @patch("old_huggingface_hub.utils._pagination.get_session")
+    @patch("old_huggingface_hub.utils._pagination.hf_raise_for_status")
     @handle_injection_in_test
     def test_mocked_paginate(self, mock_get_session: Mock, mock_hf_raise_for_status: Mock) -> None:
         mock_get = mock_get_session().get

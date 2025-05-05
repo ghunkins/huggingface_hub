@@ -35,23 +35,23 @@ import pytest
 import requests
 from requests.exceptions import HTTPError
 
-import huggingface_hub.lfs
-from huggingface_hub import HfApi, SpaceHardware, SpaceStage, SpaceStorage
-from huggingface_hub._commit_api import (
+import old_huggingface_hub.lfs
+from old_huggingface_hub import HfApi, SpaceHardware, SpaceStage, SpaceStorage
+from old_huggingface_hub._commit_api import (
     CommitOperationAdd,
     CommitOperationCopy,
     CommitOperationDelete,
     _fetch_upload_modes,
 )
-from huggingface_hub.community import DiscussionComment, DiscussionWithDetails
-from huggingface_hub.constants import (
+from old_huggingface_hub.community import DiscussionComment, DiscussionWithDetails
+from old_huggingface_hub.constants import (
     REPO_TYPE_DATASET,
     REPO_TYPE_MODEL,
     REPO_TYPE_SPACE,
     SPACES_SDK_TYPES,
 )
-from huggingface_hub.file_download import hf_hub_download
-from huggingface_hub.hf_api import (
+from old_huggingface_hub.file_download import hf_hub_download
+from old_huggingface_hub.hf_api import (
     AccessRequest,
     Collection,
     CommitInfo,
@@ -64,8 +64,8 @@ from huggingface_hub.hf_api import (
     SpaceRuntime,
     repo_type_and_id_from_hf_id,
 )
-from huggingface_hub.repocard_data import DatasetCardData, ModelCardData
-from huggingface_hub.utils import (
+from old_huggingface_hub.repocard_data import DatasetCardData, ModelCardData
+from old_huggingface_hub.utils import (
     BadRequestError,
     EntryNotFoundError,
     HfHubHTTPError,
@@ -81,7 +81,7 @@ from huggingface_hub.utils import (
     hf_raise_for_status,
     logging,
 )
-from huggingface_hub.utils.endpoint_helpers import (
+from old_huggingface_hub.utils.endpoint_helpers import (
     DatasetFilter,
     ModelFilter,
     _is_emission_within_treshold,
@@ -176,9 +176,9 @@ class HfApiRepoFileExistsTest(HfApiCommonTest):
         assert not self._api.revision_exists(self.repo_id, "main", token=False)  # private repo
         assert not self._api.revision_exists("repo-that-does-not-exist", "main")  # missing repo
 
-    @patch("huggingface_hub.file_download.ENDPOINT", "https://hub-ci.huggingface.co")
+    @patch("old_huggingface_hub.file_download.ENDPOINT", "https://hub-ci.huggingface.co")
     @patch(
-        "huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE",
+        "old_huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE",
         "https://hub-ci.huggingface.co/{repo_id}/resolve/{revision}/{filename}",
     )
     def test_file_exists(self):
@@ -200,14 +200,14 @@ class HfApiEndpointsTest(HfApiCommonTest):
         valid_org = [org for org in info["orgs"] if org["name"] == "valid_org"][0]
         self.assertEqual(valid_org["fullname"], "Dummy Org")
 
-    @patch("huggingface_hub.utils._headers.get_token", return_value=TOKEN)
+    @patch("old_huggingface_hub.utils._headers.get_token", return_value=TOKEN)
     def test_whoami_with_implicit_token_from_login(self, mock_get_token: Mock) -> None:
         """Test using `whoami` after a `huggingface-cli login`."""
         with patch.object(self._api, "token", None):  # no default token
             info = self._api.whoami()
         self.assertEqual(info["name"], USER)
 
-    @patch("huggingface_hub.utils._headers.get_token")
+    @patch("old_huggingface_hub.utils._headers.get_token")
     def test_whoami_with_implicit_token_from_hf_api(self, mock_get_token: Mock) -> None:
         """Test using `whoami` with token from the HfApi client."""
         info = self._api.whoami()
@@ -216,7 +216,7 @@ class HfApiEndpointsTest(HfApiCommonTest):
 
     def test_delete_repo_error_message(self):
         # test for #751
-        # See https://github.com/huggingface/huggingface_hub/issues/751
+        # See https://github.com/huggingface/old_huggingface_hub/issues/751
         with self.assertRaisesRegex(
             requests.exceptions.HTTPError,
             re.compile(
@@ -364,7 +364,7 @@ class CommitApiTest(HfApiCommonTest):
 
     @use_tmp_repo()
     def test_upload_file_pathlib_path(self, repo_url: RepoUrl) -> None:
-        """Regression test for https://github.com/huggingface/huggingface_hub/issues/1246."""
+        """Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1246."""
         self._api.upload_file(path_or_fileobj=Path(self.tmp_file), path_in_repo="README.md", repo_id=repo_url.repo_id)
         self.assertIn("README.md", self._api.list_repo_files(repo_id=repo_url.repo_id))
 
@@ -411,7 +411,7 @@ class CommitApiTest(HfApiCommonTest):
         with pytest.raises(HfHubHTTPError, match="Invalid username or password"):
             self._api.create_repo(repo_id=REPO_NAME, token="api_org_dummy_token")
 
-    @patch("huggingface_hub.utils._headers.get_token", return_value="api_org_dummy_token")
+    @patch("old_huggingface_hub.utils._headers.get_token", return_value="api_org_dummy_token")
     def test_create_repo_org_token_none_fail(self, mock_get_token: Mock):
         with pytest.raises(HfHubHTTPError, match="Invalid username or password"):
             with patch.object(self._api, "token", None):  # no default token
@@ -764,11 +764,11 @@ class CommitApiTest(HfApiCommonTest):
 
                 self.assertEqual(str(context.exception), expected_message)
 
-    @patch("huggingface_hub.utils._headers.get_token", return_value=TOKEN)
+    @patch("old_huggingface_hub.utils._headers.get_token", return_value=TOKEN)
     def test_create_commit_lfs_file_implicit_token(self, get_token_mock: Mock) -> None:
         """Test that uploading a file as LFS works with cached token.
 
-        Regression test for https://github.com/huggingface/huggingface_hub/pull/1084.
+        Regression test for https://github.com/huggingface/old_huggingface_hub/pull/1084.
         """
         REPO_NAME = repo_name("create_commit_with_lfs")
         repo_id = f"{USER}/{REPO_NAME}"
@@ -813,7 +813,7 @@ class CommitApiTest(HfApiCommonTest):
         This was not possible when using `json` format instead of `ndjson`
         on the `/create-commit` endpoint.
 
-        See https://github.com/huggingface/huggingface_hub/pull/1117.
+        See https://github.com/huggingface/old_huggingface_hub/pull/1117.
         """
         operations = [
             CommitOperationAdd(
@@ -839,7 +839,7 @@ class CommitApiTest(HfApiCommonTest):
 
         There is also a 25k LFS files limit on the Hub but this is not tested.
 
-        See https://github.com/huggingface/huggingface_hub/pull/1117.
+        See https://github.com/huggingface/old_huggingface_hub/pull/1117.
         """
         operations = [
             CommitOperationAdd(
@@ -871,7 +871,7 @@ class CommitApiTest(HfApiCommonTest):
         receiving only the first line which causes a confusing "400 Bad Request - Add a line with the key `lfsFile`,
         `file` or `deletedFile`". Passing raw bytes instead of a generator fixes the problem.
 
-        See https://github.com/huggingface/huggingface_hub/issues/1371.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1371.
         """
         REPO_NAME = repo_name("CaSe_Is_ImPoRtAnT")
         repo_id = self._api.create_repo(repo_id=REPO_NAME, exist_ok=False).repo_id
@@ -973,7 +973,7 @@ class CommitApiTest(HfApiCommonTest):
         self.assertEqual(operations[2].path_or_fileobj, b"")  # Freed memory
 
         # create commit and capture debug logs
-        with self.assertLogs("huggingface_hub", level="DEBUG") as debug_logs:
+        with self.assertLogs("old_huggingface_hub", level="DEBUG") as debug_logs:
             self._api.create_commit(
                 repo_id=repo_id,
                 commit_message="Copy LFS file.",
@@ -1542,7 +1542,7 @@ class HfApiPublicProductionTest(unittest.TestCase):
     @unittest.skip(
         "Security status is currently unreliable on the server endpoint, so this"
         " test occasionally fails. Issue is tracked in"
-        " https://github.com/huggingface/huggingface_hub/issues/1002 and"
+        " https://github.com/huggingface/old_huggingface_hub/issues/1002 and"
         " https://github.com/huggingface/moon-landing/issues/3695. TODO: un-skip"
         " this test once it's fixed."
     )
@@ -1572,7 +1572,7 @@ class HfApiPublicProductionTest(unittest.TestCase):
 
         Example data from https://huggingface.co/Waynehillsdev/Waynehills-STT-doogie-server.
         """
-        with self.assertLogs("huggingface_hub", level="WARNING") as warning_logs:
+        with self.assertLogs("old_huggingface_hub", level="WARNING") as warning_logs:
             model = ModelInfo(
                 **{
                     "_id": "621ffdc036468d709f1751d8",
@@ -1980,10 +1980,10 @@ class HfApiPublicProductionTest(unittest.TestCase):
 
     def test_not_a_safetensors_repo(self) -> None:
         with self.assertRaises(NotASafetensorsRepoError):
-            self._api.get_safetensors_metadata("huggingface-hub-ci/test_safetensors_metadata")
+            self._api.get_safetensors_metadata("old-huggingface-hub-ci/test_safetensors_metadata")
 
     def test_get_safetensors_metadata_from_revision(self) -> None:
-        info = self._api.get_safetensors_metadata("huggingface-hub-ci/test_safetensors_metadata", revision="refs/pr/1")
+        info = self._api.get_safetensors_metadata("old-huggingface-hub-ci/test_safetensors_metadata", revision="refs/pr/1")
         assert isinstance(info, SafetensorsRepoMetadata)
 
     def test_parse_safetensors_metadata(self) -> None:
@@ -2019,7 +2019,7 @@ class HfApiPrivateTest(HfApiCommonTest):
         self._api.delete_repo(repo_id=self.REPO_NAME)
         self._api.delete_repo(repo_id=self.REPO_NAME, repo_type="dataset")
 
-    @patch("huggingface_hub.utils._headers.get_token", return_value=None)
+    @patch("old_huggingface_hub.utils._headers.get_token", return_value=None)
     def test_model_info(self, mock_get_token: Mock) -> None:
         with patch.object(self._api, "token", None):  # no default token
             # Test we cannot access model info without a token
@@ -2035,7 +2035,7 @@ class HfApiPrivateTest(HfApiCommonTest):
             model_info = self._api.model_info(repo_id=f"{USER}/{self.REPO_NAME}", use_auth_token=self._token)
             self.assertIsInstance(model_info, ModelInfo)
 
-    @patch("huggingface_hub.utils._headers.get_token", return_value=None)
+    @patch("old_huggingface_hub.utils._headers.get_token", return_value=None)
     def test_dataset_info(self, mock_get_token: Mock) -> None:
         with patch.object(self._api, "token", None):  # no default token
             # Test we cannot access model info without a token
@@ -2158,7 +2158,7 @@ class UploadFolderMockedTest(unittest.TestCase):
         """Regression test for #1382 when using `path_in_repo="."`.
 
         Using `path_in_repo="."` or `path_in_repo=None` should be equivalent.
-        See https://github.com/huggingface/huggingface_hub/pull/1382.
+        See https://github.com/huggingface/old_huggingface_hub/pull/1382.
         """
         operation_with_dot = self._upload_folder_alias(path_in_repo=".", allow_patterns=["file.txt"])[0]
         operation_with_none = self._upload_folder_alias(path_in_repo=None, allow_patterns=["file.txt"])[0]
@@ -2199,7 +2199,7 @@ class UploadFolderMockedTest(unittest.TestCase):
         self.assertEqual(deleted_files, {"sub/file1.txt", "sub/file.txt"})
 
     def test_delete_if_path_in_repo(self):
-        # Regression test for https://github.com/huggingface/huggingface_hub/pull/2129
+        # Regression test for https://github.com/huggingface/old_huggingface_hub/pull/2129
         operations = self._upload_folder_alias(path_in_repo=".", folder_path=self.cache_dir, delete_patterns="*")
         deleted_files = {op.path_in_repo for op in operations if isinstance(op, CommitOperationDelete)}
         assert deleted_files == {"file1.txt", "sub/file1.txt"}  # all the 'old' files
@@ -2300,9 +2300,9 @@ class HfLargefilesTest(HfApiCommonTest):
         self._api._lfsmultipartthresh = None
 
         with patch.object(
-            huggingface_hub.lfs,
+            old_huggingface_hub.lfs,
             "_upload_parts_iteratively",
-            wraps=huggingface_hub.lfs._upload_parts_iteratively,
+            wraps=old_huggingface_hub.lfs._upload_parts_iteratively,
         ) as mock:
             self._api.upload_file(repo_id=self.repo_id, path_or_fileobj=b"0" * 18 * 10**6, path_in_repo="lfs.bin")
             mock.assert_called_once()  # It used multipart upload
@@ -2368,7 +2368,7 @@ class HfApiDiscussionsTest(HfApiCommonTest):
         """Regression test for #1463.
 
         Computed URL was malformed with `dataset` and `space` repo_types.
-        See https://github.com/huggingface/huggingface_hub/issues/1463.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1463.
         """
         discussion = self._api.create_discussion(repo_id=repo_url.repo_id, repo_type="dataset", title="title")
         self.assertEqual(discussion.url, f"{repo_url}/discussions/1")
@@ -2639,7 +2639,7 @@ class TestSquashHistory(HfApiCommonTest):
 
         # Main branch has been squashed but initial commits still exists on other branch
         self.assertEqual(len(squashed_main_commits), 1)
-        self.assertEqual(squashed_main_commits[0].title, "Super-squash branch 'main' using huggingface_hub")
+        self.assertEqual(squashed_main_commits[0].title, "Super-squash branch 'main' using old_huggingface_hub")
         self.assertEqual(len(branch_commits), 5)
         self.assertEqual(branch_commits[-1].title, "initial commit")
 
@@ -2647,7 +2647,7 @@ class TestSquashHistory(HfApiCommonTest):
         self._api.super_squash_history(repo_id=repo_id, branch="v0.1")
         squashed_branch_commits = self._api.list_repo_commits(repo_id=repo_id, revision="v0.1")
         self.assertEqual(len(squashed_branch_commits), 1)
-        self.assertEqual(squashed_branch_commits[0].title, "Super-squash branch 'v0.1' using huggingface_hub")
+        self.assertEqual(squashed_branch_commits[0].title, "Super-squash branch 'v0.1' using old_huggingface_hub")
 
 
 @pytest.mark.vcr
@@ -2756,7 +2756,7 @@ iface.launch()
     def test_static_space_runtime(self) -> None:
         """
         Regression test for static Spaces.
-        See https://github.com/huggingface/huggingface_hub/pull/1754.
+        See https://github.com/huggingface/old_huggingface_hub/pull/1754.
         """
         runtime = self.api.get_space_runtime("victor/static-space")
         self.assertIsInstance(runtime.raw, dict)
@@ -2862,7 +2862,7 @@ class TestDownloadHfApiAlias(unittest.TestCase):
         )
         return super().setUp()
 
-    @patch("huggingface_hub.file_download.hf_hub_download")
+    @patch("old_huggingface_hub.file_download.hf_hub_download")
     def test_hf_hub_download_alias(self, mock: Mock) -> None:
         self.api.hf_hub_download("my_repo_id", "file.txt")
         mock.assert_called_once_with(
@@ -2892,7 +2892,7 @@ class TestDownloadHfApiAlias(unittest.TestCase):
             headers=None,
         )
 
-    @patch("huggingface_hub._snapshot_download.snapshot_download")
+    @patch("old_huggingface_hub._snapshot_download.snapshot_download")
     def test_snapshot_download_alias(self, mock: Mock) -> None:
         self.api.snapshot_download("my_repo_id")
         mock.assert_called_once_with(
@@ -2959,7 +2959,7 @@ class TestSpaceAPIMocked(unittest.TestCase):
             "storage": None,
             "gcTimeout": None,
         }
-        self.patcher = patch("huggingface_hub.hf_api.get_session", get_session_mock)
+        self.patcher = patch("old_huggingface_hub.hf_api.get_session", get_session_mock)
         self.patcher.start()
 
     def tearDown(self) -> None:
@@ -3226,7 +3226,7 @@ class ListGitCommitsTest(unittest.TestCase):
         self.assertTrue(all(commit.authors == [USER] for commit in commits))
 
         # latest commit first
-        self.assertEqual(commits[0].title, "Upload on_main.txt with huggingface_hub")
+        self.assertEqual(commits[0].title, "Upload on_main.txt with old_huggingface_hub")
 
         # Formatted field not returned by default
         for commit in commits:
@@ -3239,7 +3239,7 @@ class ListGitCommitsTest(unittest.TestCase):
         # "on_pr" commit returned but not the "on_main" one
         self.assertEqual(len(commits), 3)
         self.assertTrue(all("on_main" not in commit.title for commit in commits))
-        self.assertEqual(commits[0].title, "Upload on_pr.txt with huggingface_hub")
+        self.assertEqual(commits[0].title, "Upload on_pr.txt with old_huggingface_hub")
 
     def test_list_commits_include_formatted(self) -> None:
         for commit in self.api.list_repo_commits(self.repo_id, formatted=True):
@@ -3255,7 +3255,7 @@ class ListGitCommitsTest(unittest.TestCase):
             self.api.list_repo_commits(self.repo_id, revision="missing_revision")
 
 
-@patch("huggingface_hub.hf_api.build_hf_headers")
+@patch("old_huggingface_hub.hf_api.build_hf_headers")
 class HfApiTokenAttributeTest(unittest.TestCase):
     def test_token_passed(self, mock_build_hf_headers: Mock) -> None:
         HfApi(token="default token")._build_hf_headers(token="A token")
@@ -3300,7 +3300,7 @@ class HfApiTokenAttributeTest(unittest.TestCase):
         self.assertEqual(mock_build_hf_headers.call_args[1]["user_agent"], {"A": "B"})
 
 
-@patch("huggingface_hub.hf_api.ENDPOINT", "https://huggingface.co")
+@patch("old_huggingface_hub.hf_api.ENDPOINT", "https://huggingface.co")
 class RepoUrlTest(unittest.TestCase):
     def test_repo_url_class(self):
         url = RepoUrl("https://huggingface.co/gpt2")

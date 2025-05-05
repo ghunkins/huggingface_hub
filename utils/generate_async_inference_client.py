@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Contains a tool to generate `src/huggingface_hub/inference/_generated/_async_client.py`."""
+"""Contains a tool to generate `src/old_huggingface_hub/inference/_generated/_async_client.py`."""
 
 import argparse
 import os
@@ -25,9 +25,9 @@ from ruff.__main__ import find_ruff_bin
 
 
 ASYNC_CLIENT_FILE_PATH = (
-    Path(__file__).parents[1] / "src" / "huggingface_hub" / "inference" / "_generated" / "_async_client.py"
+    Path(__file__).parents[1] / "src" / "old_huggingface_hub" / "inference" / "_generated" / "_async_client.py"
 )
-SYNC_CLIENT_FILE_PATH = Path(__file__).parents[1] / "src" / "huggingface_hub" / "inference" / "_client.py"
+SYNC_CLIENT_FILE_PATH = Path(__file__).parents[1] / "src" / "old_huggingface_hub" / "inference" / "_client.py"
 
 
 def generate_async_client_code(code: str) -> str:
@@ -99,13 +99,13 @@ def check_async_client(update: bool) -> NoReturn:
 
             print(
                 "✅ AsyncInferenceClient source code has been updated in"
-                " `./src/huggingface_hub/inference/_generated/_async_client.py`.\n   Please make sure the changes are"
+                " `./src/old_huggingface_hub/inference/_generated/_async_client.py`.\n   Please make sure the changes are"
                 " accurate and commit them."
             )
             exit(0)
         else:
             print(
-                "❌ Expected content mismatch in `./src/huggingface_hub/inference/_generated/_async_client.py`.\n   It"
+                "❌ Expected content mismatch in `./src/old_huggingface_hub/inference/_generated/_async_client.py`.\n   It"
                 " is most likely that you modified some InferenceClient code and did not update the the"
                 " AsyncInferenceClient one.\n   Please run `make style` or `python"
                 " utils/generate_async_inference_client.py --update`."
@@ -119,7 +119,7 @@ def check_async_client(update: bool) -> NoReturn:
 def _add_warning_to_file_header(code: str) -> str:
     warning_message = (
         "#\n# WARNING\n# This entire file has been adapted from the sync-client code in"
-        " `src/huggingface_hub/inference/_client.py`.\n# Any change in InferenceClient will be automatically reflected"
+        " `src/old_huggingface_hub/inference/_client.py`.\n# Any change in InferenceClient will be automatically reflected"
         " in AsyncInferenceClient.\n# To re-generate the code, run `make style` or `python"
         " ./utils/generate_async_inference_client.py --update`.\n# WARNING"
     )
@@ -454,7 +454,7 @@ if __name__ == "__main__":
         "--update",
         action="store_true",
         help=(
-            "Whether to re-generate `./src/huggingface_hub/inference/_generated/_async_client.py` if a change is"
+            "Whether to re-generate `./src/old_huggingface_hub/inference/_generated/_async_client.py` if a change is"
             " detected."
         ),
     )

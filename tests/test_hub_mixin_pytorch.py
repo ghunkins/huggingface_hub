@@ -8,10 +8,10 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from huggingface_hub import HfApi, ModelCard, hf_hub_download
-from huggingface_hub.constants import PYTORCH_WEIGHTS_NAME
-from huggingface_hub.hub_mixin import ModelHubMixin, PyTorchModelHubMixin
-from huggingface_hub.utils import EntryNotFoundError, HfHubHTTPError, SoftTemporaryDirectory, is_torch_available
+from old_huggingface_hub import HfApi, ModelCard, hf_hub_download
+from old_huggingface_hub.constants import PYTORCH_WEIGHTS_NAME
+from old_huggingface_hub.hub_mixin import ModelHubMixin, PyTorchModelHubMixin
+from old_huggingface_hub.utils import EntryNotFoundError, HfHubHTTPError, SoftTemporaryDirectory, is_torch_available
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN, USER
 from .testing_utils import repo_name, requires
@@ -148,7 +148,7 @@ class PytorchHubMixinTest(unittest.TestCase):
         DummyModel().save_pretrained(self.cache_dir)
         return self.cache_dir / "model.safetensors"
 
-    @patch("huggingface_hub.hub_mixin.hf_hub_download")
+    @patch("old_huggingface_hub.hub_mixin.hf_hub_download")
     def test_from_pretrained_model_from_hub_prefer_safetensor(self, hf_hub_download_mock: Mock) -> None:
         hf_hub_download_mock.side_effect = self.pretend_file_download
         model = DummyModel.from_pretrained("namespace/repo_name")
@@ -177,7 +177,7 @@ class PytorchHubMixinTest(unittest.TestCase):
         TestMixin().save_pretrained(self.cache_dir)
         return self.cache_dir / PYTORCH_WEIGHTS_NAME
 
-    @patch("huggingface_hub.hub_mixin.hf_hub_download")
+    @patch("old_huggingface_hub.hub_mixin.hf_hub_download")
     def test_from_pretrained_model_from_hub_fallback_pickle(self, hf_hub_download_mock: Mock) -> None:
         hf_hub_download_mock.side_effect = self.pretend_file_download_fallback
         model = DummyModel.from_pretrained("namespace/repo_name")
@@ -208,7 +208,7 @@ class PytorchHubMixinTest(unittest.TestCase):
     @patch.object(DummyModel, "_from_pretrained")
     def test_from_pretrained_model_id_and_revision(self, from_pretrained_mock: Mock) -> None:
         """Regression test for #1313.
-        See https://github.com/huggingface/huggingface_hub/issues/1313."""
+        See https://github.com/huggingface/old_huggingface_hub/issues/1313."""
         model = DummyModel.from_pretrained("namespace/repo_name", revision="123456789")
         from_pretrained_mock.assert_called_once_with(
             model_id="namespace/repo_name",
@@ -352,7 +352,7 @@ class PytorchHubMixinTest(unittest.TestCase):
         """
         Regression test for #2086. Shared tensors should be saved correctly.
 
-        See https://github.com/huggingface/huggingface_hub/pull/2086 for more details.
+        See https://github.com/huggingface/old_huggingface_hub/pull/2086 for more details.
         """
 
         class ModelWithSharedTensors(nn.Module, PyTorchModelHubMixin):

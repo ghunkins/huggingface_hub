@@ -6,11 +6,11 @@ rendered properly in your Markdown viewer.
 
 Bevor Sie beginnen, müssen Sie Ihre Umgebung vorbereiten, indem Sie die entsprechenden Pakete installieren.
 
-`huggingface_hub` wurde für **Python 3.8+** getestet.
+`old_huggingface_hub` wurde für **Python 3.8+** getestet.
 
 ## Installation mit pip
 
-Es wird dringend empfohlen, `huggingface_hub` in einer [virtuellen Umgebung](https://docs.python.org/3/library/venv.html) zu installieren. Wenn Sie mit virtuellen Umgebungen in Python nicht vertraut sind, werfen Sie einen Blick auf diesen [Leitfaden](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). Eine virtuelle Umgebung erleichtert die Verwaltung verschiedener Projekte und verhindert Kompatibilitätsprobleme zwischen Abhängigkeiten.
+Es wird dringend empfohlen, `old_huggingface_hub` in einer [virtuellen Umgebung](https://docs.python.org/3/library/venv.html) zu installieren. Wenn Sie mit virtuellen Umgebungen in Python nicht vertraut sind, werfen Sie einen Blick auf diesen [Leitfaden](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). Eine virtuelle Umgebung erleichtert die Verwaltung verschiedener Projekte und verhindert Kompatibilitätsprobleme zwischen Abhängigkeiten.
 
 Beginnen Sie damit, eine virtuelle Umgebung in Ihrem Projektverzeichnis zu erstellen:
 
@@ -30,84 +30,84 @@ Aktivieren der virtuellen Umgebung unter Windows:
 .env/Scripts/activate
 ```
 
-Jetzt können Sie `huggingface_hub` aus dem [PyPi-Register](https://pypi.org/project/huggingface-hub/) installieren:
+Jetzt können Sie `old_huggingface_hub` aus dem [PyPi-Register](https://pypi.org/project/old-huggingface-hub/) installieren:
 
 ```bash
-pip install --upgrade huggingface_hub
+pip install --upgrade old_huggingface_hub
 ```
 
 Überprüfen Sie nach Abschluss, ob die [Installation korrekt funktioniert](#installation-berprfen).
 
 ### Installieren optionaler Abhängigkeiten
 
-Einige Abhängigkeiten von `huggingface_hub` sind [optional](https://setuptools.pypa.io/en/latest/userguide/dependency_management.html#optional-dependencies), da sie nicht notwendig sind, um die Kernfunktionen von `huggingface_hub` auszuführen. Allerdings könnten einige Funktionen von `huggingface_hub` nicht verfügbar sein, wenn die optionalen Abhängigkeiten nicht installiert sind.
+Einige Abhängigkeiten von `old_huggingface_hub` sind [optional](https://setuptools.pypa.io/en/latest/userguide/dependency_management.html#optional-dependencies), da sie nicht notwendig sind, um die Kernfunktionen von `old_huggingface_hub` auszuführen. Allerdings könnten einige Funktionen von `old_huggingface_hub` nicht verfügbar sein, wenn die optionalen Abhängigkeiten nicht installiert sind.
 
 Sie können optionale Abhängigkeiten über `pip` installieren:
 ```bash
 # Abhängigkeiten für spezifische TensorFlow-Funktionen installieren
 # /!\ Achtung: dies entspricht nicht `pip install tensorflow`
-pip install 'huggingface_hub[tensorflow]'
+pip install 'old_huggingface_hub[tensorflow]'
 
 # Abhängigkeiten sowohl für torch-spezifische als auch für CLI-spezifische Funktionen installieren.
-pip install 'huggingface_hub[cli,torch]'
+pip install 'old_huggingface_hub[cli,torch]'
 ```
 
-Hier ist die Liste der optionalen Abhängigkeiten in huggingface_hub:
+Hier ist die Liste der optionalen Abhängigkeiten in old_huggingface_hub:
 
-- `cli`: bietet eine komfortablere CLI-Schnittstelle für huggingface_hub.
+- `cli`: bietet eine komfortablere CLI-Schnittstelle für old_huggingface_hub.
 - `fastai`, `torch`, `tensorflow`: Abhängigkeiten, um framework-spezifische Funktionen auszuführen.
 - `dev`: Abhängigkeiten, um zur Bibliothek beizutragen. Enthält `testing` (um Tests auszuführen), `typing` (um den Type Checker auszuführen) und `quality` (um Linters auszuführen).
 
 
 ### Installieren von der Quelle
 
-In einigen Fällen kann es sinnvoll sein, `huggingface_hub` direkt von der Quelle zu installieren. Dies ermöglicht es Ihnen, die aktuellste `main`-Version anstelle der neuesten stabilen Version zu verwenden. Die `main`-Version ist nützlich, um immer auf dem neuesten Stand der Entwicklungen zu bleiben, zum Beispiel wenn ein Fehler seit der letzten offiziellen Veröffentlichung behoben wurde, aber noch keine neue Version herausgegeben wurde.
+In einigen Fällen kann es sinnvoll sein, `old_huggingface_hub` direkt von der Quelle zu installieren. Dies ermöglicht es Ihnen, die aktuellste `main`-Version anstelle der neuesten stabilen Version zu verwenden. Die `main`-Version ist nützlich, um immer auf dem neuesten Stand der Entwicklungen zu bleiben, zum Beispiel wenn ein Fehler seit der letzten offiziellen Veröffentlichung behoben wurde, aber noch keine neue Version herausgegeben wurde.
 
 Das bedeutet jedoch, dass die `main`-Version nicht immer stabil sein könnte. Wir bemühen uns, die Hauptversion funktionsfähig zu halten, und die meisten Probleme werden in der Regel innerhalb von einigen Stunden oder einem Tag gelöst. Wenn Sie auf ein Problem stoßen, eröffnen Sie bitte ein "Issue", damit wir es noch schneller beheben können!
 
 ```bash
-pip install git+https://github.com/huggingface/huggingface_hub
+pip install git+https://github.com/huggingface/old_huggingface_hub
 ```
 
 Bei der Installation von der Quelle können Sie auch einen bestimmten Zweig angeben. Dies ist nützlich, wenn Sie ein neues Feature oder einen neuen Fehlerbehebung testen möchten, der noch nicht zusammengeführt wurde:
 
 ```bash
-pip install git+https://github.com/huggingface/huggingface_hub@my-feature-branch
+pip install git+https://github.com/huggingface/old_huggingface_hub@my-feature-branch
 ```
 
 Überprüfen Sie nach Abschluss, ob die [Installation korrekt funktioniert](#installation-berprfen).
 
 ### Editierbare Installation
 
-Die Installation von der Quelle ermöglicht Ihnen eine [editierbare Installation](https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs). Dies ist eine fortgeschrittenere Installation, wenn Sie zur Entwicklung von `huggingface_hub` beitragen und Änderungen im Code testen möchten. Sie müssen eine lokale Kopie von `huggingface_hub` auf Ihrem Computer klonen.
+Die Installation von der Quelle ermöglicht Ihnen eine [editierbare Installation](https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs). Dies ist eine fortgeschrittenere Installation, wenn Sie zur Entwicklung von `old_huggingface_hub` beitragen und Änderungen im Code testen möchten. Sie müssen eine lokale Kopie von `old_huggingface_hub` auf Ihrem Computer klonen.
 
 ```bash
 # Zuerst die Repository lokal klonen
-git clone https://github.com/huggingface/huggingface_hub.git
+git clone https://github.com/huggingface/old_huggingface_hub.git
 
 # Dann mit dem -e Flag installieren
-cd huggingface_hub
+cd old_huggingface_hub
 pip install -e .
 ```
 
-Diese Befehle verknüpfen den Ordner, in den Sie das Repository geklont haben, mit Ihren Python-Bibliothekspfaden. Python wird nun zusätzlich zu den normalen Bibliothekspfaden im geklonten Ordner suchen. Wenn Ihre Python-Pakete normalerweise in `./.venv/lib/python3.11/site-packages/` installiert sind, wird Python auch den geklonten Ordner `./huggingface_hub/` durchsuchen.
+Diese Befehle verknüpfen den Ordner, in den Sie das Repository geklont haben, mit Ihren Python-Bibliothekspfaden. Python wird nun zusätzlich zu den normalen Bibliothekspfaden im geklonten Ordner suchen. Wenn Ihre Python-Pakete normalerweise in `./.venv/lib/python3.11/site-packages/` installiert sind, wird Python auch den geklonten Ordner `./old_huggingface_hub/` durchsuchen.
 
 ## Installieren mit conda
 
-Wenn Sie damit vertrauter sind, können Sie `huggingface_hub` über den [conda-forge-Kanal](https://anaconda.org/conda-forge/huggingface_hub) installieren:
+Wenn Sie damit vertrauter sind, können Sie `old_huggingface_hub` über den [conda-forge-Kanal](https://anaconda.org/conda-forge/old_huggingface_hub) installieren:
 
 ```bash
-conda install -c conda-forge huggingface_hub
+conda install -c conda-forge old_huggingface_hub
 ```
 
 Überprüfen Sie nach Abschluss, ob die [Installation korrekt funktioniert](#installation-berprfen).
 
 ## Installation überprüfen
 
-Nach der Installation überprüfen Sie, ob `huggingface_hub` richtig funktioniert, indem Sie den folgenden Befehl ausführen:
+Nach der Installation überprüfen Sie, ob `old_huggingface_hub` richtig funktioniert, indem Sie den folgenden Befehl ausführen:
 
 ```bash
-python -c "from huggingface_hub import model_info; print(model_info('gpt2'))"
+python -c "from old_huggingface_hub import model_info; print(model_info('gpt2'))"
 ```
 
 Dieser Befehl ruft Informationen vom Hub über das [gpt2](https://huggingface.co/gpt2)-Modell ab. Die Ausgabe sollte so aussehen:
@@ -120,13 +120,13 @@ Task: text-generation
 
 ## Windows-Einschränkungen
 
-Mit unserem Ziel, gutes ML überall zu demokratisieren, haben wir `huggingface_hub` als plattformübergreifende Bibliothek entwickelt, insbesondere um sowohl auf Unix-basierten als auch auf Windows-Systemen korrekt zu funktionieren. Es gibt jedoch einige Fälle, in denen `huggingface_hub` unter Windows gewisse Einschränkungen hat. Hier ist eine ausführliche Liste der bekannten Probleme. Bitte informieren Sie uns, wenn Sie auf ein nicht dokumentiertes Problem stoßen, indem Sie ein [Issue auf Github eröffnen](https://github.com/huggingface/huggingface_hub/issues/new/choose).
+Mit unserem Ziel, gutes ML überall zu demokratisieren, haben wir `old_huggingface_hub` als plattformübergreifende Bibliothek entwickelt, insbesondere um sowohl auf Unix-basierten als auch auf Windows-Systemen korrekt zu funktionieren. Es gibt jedoch einige Fälle, in denen `old_huggingface_hub` unter Windows gewisse Einschränkungen hat. Hier ist eine ausführliche Liste der bekannten Probleme. Bitte informieren Sie uns, wenn Sie auf ein nicht dokumentiertes Problem stoßen, indem Sie ein [Issue auf Github eröffnen](https://github.com/huggingface/old_huggingface_hub/issues/new/choose).
 
 
-- Das Cache-System von `huggingface_hub` verwendet Symlinks, um Dateien, die vom Hub heruntergeladen wurden, effizient zu cachen. Unter Windows müssen Sie den Entwicklermodus aktivieren oder Ihr Skript als Admin ausführen, um Symlinks zu aktivieren. Wenn sie nicht aktiviert sind, funktioniert das Cache-System immer noch, aber nicht optimiert. Bitte lesen Sie den Abschnitt über [Cache-Einschränkungen](./guides/manage-cache#limitations) für weitere Details.
+- Das Cache-System von `old_huggingface_hub` verwendet Symlinks, um Dateien, die vom Hub heruntergeladen wurden, effizient zu cachen. Unter Windows müssen Sie den Entwicklermodus aktivieren oder Ihr Skript als Admin ausführen, um Symlinks zu aktivieren. Wenn sie nicht aktiviert sind, funktioniert das Cache-System immer noch, aber nicht optimiert. Bitte lesen Sie den Abschnitt über [Cache-Einschränkungen](./guides/manage-cache#limitations) für weitere Details.
 - Dateipfade auf dem Hub können Sonderzeichen enthalten (z.B. `"pfad/zu?/meiner/datei"`). Windows ist bei [Sonderzeichen](https://learn.microsoft.com/en-us/windows/win32/intl/character-sets-used-in-file-names) restriktiver, wodurch es unmöglich ist, diese Dateien unter Windows herunterzuladen. Hoffentlich ist dies ein seltener Fall. Bitte wenden Sie sich an den Repo-Eigentümer, wenn Sie denken, dass dies ein Fehler ist, oder an uns, um eine Lösung zu finden.
 
 
 ## Nächste Schritte
 
-Sobald `huggingface_hub`` richtig auf Ihrem Computer installiert ist, möchten Sie vielleicht [Umgebungsvariablen konfigurieren](package_reference/environment_variables) oder [einen unserer Leitfäden durchgehen](guides/overview), um loszulegen.
+Sobald `old_huggingface_hub`` richtig auf Ihrem Computer installiert ist, möchten Sie vielleicht [Umgebungsvariablen konfigurieren](package_reference/environment_variables) oder [einen unserer Leitfäden durchgehen](guides/overview), um loszulegen.

@@ -3,8 +3,8 @@ import unittest
 from hashlib import sha256
 from io import BytesIO
 
-from huggingface_hub.utils import SoftTemporaryDirectory
-from huggingface_hub.utils.sha import sha_fileobj
+from old_huggingface_hub.utils import SoftTemporaryDirectory
+from old_huggingface_hub.utils.sha import sha_fileobj
 
 
 class TestShaUtils(unittest.TestCase):

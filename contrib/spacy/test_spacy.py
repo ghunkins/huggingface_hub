@@ -1,15 +1,15 @@
 import time
 
-from spacy_huggingface_hub import push
+from spacy_old_huggingface_hub import push
 
-from huggingface_hub import delete_repo, hf_hub_download, model_info
-from huggingface_hub.utils import HfHubHTTPError
+from old_huggingface_hub import delete_repo, hf_hub_download, model_info
+from old_huggingface_hub.utils import HfHubHTTPError
 
 from ..utils import production_endpoint
 
 
 def test_push_to_hub(user: str) -> None:
-    """Test equivalent of `python -m spacy huggingface-hub push`.
+    """Test equivalent of `python -m spacy old-huggingface-hub push`.
 
     (0. Delete existing repo on the Hub (if any))
     1. Download an example file from production

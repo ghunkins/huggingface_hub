@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from huggingface_hub import (
+from old_huggingface_hub import (
     AsyncInferenceClient,
     HfApi,
     InferenceClient,
@@ -172,7 +172,7 @@ def test_get_client_ready():
     assert "my-token" in async_client.headers["Authorization"]
 
 
-@patch("huggingface_hub.hf_api.HfApi.get_inference_endpoint")
+@patch("old_huggingface_hub.hf_api.HfApi.get_inference_endpoint")
 def test_fetch(mock_get: Mock):
     endpoint = InferenceEndpoint.from_raw(MOCK_INITIALIZING, namespace="foo")
 
@@ -183,8 +183,8 @@ def test_fetch(mock_get: Mock):
     assert endpoint.url == "https://vksrvs8pc1xnifhq.us-east-1.aws.endpoints.huggingface.cloud"
 
 
-@patch("huggingface_hub._inference_endpoints.get_session")
-@patch("huggingface_hub.hf_api.HfApi.get_inference_endpoint")
+@patch("old_huggingface_hub._inference_endpoints.get_session")
+@patch("old_huggingface_hub.hf_api.HfApi.get_inference_endpoint")
 def test_wait_until_running(mock_get: Mock, mock_session: Mock):
     """Test waits waits until the endpoint is ready."""
     endpoint = InferenceEndpoint.from_raw(MOCK_INITIALIZING, namespace="foo")
@@ -209,7 +209,7 @@ def test_wait_until_running(mock_get: Mock, mock_session: Mock):
     assert len(mock_get.call_args_list) == 6
 
 
-@patch("huggingface_hub.hf_api.HfApi.get_inference_endpoint")
+@patch("old_huggingface_hub.hf_api.HfApi.get_inference_endpoint")
 def test_wait_timeout(mock_get: Mock):
     """Test waits until timeout error is raised."""
     endpoint = InferenceEndpoint.from_raw(MOCK_INITIALIZING, namespace="foo")
@@ -227,7 +227,7 @@ def test_wait_timeout(mock_get: Mock):
     assert len(mock_get.call_args_list) == 2
 
 
-@patch("huggingface_hub.hf_api.HfApi.get_inference_endpoint")
+@patch("old_huggingface_hub.hf_api.HfApi.get_inference_endpoint")
 def test_wait_failed(mock_get: Mock):
     """Test waits until timeout error is raised."""
     endpoint = InferenceEndpoint.from_raw(MOCK_INITIALIZING, namespace="foo")
@@ -241,7 +241,7 @@ def test_wait_failed(mock_get: Mock):
         endpoint.wait(refresh_every=0.001)
 
 
-@patch("huggingface_hub.hf_api.HfApi.pause_inference_endpoint")
+@patch("old_huggingface_hub.hf_api.HfApi.pause_inference_endpoint")
 def test_pause(mock: Mock):
     """Test `pause` calls the correct alias."""
     endpoint = InferenceEndpoint.from_raw(MOCK_RUNNING, namespace="foo")
@@ -250,7 +250,7 @@ def test_pause(mock: Mock):
     mock.assert_called_once_with(namespace="foo", name="my-endpoint-name", token=None)
 
 
-@patch("huggingface_hub.hf_api.HfApi.resume_inference_endpoint")
+@patch("old_huggingface_hub.hf_api.HfApi.resume_inference_endpoint")
 def test_resume(mock: Mock):
     """Test `resume` calls the correct alias."""
     endpoint = InferenceEndpoint.from_raw(MOCK_RUNNING, namespace="foo")

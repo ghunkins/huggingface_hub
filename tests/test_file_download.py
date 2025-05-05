@@ -27,16 +27,16 @@ import pytest
 import requests
 from requests import Response
 
-import huggingface_hub.file_download
-from huggingface_hub import HfApi, RepoUrl
-from huggingface_hub._local_folder import write_download_metadata
-from huggingface_hub.constants import (
+import old_huggingface_hub.file_download
+from old_huggingface_hub import HfApi, RepoUrl
+from old_huggingface_hub._local_folder import write_download_metadata
+from old_huggingface_hub.constants import (
     CONFIG_NAME,
     HUGGINGFACE_HEADER_X_LINKED_ETAG,
     PYTORCH_WEIGHTS_NAME,
     REPO_TYPE_DATASET,
 )
-from huggingface_hub.file_download import (
+from old_huggingface_hub.file_download import (
     _CACHED_NO_EXIST,
     HfFileMetadata,
     _check_disk_space,
@@ -52,7 +52,7 @@ from huggingface_hub.file_download import (
     http_get,
     try_to_load_from_cache,
 )
-from huggingface_hub.utils import (
+from old_huggingface_hub.utils import (
     EntryNotFoundError,
     GatedRepoError,
     LocalEntryNotFoundError,
@@ -101,7 +101,7 @@ class TestDiskUsageWarning(unittest.TestCase):
         # Test with 100MB expected file size
         cls.expected_size = 100 * 1024 * 1024
 
-    @patch("huggingface_hub.file_download.shutil.disk_usage")
+    @patch("old_huggingface_hub.file_download.shutil.disk_usage")
     def test_disk_usage_warning(self, disk_usage_mock: Mock) -> None:
         # Test with only 1MB free disk space / not enough disk space, with UserWarning expected
         disk_usage_mock.return_value.free = 1024 * 1024
@@ -144,7 +144,7 @@ class StagingDownloadTests(unittest.TestCase):
         """Checks `hf_hub_download` outputs error on gated repo.
 
         Regression test for #1121.
-        https://github.com/huggingface/huggingface_hub/pull/1121
+        https://github.com/huggingface/old_huggingface_hub/pull/1121
 
         Cannot test on staging as dynamically setting a gated repo doesn't work there.
         """
@@ -169,7 +169,7 @@ class StagingDownloadTests(unittest.TestCase):
     def test_download_regular_file_from_private_renamed_repo(self, repo_url: RepoUrl) -> None:
         """Regression test for #1999.
 
-        See https://github.com/huggingface/huggingface_hub/pull/1999.
+        See https://github.com/huggingface/old_huggingface_hub/pull/1999.
         """
         repo_id_before = repo_url.repo_id
         repo_id_after = repo_url.repo_id + "_renamed"
@@ -273,7 +273,7 @@ class CachedDownloadTests(unittest.TestCase):
     def test_file_cached_and_read_only_access(self):
         """Should works if file is already cached and user has read-only permission.
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1216.
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1216.
         """
         # Valid file but missing locally and network is disabled.
         with SoftTemporaryDirectory() as tmpdir:
@@ -366,8 +366,8 @@ class CachedDownloadTests(unittest.TestCase):
         """Checks `hf_hub_download` respect the cache dir permission.
 
         Regression test for #1141 #1215.
-        https://github.com/huggingface/huggingface_hub/issues/1141
-        https://github.com/huggingface/huggingface_hub/issues/1215
+        https://github.com/huggingface/old_huggingface_hub/issues/1141
+        https://github.com/huggingface/old_huggingface_hub/issues/1215
         """
         with SoftTemporaryDirectory() as tmpdir:
             # Equivalent to umask u=rwx,g=r,o=
@@ -383,7 +383,7 @@ class CachedDownloadTests(unittest.TestCase):
         """Checks `hf_hub_download` works also on a renamed repo.
 
         Regression test for #981.
-        https://github.com/huggingface/huggingface_hub/issues/981
+        https://github.com/huggingface/old_huggingface_hub/issues/981
         """
         with SoftTemporaryDirectory() as tmpdir:
             filepath = hf_hub_download(DUMMY_RENAMED_OLD_MODEL_ID, "config.json", cache_dir=tmpdir)
@@ -393,7 +393,7 @@ class CachedDownloadTests(unittest.TestCase):
         """Checks `cached_download` works also on a renamed repo.
 
         Regression test for #981.
-        https://github.com/huggingface/huggingface_hub/issues/981
+        https://github.com/huggingface/old_huggingface_hub/issues/981
         """
         with pytest.warns(FutureWarning):
             with SoftTemporaryDirectory() as tmpdir:
@@ -411,7 +411,7 @@ class CachedDownloadTests(unittest.TestCase):
         Check subfolder arg is processed correctly when empty string is passed to
         `hf_hub_download`.
 
-        See https://github.com/huggingface/huggingface_hub/issues/1016.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1016.
         """
         filepath = Path(
             hf_hub_download(
@@ -434,7 +434,7 @@ class CachedDownloadTests(unittest.TestCase):
         non-explicit `FileNotFoundError` was raised (for the "/refs/revision" file) instead
         of the documented `LocalEntryNotFoundError` (for the actual searched file).
 
-        See https://github.com/huggingface/huggingface_hub/issues/1305.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1305.
         """
         with SoftTemporaryDirectory() as cache_dir:
             with self.assertRaises(LocalEntryNotFoundError):
@@ -450,7 +450,7 @@ class CachedDownloadTests(unittest.TestCase):
         Check that user agent is correctly sent to the HEAD call when downloading a file.
 
         Regression test for #1854.
-        See https://github.com/huggingface/huggingface_hub/pull/1854.
+        See https://github.com/huggingface/old_huggingface_hub/pull/1854.
         """
 
         def _check_user_agent(headers: dict):
@@ -459,7 +459,7 @@ class CachedDownloadTests(unittest.TestCase):
             assert "foo/bar" in headers["user-agent"]
 
         with SoftTemporaryDirectory() as cache_dir:
-            with patch("huggingface_hub.file_download._request_wrapper", wraps=_request_wrapper) as mock_request:
+            with patch("old_huggingface_hub.file_download._request_wrapper", wraps=_request_wrapper) as mock_request:
                 # First download
                 hf_hub_download(
                     DUMMY_MODEL_ID,
@@ -474,7 +474,7 @@ class CachedDownloadTests(unittest.TestCase):
                 for call in calls:
                     _check_user_agent(call.kwargs["headers"])
 
-            with patch("huggingface_hub.file_download._request_wrapper", wraps=_request_wrapper) as mock_request:
+            with patch("old_huggingface_hub.file_download._request_wrapper", wraps=_request_wrapper) as mock_request:
                 # Second download: no GET call
                 hf_hub_download(
                     DUMMY_MODEL_ID,
@@ -494,7 +494,7 @@ class CachedDownloadTests(unittest.TestCase):
         Check subfolder arg is processed correctly when empty string is passed to
         `hf_hub_url`.
 
-        See https://github.com/huggingface/huggingface_hub/issues/1016.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1016.
         """
         url = hf_hub_url(
             DUMMY_MODEL_ID,
@@ -508,9 +508,9 @@ class CachedDownloadTests(unittest.TestCase):
             )
         )
 
-    @patch("huggingface_hub.file_download.ENDPOINT", "https://huggingface.co")
+    @patch("old_huggingface_hub.file_download.ENDPOINT", "https://huggingface.co")
     @patch(
-        "huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE",
+        "old_huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE",
         "https://huggingface.co/{repo_id}/resolve/{revision}/{filename}",
     )
     def test_hf_hub_url_with_endpoint(self):
@@ -587,7 +587,7 @@ class CachedDownloadTests(unittest.TestCase):
     def test_try_to_load_from_cache_specific_commit_id_exist(self):
         """Regression test for #1306.
 
-        See https://github.com/huggingface/huggingface_hub/pull/1306."""
+        See https://github.com/huggingface/old_huggingface_hub/pull/1306."""
         with SoftTemporaryDirectory() as cache_dir:
             # Cache file from specific commit id (no "refs/"" folder)
             commit_id = HfApi().model_info(DUMMY_MODEL_ID).sha
@@ -610,7 +610,7 @@ class CachedDownloadTests(unittest.TestCase):
     def test_try_to_load_from_cache_specific_commit_id_no_exist(self):
         """Regression test for #1306.
 
-        See https://github.com/huggingface/huggingface_hub/pull/1306."""
+        See https://github.com/huggingface/old_huggingface_hub/pull/1306."""
         with SoftTemporaryDirectory() as cache_dir:
             # Cache file from specific commit id (no "refs/"" folder)
             commit_id = HfApi().model_info(DUMMY_MODEL_ID).sha
@@ -677,7 +677,7 @@ class CachedDownloadTests(unittest.TestCase):
 
         Download fails if file size is different than the expected one (from headers metadata).
 
-        See https://github.com/huggingface/huggingface_hub/pull/1396."""
+        See https://github.com/huggingface/old_huggingface_hub/pull/1396."""
         with SoftTemporaryDirectory() as cache_dir:
 
             def _mocked_hf_file_metadata(*args, **kwargs):
@@ -689,7 +689,7 @@ class CachedDownloadTests(unittest.TestCase):
                     size=450,  # will expect 450 bytes but will download 496 bytes
                 )
 
-            with patch("huggingface_hub.file_download.get_hf_file_metadata", _mocked_hf_file_metadata):
+            with patch("old_huggingface_hub.file_download.get_hf_file_metadata", _mocked_hf_file_metadata):
                 with self.assertRaises(EnvironmentError):
                     hf_hub_download(DUMMY_MODEL_ID, filename=CONFIG_NAME, cache_dir=cache_dir)
 
@@ -698,7 +698,7 @@ class CachedDownloadTests(unittest.TestCase):
 
         Download fails if file size is different than the expected one (from headers metadata).
 
-        See https://github.com/huggingface/huggingface_hub/pull/1396."""
+        See https://github.com/huggingface/old_huggingface_hub/pull/1396."""
         with SoftTemporaryDirectory() as cache_dir:
 
             def _mocked_hf_file_metadata(*args, **kwargs):
@@ -710,7 +710,7 @@ class CachedDownloadTests(unittest.TestCase):
                     size=65000,  # will expect 65000 bytes but will download 65074 bytes
                 )
 
-            with patch("huggingface_hub.file_download.get_hf_file_metadata", _mocked_hf_file_metadata):
+            with patch("old_huggingface_hub.file_download.get_hf_file_metadata", _mocked_hf_file_metadata):
                 with self.assertRaises(EnvironmentError):
                     hf_hub_download(DUMMY_MODEL_ID, filename="pytorch_model.bin", cache_dir=cache_dir)
 
@@ -722,7 +722,7 @@ class CachedDownloadTests(unittest.TestCase):
         the actual one. `cached_download` is deprecated but still heavily used so we need to make sure it works.
 
         See:
-        - https://github.com/huggingface/huggingface_hub/issues/1449.
+        - https://github.com/huggingface/old_huggingface_hub/issues/1449.
         - https://github.com/huggingface/diffusers/issues/3213.
         """
         with SoftTemporaryDirectory() as cache_dir:
@@ -796,12 +796,12 @@ class HfHubDownloadToLocalDir(unittest.TestCase):
 
     @contextmanager
     def with_patch_head(self):
-        with patch("huggingface_hub.file_download._get_metadata_or_catch_error") as mock:
+        with patch("old_huggingface_hub.file_download._get_metadata_or_catch_error") as mock:
             yield mock
 
     @contextmanager
     def with_patch_download(self):
-        with patch("huggingface_hub.file_download._download_to_tmp_and_move") as mock:
+        with patch("old_huggingface_hub.file_download._download_to_tmp_and_move") as mock:
             yield mock
 
     def test_empty_local_dir(self):
@@ -970,7 +970,7 @@ class StagingCachedDownloadOnAwfulFilenamesTest(unittest.TestCase):
 
     Issue was on filename not url encoded by `hf_hub_download` and `hf_hub_url`.
 
-    See https://github.com/huggingface/huggingface_hub/issues/1161
+    See https://github.com/huggingface/old_huggingface_hub/issues/1161
     """
 
     cache_dir: Path
@@ -1090,7 +1090,7 @@ class TestHttpGet(unittest.TestCase):
             yield b"0" * 10
             yield b"0" * 10
 
-        with patch("huggingface_hub.file_download._request_wrapper") as mock:
+        with patch("old_huggingface_hub.file_download._request_wrapper") as mock:
             mock.return_value.headers = {"Content-Length": 100}
             mock.return_value.iter_content.side_effect = [
                 _iter_content_1(),
@@ -1101,7 +1101,7 @@ class TestHttpGet(unittest.TestCase):
 
             temp_file = io.BytesIO()
 
-            with self.assertLogs("huggingface_hub.file_download", level="WARNING") as records:
+            with self.assertLogs("old_huggingface_hub.file_download", level="WARNING") as records:
                 http_get("fake_url", temp_file=temp_file)
 
         # Check 3 warnings
@@ -1121,7 +1121,7 @@ class TestHttpGet(unittest.TestCase):
 
 class CreateSymlinkTest(unittest.TestCase):
     @unittest.skipIf(os.name == "nt", "No symlinks on Windows")
-    @patch("huggingface_hub.file_download.are_symlinks_supported")
+    @patch("old_huggingface_hub.file_download.are_symlinks_supported")
     def test_create_symlink_concurrent_access(self, mock_are_symlinks_supported: Mock) -> None:
         with SoftTemporaryDirectory() as tmpdir:
             src = os.path.join(tmpdir, "source")
@@ -1155,7 +1155,7 @@ class CreateSymlinkTest(unittest.TestCase):
     def test_create_symlink_relative_src(self) -> None:
         """Regression test for #1388.
 
-        See https://github.com/huggingface/huggingface_hub/issues/1388.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1388.
         """
         # Test dir has to be relative
         test_dir = Path(".") / "dir_for_create_symlink_test"
@@ -1178,7 +1178,7 @@ class TestNormalizeEtag(unittest.TestCase):
     a config update. Problem was quickly fixed server-side but we prefer to make sure this doesn't happen again by
     supporting weak etags. For context, etags are used to build the cache-system structure.
 
-    For more details, see https://github.com/huggingface/huggingface_hub/pull/1428 and related issues.
+    For more details, see https://github.com/huggingface/old_huggingface_hub/pull/1428 and related issues.
     """
 
     def test_strong_reference(self):
@@ -1213,56 +1213,56 @@ class TestNormalizeEtag(unittest.TestCase):
 
 @with_production_testing
 class TestEtagTimeoutConfig(unittest.TestCase):
-    @patch("huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
-    @patch("huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 10)
+    @patch("old_huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
+    @patch("old_huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 10)
     def test_etag_timeout_default_value(self):
         with SoftTemporaryDirectory() as cache_dir:
             with patch.object(
-                huggingface_hub.file_download,
+                old_huggingface_hub.file_download,
                 "get_hf_file_metadata",
-                wraps=huggingface_hub.file_download.get_hf_file_metadata,
+                wraps=old_huggingface_hub.file_download.get_hf_file_metadata,
             ) as mock_etag_call:
                 hf_hub_download(DUMMY_MODEL_ID, filename=CONFIG_NAME, cache_dir=cache_dir)
                 kwargs = mock_etag_call.call_args.kwargs
                 self.assertIn("timeout", kwargs)
                 self.assertEqual(kwargs["timeout"], 10)
 
-    @patch("huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
-    @patch("huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 10)
+    @patch("old_huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
+    @patch("old_huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 10)
     def test_etag_timeout_parameter_value(self):
         with SoftTemporaryDirectory() as cache_dir:
             with patch.object(
-                huggingface_hub.file_download,
+                old_huggingface_hub.file_download,
                 "get_hf_file_metadata",
-                wraps=huggingface_hub.file_download.get_hf_file_metadata,
+                wraps=old_huggingface_hub.file_download.get_hf_file_metadata,
             ) as mock_etag_call:
                 hf_hub_download(DUMMY_MODEL_ID, filename=CONFIG_NAME, cache_dir=cache_dir, etag_timeout=12)
                 kwargs = mock_etag_call.call_args.kwargs
                 self.assertIn("timeout", kwargs)
                 self.assertEqual(kwargs["timeout"], 12)  # passed as parameter, takes priority
 
-    @patch("huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
-    @patch("huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 15)  # takes priority
+    @patch("old_huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
+    @patch("old_huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 15)  # takes priority
     def test_etag_timeout_set_as_env_variable(self):
         with SoftTemporaryDirectory() as cache_dir:
             with patch.object(
-                huggingface_hub.file_download,
+                old_huggingface_hub.file_download,
                 "get_hf_file_metadata",
-                wraps=huggingface_hub.file_download.get_hf_file_metadata,
+                wraps=old_huggingface_hub.file_download.get_hf_file_metadata,
             ) as mock_etag_call:
                 hf_hub_download(DUMMY_MODEL_ID, filename=CONFIG_NAME, cache_dir=cache_dir)
                 kwargs = mock_etag_call.call_args.kwargs
                 self.assertIn("timeout", kwargs)
                 self.assertEqual(kwargs["timeout"], 15)
 
-    @patch("huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
-    @patch("huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 15)  # takes priority
+    @patch("old_huggingface_hub.file_download.DEFAULT_ETAG_TIMEOUT", 10)
+    @patch("old_huggingface_hub.file_download.HF_HUB_ETAG_TIMEOUT", 15)  # takes priority
     def test_etag_timeout_set_as_env_variable_parameter_ignored(self):
         with SoftTemporaryDirectory() as cache_dir:
             with patch.object(
-                huggingface_hub.file_download,
+                old_huggingface_hub.file_download,
                 "get_hf_file_metadata",
-                wraps=huggingface_hub.file_download.get_hf_file_metadata,
+                wraps=old_huggingface_hub.file_download.get_hf_file_metadata,
             ) as mock_etag_call:
                 hf_hub_download(DUMMY_MODEL_ID, filename=CONFIG_NAME, cache_dir=cache_dir, etag_timeout=12)
                 kwargs = mock_etag_call.call_args.kwargs

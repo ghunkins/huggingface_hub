@@ -3,7 +3,7 @@ import warnings
 
 import pytest
 
-from huggingface_hub.utils._deprecation import (
+from old_huggingface_hub.utils._deprecation import (
     _deprecate_arguments,
     _deprecate_method,
     _deprecate_positional_args,

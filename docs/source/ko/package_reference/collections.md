@@ -15,10 +15,10 @@ Hub에서 Space를 관리하는 메소드에 대한 자세한 설명은 [`HfApi`
 - 컬렉션에서 항목 제거: [`delete_collection_item`]
 
 
-### Collection[[huggingface_hub.Collection]]
+### Collection[[old_huggingface_hub.Collection]]
 
 [[autodoc]] Collection
 
-### CollectionItem[[huggingface_hub.CollectionItem]]
+### CollectionItem[[old_huggingface_hub.CollectionItem]]
 
 [[autodoc]] CollectionItem

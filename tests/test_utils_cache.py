@@ -7,10 +7,10 @@ from unittest.mock import Mock
 
 import pytest
 
-from huggingface_hub._snapshot_download import snapshot_download
-from huggingface_hub.commands.scan_cache import ScanCacheCommand
-from huggingface_hub.utils import DeleteCacheStrategy, HFCacheInfo, capture_output, scan_cache_dir
-from huggingface_hub.utils._cache_manager import (
+from old_huggingface_hub._snapshot_download import snapshot_download
+from old_huggingface_hub.commands.scan_cache import ScanCacheCommand
+from old_huggingface_hub.utils import DeleteCacheStrategy, HFCacheInfo, capture_output, scan_cache_dir
+from old_huggingface_hub.utils._cache_manager import (
     CacheNotFound,
     _format_size,
     _format_timesince,
@@ -809,7 +809,7 @@ class TestTryDeletePath(unittest.TestCase):
         self.assertEqual(len(captured.output), 1)
         self.assertTrue(
             captured.output[0].startswith(
-                "WARNING:huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
+                "WARNING:old_huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
                 f" file not found ({file_path})\nTraceback (most recent call last):"
             )
         )
@@ -825,7 +825,7 @@ class TestTryDeletePath(unittest.TestCase):
         self.assertEqual(len(captured.output), 1)
         self.assertTrue(
             captured.output[0].startswith(
-                "WARNING:huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
+                "WARNING:old_huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
                 f" file not found ({dir_path})\nTraceback (most recent call last):"
             )
         )
@@ -849,7 +849,7 @@ class TestTryDeletePath(unittest.TestCase):
         self.assertEqual(len(captured.output), 1)
         self.assertTrue(
             captured.output[0].startswith(
-                "WARNING:huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
+                "WARNING:old_huggingface_hub.utils._cache_manager:Couldn't delete TYPE:"
                 f" permission denied ({dir_path})\nTraceback (most recent call last):"
             )
         )

@@ -6,17 +6,17 @@ rendered properly in your Markdown viewer.
 
 ## Configure logging
 
-The `huggingface_hub` package exposes a `logging` utility to control the logging level of the package itself.
+The `old_huggingface_hub` package exposes a `logging` utility to control the logging level of the package itself.
 You can import it as such:
 
 ```py
-from huggingface_hub import logging
+from old_huggingface_hub import logging
 ```
 
 Then, you may define the verbosity in order to update the amount of logs you'll see:
 
 ```python
-from huggingface_hub import logging
+from old_huggingface_hub import logging
 
 logging.set_verbosity_error()
 logging.set_verbosity_warning()
@@ -48,15 +48,15 @@ The levels should be understood as follows:
 
 ### Repo-specific helper methods
 
-The methods exposed below are relevant when modifying modules from the `huggingface_hub` library itself.
-Using these shouldn't be necessary if you use `huggingface_hub` and you don't modify them.
+The methods exposed below are relevant when modifying modules from the `old_huggingface_hub` library itself.
+Using these shouldn't be necessary if you use `old_huggingface_hub` and you don't modify them.
 
 [[autodoc]] logging.get_logger
 
 ## Configure progress bars
 
 Progress bars are a useful tool to display information to the user while a long-running task is being executed (e.g.
-when downloading or uploading files). `huggingface_hub` exposes a [`~utils.tqdm`] wrapper to display progress bars in a
+when downloading or uploading files). `old_huggingface_hub` exposes a [`~utils.tqdm`] wrapper to display progress bars in a
 consistent way across the library.
 
 By default, progress bars are enabled. You can disable them globally by setting `HF_HUB_DISABLE_PROGRESS_BARS`
@@ -64,8 +64,8 @@ environment variable. You can also enable/disable them using [`~utils.enable_pro
 [`~utils.disable_progress_bars`]. If set, the environment variable has priority on the helpers.
 
 ```py
->>> from huggingface_hub import snapshot_download
->>> from huggingface_hub.utils import are_progress_bars_disabled, disable_progress_bars, enable_progress_bars
+>>> from old_huggingface_hub import snapshot_download
+>>> from old_huggingface_hub.utils import are_progress_bars_disabled, disable_progress_bars, enable_progress_bars
 
 >>> # Disable progress bars globally
 >>> disable_progress_bars()
@@ -110,27 +110,27 @@ You can also enable or disable progress bars for specific groups. This allows yo
 
 ### are_progress_bars_disabled
 
-[[autodoc]] huggingface_hub.utils.are_progress_bars_disabled
+[[autodoc]] old_huggingface_hub.utils.are_progress_bars_disabled
 
 ### disable_progress_bars
 
-[[autodoc]] huggingface_hub.utils.disable_progress_bars
+[[autodoc]] old_huggingface_hub.utils.disable_progress_bars
 
 ### enable_progress_bars
 
-[[autodoc]] huggingface_hub.utils.enable_progress_bars
+[[autodoc]] old_huggingface_hub.utils.enable_progress_bars
 
 ## Configure HTTP backend
 
 In some environments, you might want to configure how HTTP calls are made, for example if you are using a proxy.
-`huggingface_hub` let you configure this globally using [`configure_http_backend`]. All requests made to the Hub will
-then use your settings. Under the hood, `huggingface_hub` uses `requests.Session` so you might want to refer to the
+`old_huggingface_hub` let you configure this globally using [`configure_http_backend`]. All requests made to the Hub will
+then use your settings. Under the hood, `old_huggingface_hub` uses `requests.Session` so you might want to refer to the
 [`requests` documentation](https://requests.readthedocs.io/en/latest/user/advanced) to learn more about the available
 parameters.
 
-Since `requests.Session` is not guaranteed to be thread-safe, `huggingface_hub` creates one session instance per thread.
+Since `requests.Session` is not guaranteed to be thread-safe, `old_huggingface_hub` creates one session instance per thread.
 Using sessions allows us to keep the connection open between HTTP calls and ultimately save time. If you are
-integrating `huggingface_hub` in a third-party library and wants to make a custom call to the Hub, use [`get_session`]
+integrating `old_huggingface_hub` in a third-party library and wants to make a custom call to the Hub, use [`get_session`]
 to get a Session configured by your users (i.e. replace any `requests.get(...)` call by `get_session().get(...)`).
 
 [[autodoc]] configure_http_backend
@@ -140,7 +140,7 @@ to get a Session configured by your users (i.e. replace any `requests.get(...)` 
 
 ## Handle HTTP errors
 
-`huggingface_hub` defines its own HTTP errors to refine the `HTTPError` raised by
+`old_huggingface_hub` defines its own HTTP errors to refine the `HTTPError` raised by
 `requests` with additional information sent back by the server.
 
 ### Raise for status
@@ -151,7 +151,7 @@ additional information. Any `HTTPError` thrown is converted into a `HfHubHTTPErr
 
 ```py
 import requests
-from huggingface_hub.utils import hf_raise_for_status, HfHubHTTPError
+from old_huggingface_hub.utils import hf_raise_for_status, HfHubHTTPError
 
 response = requests.post(...)
 try:
@@ -165,11 +165,11 @@ except HfHubHTTPError as e:
     raise
 ```
 
-[[autodoc]] huggingface_hub.utils.hf_raise_for_status
+[[autodoc]] old_huggingface_hub.utils.hf_raise_for_status
 
 ### HTTP errors
 
-Here is a list of HTTP errors thrown in `huggingface_hub`.
+Here is a list of HTTP errors thrown in `old_huggingface_hub`.
 
 #### HfHubHTTPError
 
@@ -177,39 +177,39 @@ Here is a list of HTTP errors thrown in `huggingface_hub`.
 the server response and format the error message to provide as much information to the
 user as possible.
 
-[[autodoc]] huggingface_hub.utils.HfHubHTTPError
+[[autodoc]] old_huggingface_hub.utils.HfHubHTTPError
 
 #### RepositoryNotFoundError
 
-[[autodoc]] huggingface_hub.utils.RepositoryNotFoundError
+[[autodoc]] old_huggingface_hub.utils.RepositoryNotFoundError
 
 #### GatedRepoError
 
-[[autodoc]] huggingface_hub.utils.GatedRepoError
+[[autodoc]] old_huggingface_hub.utils.GatedRepoError
 
 #### RevisionNotFoundError
 
-[[autodoc]] huggingface_hub.utils.RevisionNotFoundError
+[[autodoc]] old_huggingface_hub.utils.RevisionNotFoundError
 
 #### EntryNotFoundError
 
-[[autodoc]] huggingface_hub.utils.EntryNotFoundError
+[[autodoc]] old_huggingface_hub.utils.EntryNotFoundError
 
 #### BadRequestError
 
-[[autodoc]] huggingface_hub.utils.BadRequestError
+[[autodoc]] old_huggingface_hub.utils.BadRequestError
 
 #### LocalEntryNotFoundError
 
-[[autodoc]] huggingface_hub.utils.LocalEntryNotFoundError
+[[autodoc]] old_huggingface_hub.utils.LocalEntryNotFoundError
 
 #### OfflineModeIsEnabled
 
-[[autodoc]] huggingface_hub.utils.OfflineModeIsEnabled
+[[autodoc]] old_huggingface_hub.utils.OfflineModeIsEnabled
 
 ## Telemetry
 
-`huggingface_hub` includes an helper to send telemetry data. This information helps us debug issues and prioritize new features.
+`old_huggingface_hub` includes an helper to send telemetry data. This information helps us debug issues and prioritize new features.
 Users can disable telemetry collection at any time by setting the `HF_HUB_DISABLE_TELEMETRY=1` environment variable.
 Telemetry is also disabled in offline mode (i.e. when setting HF_HUB_OFFLINE=1).
 
@@ -221,14 +221,14 @@ Data is sent in a separate thread to reduce as much as possible the impact for u
 
 ## Validators
 
-`huggingface_hub` includes custom validators to validate method arguments automatically.
+`old_huggingface_hub` includes custom validators to validate method arguments automatically.
 Validation is inspired by the work done in [Pydantic](https://pydantic-docs.helpmanual.io/)
 to validate type hints but with more limited features.
 
 ### Generic decorator
 
 [`~utils.validate_hf_hub_args`] is a generic decorator to encapsulate
-methods that have arguments following `huggingface_hub`'s naming. By default, all
+methods that have arguments following `old_huggingface_hub`'s naming. By default, all
 arguments that has a validator implemented will be validated.
 
 If an input is not valid, a [`~utils.HFValidationError`] is thrown. Only
@@ -237,7 +237,7 @@ the first non-valid value throws an error and stops the validation process.
 Usage:
 
 ```py
->>> from huggingface_hub.utils import validate_hf_hub_args
+>>> from old_huggingface_hub.utils import validate_hf_hub_args
 
 >>> @validate_hf_hub_args
 ... def my_cool_method(repo_id: str):
@@ -247,10 +247,10 @@ Usage:
 valid_repo_id
 
 >>> my_cool_method("other..repo..id")
-huggingface_hub.utils._validators.HFValidationError: Cannot have -- or .. in repo_id: 'other..repo..id'.
+old_huggingface_hub.utils._validators.HFValidationError: Cannot have -- or .. in repo_id: 'other..repo..id'.
 
 >>> my_cool_method(repo_id="other..repo..id")
-huggingface_hub.utils._validators.HFValidationError: Cannot have -- or .. in repo_id: 'other..repo..id'.
+old_huggingface_hub.utils._validators.HFValidationError: Cannot have -- or .. in repo_id: 'other..repo..id'.
 
 >>> @validate_hf_hub_args
 ... def my_cool_auth_method(token: str):

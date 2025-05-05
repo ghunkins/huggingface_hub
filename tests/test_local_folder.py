@@ -14,7 +14,7 @@
 # limitations under the License.
 """Contains tests for the `.huggingface` folder in local directories.
 
-See `huggingface_hub/src/_local_folder.py` for the implementation.
+See `old_huggingface_hub/src/_local_folder.py` for the implementation.
 """
 
 import logging
@@ -23,7 +23,7 @@ from pathlib import Path
 
 import pytest
 
-from huggingface_hub._local_folder import (
+from old_huggingface_hub._local_folder import (
     LocalDownloadFileMetadata,
     LocalDownloadFilePaths,
     _huggingface_dir,

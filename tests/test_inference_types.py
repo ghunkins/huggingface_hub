@@ -5,8 +5,8 @@ from typing import List, Optional, Union, get_args, get_origin
 
 import pytest
 
-import huggingface_hub.inference._generated.types as types
-from huggingface_hub.inference._generated.types import AutomaticSpeechRecognitionParameters, BaseInferenceType
+import old_huggingface_hub.inference._generated.types as types
+from old_huggingface_hub.inference._generated.types import AutomaticSpeechRecognitionParameters, BaseInferenceType
 
 from .testing_utils import expect_deprecation
 
@@ -151,7 +151,7 @@ def test_optional_are_set_to_none():
 
 
 def test_none_inferred():
-    """Regression test for https://github.com/huggingface/huggingface_hub/pull/2095"""
+    """Regression test for https://github.com/huggingface/old_huggingface_hub/pull/2095"""
     # Doing this should not fail with
     # TypeError: __init__() missing 2 required positional arguments: 'generate' and 'return_timestamps'
     AutomaticSpeechRecognitionParameters()

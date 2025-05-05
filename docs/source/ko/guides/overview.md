@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # How-to 가이드 [[howto-guides]]
 
-특정 목표를 달성하는 데 도움이 되는 실용적인 가이드들입니다. huggingface_hub로 실제 문제를 해결하는 방법을 배우려면 다음 문서들을 살펴보세요.
+특정 목표를 달성하는 데 도움이 되는 실용적인 가이드들입니다. old_huggingface_hub로 실제 문제를 해결하는 방법을 배우려면 다음 문서들을 살펴보세요.
 
 <div class="mt-10">
   <div class="w-full flex flex-col space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-y-4 md:gap-x-5">

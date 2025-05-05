@@ -14,7 +14,7 @@ than `huggingface-cli login` or [`login`] as the token is not persisted on the m
 It is also possible to provide a different endpoint or configure a custom user-agent.
 
 ```python
-from huggingface_hub import HfApi, list_models
+from old_huggingface_hub import HfApi, list_models
 
 # Use root method
 models = list_models()
@@ -37,67 +37,67 @@ models = hf_api.list_models()
 
 ### AccessRequest
 
-[[autodoc]] huggingface_hub.hf_api.AccessRequest
+[[autodoc]] old_huggingface_hub.hf_api.AccessRequest
 
 ### CommitInfo
 
-[[autodoc]] huggingface_hub.hf_api.CommitInfo
+[[autodoc]] old_huggingface_hub.hf_api.CommitInfo
 
 ### DatasetInfo
 
-[[autodoc]] huggingface_hub.hf_api.DatasetInfo
+[[autodoc]] old_huggingface_hub.hf_api.DatasetInfo
 
 ### GitRefInfo
 
-[[autodoc]] huggingface_hub.hf_api.GitRefInfo
+[[autodoc]] old_huggingface_hub.hf_api.GitRefInfo
 
 ### GitCommitInfo
 
-[[autodoc]] huggingface_hub.hf_api.GitCommitInfo
+[[autodoc]] old_huggingface_hub.hf_api.GitCommitInfo
 
 ### GitRefs
 
-[[autodoc]] huggingface_hub.hf_api.GitRefs
+[[autodoc]] old_huggingface_hub.hf_api.GitRefs
 
 ### ModelInfo
 
-[[autodoc]] huggingface_hub.hf_api.ModelInfo
+[[autodoc]] old_huggingface_hub.hf_api.ModelInfo
 
 ### RepoSibling
 
-[[autodoc]] huggingface_hub.hf_api.RepoSibling
+[[autodoc]] old_huggingface_hub.hf_api.RepoSibling
 
 ### RepoFile
 
-[[autodoc]] huggingface_hub.hf_api.RepoFile
+[[autodoc]] old_huggingface_hub.hf_api.RepoFile
 
 ### RepoUrl
 
-[[autodoc]] huggingface_hub.hf_api.RepoUrl
+[[autodoc]] old_huggingface_hub.hf_api.RepoUrl
 
 ### SafetensorsRepoMetadata
 
-[[autodoc]] huggingface_hub.utils.SafetensorsRepoMetadata
+[[autodoc]] old_huggingface_hub.utils.SafetensorsRepoMetadata
 
 ### SafetensorsFileMetadata
 
-[[autodoc]] huggingface_hub.utils.SafetensorsFileMetadata
+[[autodoc]] old_huggingface_hub.utils.SafetensorsFileMetadata
 
 ### SpaceInfo
 
-[[autodoc]] huggingface_hub.hf_api.SpaceInfo
+[[autodoc]] old_huggingface_hub.hf_api.SpaceInfo
 
 ### TensorInfo
 
-[[autodoc]] huggingface_hub.utils.TensorInfo
+[[autodoc]] old_huggingface_hub.utils.TensorInfo
 
 ### User
 
-[[autodoc]] huggingface_hub.hf_api.User
+[[autodoc]] old_huggingface_hub.hf_api.User
 
 ### UserLikes
 
-[[autodoc]] huggingface_hub.hf_api.UserLikes
+[[autodoc]] old_huggingface_hub.hf_api.UserLikes
 
 ## CommitOperation
 
@@ -115,7 +115,7 @@ Below are the supported values for [`CommitOperation`]:
 
 ## Search helpers
 
-Some helpers to filter repositories on the Hub are available in the `huggingface_hub` package.
+Some helpers to filter repositories on the Hub are available in the `old_huggingface_hub` package.
 
 ### DatasetFilter
 

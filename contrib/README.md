@@ -1,6 +1,6 @@
 # Contrib test suite
 
-The contrib folder contains simple end-to-end scripts to test integration of `huggingface_hub` in downstream libraries. The main goal is to proactively notice breaking changes and deprecation warnings.
+The contrib folder contains simple end-to-end scripts to test integration of `old_huggingface_hub` in downstream libraries. The main goal is to proactively notice breaking changes and deprecation warnings.
 
 ## Add tests for a new library
 
@@ -12,7 +12,7 @@ To add another contrib lib, one must:
 
 ## Run contrib tests on CI
 
-Contrib tests can be [manually triggered in GitHub](https://github.com/huggingface/huggingface_hub/actions) with the `Contrib tests` workflow.
+Contrib tests can be [manually triggered in GitHub](https://github.com/huggingface/old_huggingface_hub/actions) with the `Contrib tests` workflow.
 
 Tests are not run in the default test suite (for each PR) as this would slow down development process. The goal is to notice breaking changes, not to avoid them. In particular, it is interesting to trigger it before a release to make sure it will not cause too much friction.
 

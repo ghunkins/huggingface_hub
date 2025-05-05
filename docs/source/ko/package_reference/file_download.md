@@ -6,27 +6,27 @@ rendered properly in your Markdown viewer.
 
 ## 단일 파일 다운로드하기[[download-a-single-file]]
 
-### hf_hub_download[[huggingface_hub.hf_hub_download]]
+### hf_hub_download[[old_huggingface_hub.hf_hub_download]]
 
-[[autodoc]]huggingface_hub.hf_hub_download
+[[autodoc]]old_huggingface_hub.hf_hub_download
 
-### hf_hub_url[[huggingface_hub.hf_hub_url]]
+### hf_hub_url[[old_huggingface_hub.hf_hub_url]]
 
-[[autodoc]]huggingface_hub.hf_hub_url
+[[autodoc]]old_huggingface_hub.hf_hub_url
 
-## 리포지토리의 스냅샷 다운로드하기[[huggingface_hub.snapshot_download]]
+## 리포지토리의 스냅샷 다운로드하기[[old_huggingface_hub.snapshot_download]]
 
-[[autodoc]]huggingface_hub.snapshot_download
+[[autodoc]]old_huggingface_hub.snapshot_download
 
 ## 파일에 대한 메타데이터 가져오기[[get-metadata-about-a-file]]
 
-### get_hf_file_metadata[[huggingface_hub.get_hf_file_metadata]]
+### get_hf_file_metadata[[old_huggingface_hub.get_hf_file_metadata]]
 
-[[autodoc]]huggingface_hub.get_hf_file_metadata
+[[autodoc]]old_huggingface_hub.get_hf_file_metadata
 
-### HfFileMetadata[[huggingface_hub.HfFileMetadata]]
+### HfFileMetadata[[old_huggingface_hub.HfFileMetadata]]
 
-[[autodoc]]huggingface_hub.HfFileMetadata
+[[autodoc]]old_huggingface_hub.HfFileMetadata
 
 ## 캐싱[[caching]]
 

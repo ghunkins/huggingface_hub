@@ -5,7 +5,7 @@ from typing import Generator
 
 import pytest
 
-from huggingface_hub import delete_repo
+from old_huggingface_hub import delete_repo
 
 
 @pytest.fixture(scope="session")

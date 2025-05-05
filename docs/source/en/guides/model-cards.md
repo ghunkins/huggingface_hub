@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Create and share Model Cards
 
-The `huggingface_hub` library provides a Python interface to create, share, and update Model Cards.
+The `old_huggingface_hub` library provides a Python interface to create, share, and update Model Cards.
 Visit [the dedicated documentation page](https://huggingface.co/docs/hub/models-cards)
 for a deeper view of what Model Cards on the Hub are, and how they work under the hood.
 
@@ -19,7 +19,7 @@ for a deeper view of what Model Cards on the Hub are, and how they work under th
 To load an existing card from the Hub, you can use the [`ModelCard.load`] function. Here, we'll load the card from [`nateraw/vit-base-beans`](https://huggingface.co/nateraw/vit-base-beans).
 
 ```python
-from huggingface_hub import ModelCard
+from old_huggingface_hub import ModelCard
 
 card = ModelCard.load('nateraw/vit-base-beans')
 ```
@@ -93,7 +93,7 @@ If you have `Jinja2` installed, you can create Model Cards from a jinja template
 ```python
 from pathlib import Path
 
-from huggingface_hub import ModelCard, ModelCardData
+from old_huggingface_hub import ModelCard, ModelCardData
 
 # Define your jinja template
 template_text = """
@@ -166,7 +166,7 @@ As you update the card data, you can validate the card is still valid against th
 
 ### From the Default Template
 
-Instead of using your own template, you can also use the [default template](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md), which is a fully featured model card with tons of sections you may want to fill out. Under the hood, it uses [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) to fill out a template file.
+Instead of using your own template, you can also use the [default template](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/templates/modelcard_template.md), which is a fully featured model card with tons of sections you may want to fill out. Under the hood, it uses [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) to fill out a template file.
 
 <Tip>
 
@@ -181,7 +181,7 @@ card = ModelCard.from_template(
     model_id='my-cool-model',
     model_description="this model does this and that",
     developers="Nate Raw",
-    repo="https://github.com/huggingface/huggingface_hub",
+    repo="https://github.com/huggingface/old_huggingface_hub",
 )
 card.save('my_model_card_2.md')
 print(card)
@@ -194,7 +194,7 @@ If you're authenticated with the Hugging Face Hub (either by using `huggingface-
 First, we'll create a new repo called 'hf-hub-modelcards-pr-test' under the authenticated user's namespace:
 
 ```python
-from huggingface_hub import whoami, create_repo
+from old_huggingface_hub import whoami, create_repo
 
 user = whoami()['name']
 repo_id = f'{user}/hf-hub-modelcards-pr-test'
@@ -210,7 +210,7 @@ card = ModelCard.from_template(
     model_id='my-cool-model',
     model_description="this model does this and that",
     developers="Nate Raw",
-    repo="https://github.com/huggingface/huggingface_hub",
+    repo="https://github.com/huggingface/old_huggingface_hub",
 )
 ```
 
@@ -241,7 +241,7 @@ Now lets see some examples on how to update those metadata.
 Let's start with a first example:
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 >>> metadata_update("username/my-cool-model", {"pipeline_tag": "image-classification"})
 ```
 
@@ -252,7 +252,7 @@ By default, you cannot update a key that is already existing on the card. If you
 
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 >>> metadata_update("username/my-cool-model", {"pipeline_tag": "text-generation"}, overwrite=True)
 ```
 
@@ -261,7 +261,7 @@ on which you don't have write permission. You can do that by creating a PR on th
 review and merge your suggestions.
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 >>> metadata_update("someone/model", {"pipeline_tag": "text-classification"}, create_pr=True)
 ```
 

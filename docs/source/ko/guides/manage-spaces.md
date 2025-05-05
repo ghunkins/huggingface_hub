@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Space 관리하기[[manage-your-space]]
 
-이 가이드에서는 `huggingface_hub`를 사용하여 Space 런타임([보안 정보](https://huggingface.co/docs/hub/spaces-overview#managing-secrets), [하드웨어](https://huggingface.co/docs/hub/spaces-gpus) 및 [저장소](https://huggingface.co/docs/hub/spaces-storage#persistent-storage))를 관리하는 방법을 살펴보겠습니다.
+이 가이드에서는 `old_huggingface_hub`를 사용하여 Space 런타임([보안 정보](https://huggingface.co/docs/hub/spaces-overview#managing-secrets), [하드웨어](https://huggingface.co/docs/hub/spaces-gpus) 및 [저장소](https://huggingface.co/docs/hub/spaces-storage#persistent-storage))를 관리하는 방법을 살펴보겠습니다.
 
 ## 간단한 예제: 보안 정보 및 하드웨어 구성하기.[[a-simple-example-configure-secrets-and-hardware]]
 
@@ -13,7 +13,7 @@ rendered properly in your Markdown viewer.
 **1. Hub에 Space 생성하기.**
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> repo_id = "Wauplin/my-cool-training-space"
 >>> api = HfApi()
 
@@ -90,7 +90,7 @@ Space를 생성하거나 복제할 때 보안 정보와 변수를 설정할 수 
 
 ```py
 # `SpaceHardware` enum 사용
->>> from huggingface_hub import SpaceHardware
+>>> from old_huggingface_hub import SpaceHardware
 >>> api.request_space_hardware(repo_id=repo_id, hardware=SpaceHardware.T4_MEDIUM)
 
 # 또는 간단히 문자열 값 전달
@@ -187,7 +187,7 @@ Space가 구축되면 업그레이드된 하드웨어가 자동으로 할당됩�
 Space를 다시 시작할 때 지속적으로 디스크 공간에 접근할 수 있는 원하는 저장소 계층을 선택할 수 있습니다. 이는 기존의 하드 드라이브와 같이 디스크에서 읽고 쓸 수 있음을 의미합니다. 자세한 내용은 [문서](https://huggingface.co/docs/hub/spaces-storage#persistent-storage)를 참조하세요.
 
 ```py
->>> from huggingface_hub import SpaceStorage
+>>> from old_huggingface_hub import SpaceStorage
 >>> api.request_space_storage(repo_id=repo_id, storage=SpaceStorage.LARGE)
 ```
 
@@ -244,7 +244,7 @@ HF_TOKEN = os.environ.get("HF_TOKEN")
 # Space를 가진 repo_id
 TRAINING_SPACE_ID = "Wauplin/dreambooth-training"
 
-from huggingface_hub import HfApi, SpaceHardware
+from old_huggingface_hub import HfApi, SpaceHardware
 api = HfApi(token=HF_TOKEN)
 
 # Space 시작 시 예약된 작업을 확인합니다. 예약된 작업이 있는 경우 모델을 미세 조정합니다. 그렇지 않은 경우,

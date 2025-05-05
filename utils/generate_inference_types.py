@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Contains a tool to generate `src/huggingface_hub/inference/_generated/types`."""
+"""Contains a tool to generate `src/old_huggingface_hub/inference/_generated/types`."""
 
 import argparse
 import os
@@ -25,9 +25,9 @@ from helpers import check_and_update_file_content
 from ruff.__main__ import find_ruff_bin
 
 
-huggingface_hub_folder_path = Path(__file__).parents[1] / "src" / "huggingface_hub"
-INFERENCE_TYPES_FOLDER_PATH = huggingface_hub_folder_path / "inference" / "_generated" / "types"
-MAIN_INIT_PY_FILE = huggingface_hub_folder_path / "__init__.py"
+old_huggingface_hub_folder_path = Path(__file__).parents[1] / "src" / "old_huggingface_hub"
+INFERENCE_TYPES_FOLDER_PATH = old_huggingface_hub_folder_path / "inference" / "_generated" / "types"
+MAIN_INIT_PY_FILE = old_huggingface_hub_folder_path / "__init__.py"
 REFERENCE_PACKAGE_EN_PATH = (
     Path(__file__).parents[1] / "docs" / "source" / "en" / "package_reference" / "inference_types.md"
 )
@@ -68,7 +68,7 @@ INIT_PY_HEADER = """
 from .base import BaseInferenceType
 """
 
-# Regex to add all dataclasses to ./src/huggingface_hub/__init__.py
+# Regex to add all dataclasses to ./src/old_huggingface_hub/__init__.py
 MAIN_INIT_PY_REGEX = re.compile(
     r"""
 \"inference\._generated\.types\":\s*\[ # module name
@@ -243,14 +243,14 @@ def generate_reference_package(dataclasses: Dict[str, List[str]], language: Lite
 
     per_task_docs = []
     for task in sorted(dataclasses.keys()):
-        lines = [f"[[autodoc]] huggingface_hub.{cls}" for cls in sorted(dataclasses[task])]
+        lines = [f"[[autodoc]] old_huggingface_hub.{cls}" for cls in sorted(dataclasses[task])]
         lines_str = "\n\n".join(lines)
         if language == "en":
             # e.g. '## audio_classification'
             per_task_docs.append(f"\n## {task}\n\n{lines_str}\n\n")
         elif language == "ko":
-            # e.g. '## audio_classification[[huggingface_hub.AudioClassificationInput]]'
-            per_task_docs.append(f"\n## {task}[[huggingface_hub.{sorted(dataclasses[task])[0]}]]\n\n{lines_str}\n\n")
+            # e.g. '## audio_classification[[old_huggingface_hub.AudioClassificationInput]]'
+            per_task_docs.append(f"\n## {task}[[old_huggingface_hub.{sorted(dataclasses[task])[0]}]]\n\n{lines_str}\n\n")
         else:
             raise ValueError(f"Language {language} is not supported.")
 
@@ -303,7 +303,7 @@ if __name__ == "__main__":
         "--update",
         action="store_true",
         help=(
-            "Whether to re-generate files in `./src/huggingface_hub/inference/_generated/types/` if a change is detected."
+            "Whether to re-generate files in `./src/old_huggingface_hub/inference/_generated/types/` if a change is detected."
         ),
     )
     args = parser.parse_args()

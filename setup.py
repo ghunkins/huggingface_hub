@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 
 def get_version() -> str:
-    rel_path = "src/huggingface_hub/__init__.py"
+    rel_path = "src/old_huggingface_hub/__init__.py"
     with open(rel_path, "r") as fp:
         for line in fp.read().splitlines():
             if line.startswith("__version__"):
@@ -101,7 +101,7 @@ extras["all"] = extras["testing"] + extras["quality"] + extras["typing"]
 extras["dev"] = extras["all"]
 
 setup(
-    name="huggingface_hub",
+    name="old_huggingface_hub",
     version=get_version(),
     author="Hugging Face, Inc.",
     author_email="julien@huggingface.co",
@@ -110,13 +110,13 @@ setup(
     long_description_content_type="text/markdown",
     keywords="model-hub machine-learning models natural-language-processing deep-learning pytorch pretrained-models",
     license="Apache",
-    url="https://github.com/huggingface/huggingface_hub",
+    url="https://github.com/ghunkins/old_huggingface_hub",
     package_dir={"": "src"},
     packages=find_packages("src"),
     extras_require=extras,
     entry_points={
-        "console_scripts": ["huggingface-cli=huggingface_hub.commands.huggingface_cli:main"],
-        "fsspec.specs": "hf=huggingface_hub.HfFileSystem",
+        "console_scripts": ["huggingface-cli=old_huggingface_hub.commands.huggingface_cli:main"],
+        "fsspec.specs": "hf=old_huggingface_hub.HfFileSystem",
     },
     python_requires=">=3.8.0",
     install_requires=install_requires,

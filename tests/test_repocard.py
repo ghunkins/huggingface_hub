@@ -20,7 +20,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from huggingface_hub import (
+from old_huggingface_hub import (
     DatasetCard,
     DatasetCardData,
     EvalResult,
@@ -36,12 +36,12 @@ from huggingface_hub import (
     metadata_save,
     metadata_update,
 )
-from huggingface_hub.constants import REPOCARD_NAME
-from huggingface_hub.file_download import hf_hub_download
-from huggingface_hub.hf_api import HfApi
-from huggingface_hub.repocard import REGEX_YAML_BLOCK
-from huggingface_hub.repocard_data import CardData
-from huggingface_hub.utils import EntryNotFoundError, SoftTemporaryDirectory, is_jinja_available
+from old_huggingface_hub.constants import REPOCARD_NAME
+from old_huggingface_hub.file_download import hf_hub_download
+from old_huggingface_hub.hf_api import HfApi
+from old_huggingface_hub.repocard import REGEX_YAML_BLOCK
+from old_huggingface_hub.repocard_data import CardData
+from old_huggingface_hub.utils import EntryNotFoundError, SoftTemporaryDirectory, is_jinja_available
 
 from .testing_constants import (
     ENDPOINT_STAGING,
@@ -308,7 +308,7 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
     def test_update_verify_token(self):
         """Tests whether updating the verification token updates in-place.
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1210
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1210
         """
         new_metadata = copy.deepcopy(self.existing_metadata)
         new_metadata["model-index"][0]["results"][0]["metrics"][0]["verifyToken"] = "1234"
@@ -408,7 +408,7 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
     def test_update_metadata_on_empty_text_content(self) -> None:
         """Test `update_metadata` on a model card that has metadata but no text content
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1010
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1010
         """
         # Create modelcard with metadata but empty text content
         self.api.upload_file(
@@ -445,7 +445,7 @@ class RepocardMetadataUpdateTest(unittest.TestCase):
     def test_update_with_both_verified_and_unverified_metric(self):
         """Regression test for #1185.
 
-        See https://github.com/huggingface/huggingface_hub/issues/1185.
+        See https://github.com/huggingface/old_huggingface_hub/issues/1185.
         """
         self.api.upload_file(
             path_or_fileobj=DUMMY_MODELCARD_EVAL_RESULT_BOTH_VERIFIED_AND_UNVERIFIED.encode(),
@@ -632,7 +632,7 @@ class RepoCardTest(TestCaseWithHfApi):
     def test_repo_card_without_metadata(self):
         sample_path = SAMPLE_CARDS_DIR / "sample_no_metadata.md"
 
-        with self.assertLogs("huggingface_hub", level="WARNING") as warning_logs:
+        with self.assertLogs("old_huggingface_hub", level="WARNING") as warning_logs:
             card = RepoCard(sample_path.read_text())
         self.assertTrue(
             any(
@@ -754,7 +754,7 @@ class ModelCardTest(TestCaseWithHfApi):
         Some information is lost.
         """
         sample_path = SAMPLE_CARDS_DIR / "sample_invalid_model_index.md"
-        with self.assertLogs("huggingface_hub", level="WARNING") as warning_logs:
+        with self.assertLogs("old_huggingface_hub", level="WARNING") as warning_logs:
             card = ModelCard.load(sample_path, ignore_metadata_errors=True)
         self.assertTrue(
             any("Invalid model-index. Not loading eval results into CardData." in log for log in warning_logs.output)
@@ -764,7 +764,7 @@ class ModelCardTest(TestCaseWithHfApi):
     def test_model_card_with_model_index(self):
         """Test that loading a model card with multiple evaluations is consistent with `metadata_load`.
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1208
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1208
         """
         sample_path = SAMPLE_CARDS_DIR / "sample_simple_model_index.md"
         card = ModelCard.load(sample_path)
@@ -899,7 +899,7 @@ class DatasetCardTest(TestCaseWithHfApi):
         # Here we pass the card data as kwargs as well so template picks up pretty_name.
         card = DatasetCard.from_template(
             card_data,
-            repo="https://github.com/huggingface/huggingface_hub",
+            repo="https://github.com/huggingface/old_huggingface_hub",
             paper="https://arxiv.org/pdf/1910.03771.pdf",
             dataset_summary=(
                 "This is a test dataset card to check if the template variables "
@@ -909,8 +909,8 @@ class DatasetCardTest(TestCaseWithHfApi):
         self.assertTrue(card.text.strip().startswith("# Dataset Card for My Cool Dataset"))
         self.assertIsInstance(card, DatasetCard)
 
-        matches = re.findall(r"Repository:\*\* https://github\.com/huggingface/huggingface_hub", str(card))
-        self.assertEqual(matches[0], "Repository:** https://github.com/huggingface/huggingface_hub")
+        matches = re.findall(r"Repository:\*\* https://github\.com/huggingface/old_huggingface_hub", str(card))
+        self.assertEqual(matches[0], "Repository:** https://github.com/huggingface/old_huggingface_hub")
 
     @require_jinja
     def test_dataset_card_from_custom_template(self):

@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Anleitungen
 
-In diesem Abschnitt finden Sie praktische Anleitungen, die Ihnen helfen, ein bestimmtes Ziel zu erreichen. Schauen Sie sich diese Anleitungen an, um zu lernen, wie Sie huggingface_hub verwenden, um reale Probleme zu lösen:
+In diesem Abschnitt finden Sie praktische Anleitungen, die Ihnen helfen, ein bestimmtes Ziel zu erreichen. Schauen Sie sich diese Anleitungen an, um zu lernen, wie Sie old_huggingface_hub verwenden, um reale Probleme zu lösen:
 
 <div class="mt-10">
   <div class="w-full flex flex-col space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-y-4 md:gap-x-5">

@@ -4,14 +4,14 @@ rendered properly in your Markdown viewer.
 
 # Kurzanleitung
 
-Der [Hugging Face Hub](https://huggingface.co/) ist die erste Anlaufstelle für das Teilen von Maschinenlernmodellen, Demos, Datensätzen und Metriken. Die `huggingface_hub`-Bibliothek hilft Ihnen, mit dem Hub zu interagieren, ohne Ihre Entwicklungs-Umgebung zu verlassen. Sie können Repositories einfach erstellen und verwalten, Dateien herunterladen und hochladen und nützliche Model- und Datensatz-Metadaten vom Hub abrufen.
+Der [Hugging Face Hub](https://huggingface.co/) ist die erste Anlaufstelle für das Teilen von Maschinenlernmodellen, Demos, Datensätzen und Metriken. Die `old_huggingface_hub`-Bibliothek hilft Ihnen, mit dem Hub zu interagieren, ohne Ihre Entwicklungs-Umgebung zu verlassen. Sie können Repositories einfach erstellen und verwalten, Dateien herunterladen und hochladen und nützliche Model- und Datensatz-Metadaten vom Hub abrufen.
 
 ## Installation
 
-Um loszulegen, installieren Sie die `huggingface_hub`-Bibliothek:
+Um loszulegen, installieren Sie die `old_huggingface_hub`-Bibliothek:
 
 ```bash
-pip install --upgrade huggingface_hub
+pip install --upgrade old_huggingface_hub
 ```
 
 Für weitere Details schauen Sie sich bitte den [Installationsleitfaden](installation) an.
@@ -26,7 +26,7 @@ Sie benötigen die Repository-ID und den Dateinamen der Datei, die Sie herunterl
 Beispiel, um die Konfigurationsdatei des [Pegasus](https://huggingface.co/google/pegasus-xsum) Modells herunterzuladen:
 
 ```py
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(repo_id="google/pegasus-xsum", filename="config.json")
 ```
 
@@ -35,7 +35,7 @@ Namen der Branch, des Tags oder des Commit-Hashes anzugeben. Wenn Sie sich für 
 entscheiden, muss es der vollständige Hash anstelle des kürzeren 7-Zeichen-Commit-Hashes sein:
 
 ```py
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(
 ...     repo_id="google/pegasus-xsum",
 ...     filename="config.json",
@@ -61,7 +61,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 Alternativ können Sie sich auch programmatisch in einem Notebook oder einem Skript mit [`login`] anmelden:
 
 ```py
->>> from huggingface_hub import login
+>>> from old_huggingface_hub import login
 >>> login()
 ```
 
@@ -80,7 +80,7 @@ Sobald Sie angemeldet sind, werden alle Anfragen an den Hub - auch Methoden, die
 Nachdem Sie sich registriert und angemeldet haben, können Sie mit der Funktion [`create_repo`] ein Repository erstellen:
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.create_repo(repo_id="super-cool-model")
 ```
@@ -88,7 +88,7 @@ Nachdem Sie sich registriert und angemeldet haben, können Sie mit der Funktion 
 If you want your repository to be private, then:
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.create_repo(repo_id="super-cool-model", private=True)
 ```
@@ -110,7 +110,7 @@ Verwenden Sie die [`upload_file`]-Funktion, um eine Datei zu Ihrem neu erstellte
 3. Die Repository-ID, zu der Sie die Datei hinzufügen möchten.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.upload_file(
 ...     path_or_fileobj="/home/lysandre/dummy-test/README.md",
@@ -123,7 +123,7 @@ Um mehr als eine Datei gleichzeitig hochzuladen, werfen Sie bitte einen Blick au
 
 ## Nächste Schritte
 
-Die `huggingface_hub`-Bibliothek bietet den Benutzern eine einfache Möglichkeit, mittels Python mit dem Hub zu interagieren. Um mehr darüber zu erfahren, wie Sie Ihre Dateien und Repositories auf dem Hub verwalten können, empfehlen wir, unsere [How-to-Leitfäden](./guides/overview) zu lesen:
+Die `old_huggingface_hub`-Bibliothek bietet den Benutzern eine einfache Möglichkeit, mittels Python mit dem Hub zu interagieren. Um mehr darüber zu erfahren, wie Sie Ihre Dateien und Repositories auf dem Hub verwalten können, empfehlen wir, unsere [How-to-Leitfäden](./guides/overview) zu lesen:
 
 - [Verwalten Sie Ihre Repository](./guides/repository).
 - Dateien vom Hub [herunterladen](./guides/download).

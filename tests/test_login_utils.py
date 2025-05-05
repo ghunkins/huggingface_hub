@@ -2,8 +2,8 @@ import subprocess
 import unittest
 from typing import Optional
 
-from huggingface_hub._login import _set_store_as_git_credential_helper_globally
-from huggingface_hub.utils import run_subprocess
+from old_huggingface_hub._login import _set_store_as_git_credential_helper_globally
+from old_huggingface_hub.utils import run_subprocess
 
 
 class TestSetGlobalStore(unittest.TestCase):

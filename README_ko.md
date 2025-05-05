@@ -1,6 +1,6 @@
 <p align="center">
   <br/>
-    <img alt="huggingface_hub library logo" src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/huggingface_hub.svg" width="376" height="59" style="max-width: 100%;">
+    <img alt="old_huggingface_hub library logo" src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/old_huggingface_hub.svg" width="376" height="59" style="max-width: 100%;">
   <br/>
 </p>
 
@@ -9,62 +9,62 @@
 </p>
 
 <p align="center">
-    <a href="https://huggingface.co/docs/huggingface_hub/ko/index"><img alt="Documentation" src="https://img.shields.io/website/http/huggingface.co/docs/huggingface_hub/index.svg?down_color=red&down_message=offline&up_message=online&label=doc"></a>
-    <a href="https://github.com/huggingface/huggingface_hub/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/huggingface_hub.svg"></a>
-    <a href="https://github.com/huggingface/huggingface_hub"><img alt="PyPi version" src="https://img.shields.io/pypi/pyversions/huggingface_hub.svg"></a>
-    <a href="https://pypi.org/project/huggingface-hub"><img alt="downloads" src="https://static.pepy.tech/badge/huggingface_hub/month"></a>
-    <a href="https://codecov.io/gh/huggingface/huggingface_hub"><img alt="Code coverage" src="https://codecov.io/gh/huggingface/huggingface_hub/branch/main/graph/badge.svg?token=RXP95LE2XL"></a>
+    <a href="https://huggingface.co/docs/old_huggingface_hub/ko/index"><img alt="Documentation" src="https://img.shields.io/website/http/huggingface.co/docs/old_huggingface_hub/index.svg?down_color=red&down_message=offline&up_message=online&label=doc"></a>
+    <a href="https://github.com/huggingface/old_huggingface_hub/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/old_huggingface_hub.svg"></a>
+    <a href="https://github.com/huggingface/old_huggingface_hub"><img alt="PyPi version" src="https://img.shields.io/pypi/pyversions/old_huggingface_hub.svg"></a>
+    <a href="https://pypi.org/project/old-huggingface-hub"><img alt="downloads" src="https://static.pepy.tech/badge/old_huggingface_hub/month"></a>
+    <a href="https://codecov.io/gh/huggingface/old_huggingface_hub"><img alt="Code coverage" src="https://codecov.io/gh/huggingface/old_huggingface_hub/branch/main/graph/badge.svg?token=RXP95LE2XL"></a>
 </p>
 
 <h4 align="center">
     <p>
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README.md">English</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README_de.md">Deutsch</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README_hi.md">हिंदी</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README.md">English</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_de.md">Deutsch</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_hi.md">हिंदी</a> |
         <b>한국어</b>|
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README_cn.md">中文（简体）</a>
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_cn.md">中文（简体）</a>
     <p>
 </h4>
 
 ---
 
-**기술 문서**: <a href="https://hf.co/docs/huggingface_hub" target="_blank">https://hf.co/docs/huggingface_hub</a>
+**기술 문서**: <a href="https://hf.co/docs/old_huggingface_hub" target="_blank">https://hf.co/docs/old_huggingface_hub</a>
 
-**소스 코드**: <a href="https://github.com/huggingface/huggingface_hub" target="_blank">https://github.com/huggingface/huggingface_hub</a>
+**소스 코드**: <a href="https://github.com/huggingface/old_huggingface_hub" target="_blank">https://github.com/huggingface/old_huggingface_hub</a>
 
 ---
 
-## huggingface_hub 라이브러리 개요
+## old_huggingface_hub 라이브러리 개요
 
-`huggingface_hub` 라이브러리는 [Hugging Face Hub](https://huggingface.co/)와 상호작용할 수 있게 해줍니다. Hugging Face Hub는 창작자와 협업자를 위한 오픈소스 머신러닝 플랫폼입니다. 여러분의 프로젝트에 적합한 사전 훈련된 모델과 데이터셋을 발견하거나, Hub에 호스팅된 수천 개의 머신러닝 앱들을 사용해보세요. 또한, 여러분이 만든 모델, 데이터셋, 데모를 커뮤니티와 공유할 수도 있습니다. `huggingface_hub` 라이브러리는 파이썬으로 이 모든 것을 간단하게 할 수 있는 방법을 제공합니다.
+`old_huggingface_hub` 라이브러리는 [Hugging Face Hub](https://huggingface.co/)와 상호작용할 수 있게 해줍니다. Hugging Face Hub는 창작자와 협업자를 위한 오픈소스 머신러닝 플랫폼입니다. 여러분의 프로젝트에 적합한 사전 훈련된 모델과 데이터셋을 발견하거나, Hub에 호스팅된 수천 개의 머신러닝 앱들을 사용해보세요. 또한, 여러분이 만든 모델, 데이터셋, 데모를 커뮤니티와 공유할 수도 있습니다. `old_huggingface_hub` 라이브러리는 파이썬으로 이 모든 것을 간단하게 할 수 있는 방법을 제공합니다.
 
 ## 주요 기능
 
-- Hub에서 [파일을 다운로드](https://huggingface.co/docs/huggingface_hub/main/ko/guides/download)
-- Hub에 [파일을 업로드](https://huggingface.co/docs/huggingface_hub/main/en/guides/upload) (영어)
-- [레포지토리를 관리](https://huggingface.co/docs/huggingface_hub/main/en/guides/repository) (영어)
-- 배포된 모델에 [추론을 실행](https://huggingface.co/docs/huggingface_hub/main/en/guides/inference) (영어)
-- 모델, 데이터셋, Space를 [검색](https://huggingface.co/docs/huggingface_hub/main/en/guides/search) (영어)
-- [모델 카드를 공유](https://huggingface.co/docs/huggingface_hub/main/en/guides/model-cards)하여 모델을 문서화 (영어)
-- PR과 댓글을 통해 [커뮤니티와 소통](https://huggingface.co/docs/huggingface_hub/main/en/guides/community) (영어)
+- Hub에서 [파일을 다운로드](https://huggingface.co/docs/old_huggingface_hub/main/ko/guides/download)
+- Hub에 [파일을 업로드](https://huggingface.co/docs/old_huggingface_hub/main/en/guides/upload) (영어)
+- [레포지토리를 관리](https://huggingface.co/docs/old_huggingface_hub/main/en/guides/repository) (영어)
+- 배포된 모델에 [추론을 실행](https://huggingface.co/docs/old_huggingface_hub/main/en/guides/inference) (영어)
+- 모델, 데이터셋, Space를 [검색](https://huggingface.co/docs/old_huggingface_hub/main/en/guides/search) (영어)
+- [모델 카드를 공유](https://huggingface.co/docs/old_huggingface_hub/main/en/guides/model-cards)하여 모델을 문서화 (영어)
+- PR과 댓글을 통해 [커뮤니티와 소통](https://huggingface.co/docs/old_huggingface_hub/main/en/guides/community) (영어)
 
 ## 설치
 
-[pip](https://pypi.org/project/huggingface-hub/)로 `huggingface_hub` 패키지를 설치하세요:
+[pip](https://pypi.org/project/old-huggingface-hub/)로 `old_huggingface_hub` 패키지를 설치하세요:
 
 ```bash
-pip install huggingface_hub
+pip install old_huggingface_hub
 ```
 
-원한다면 [conda](https://huggingface.co/docs/huggingface_hub/ko/installation#install-with-conda)를 이용하여 설치할 수도 있습니다.
+원한다면 [conda](https://huggingface.co/docs/old_huggingface_hub/ko/installation#install-with-conda)를 이용하여 설치할 수도 있습니다.
 
-기본 패키지를 작게 유지하기 위해 `huggingface_hub`는 유용한 의존성을 추가적으로 제공합니다. 추론과 관련된 기능을 원한다면, 아래를 실행하세요:
+기본 패키지를 작게 유지하기 위해 `old_huggingface_hub`는 유용한 의존성을 추가적으로 제공합니다. 추론과 관련된 기능을 원한다면, 아래를 실행하세요:
 
 ```bash
-pip install huggingface_hub[inference]
+pip install old_huggingface_hub[inference]
 ```
 
-설치와 선택적 의존성에 대해 더 알아보려면, [설치 가이드](https://huggingface.co/docs/huggingface_hub/ko/installation)를 참고하세요.
+설치와 선택적 의존성에 대해 더 알아보려면, [설치 가이드](https://huggingface.co/docs/old_huggingface_hub/ko/installation)를 참고하세요.
 
 ## 맛보기
 
@@ -73,7 +73,7 @@ pip install huggingface_hub[inference]
 파일 하나의 경우:
 
 ```py
-from huggingface_hub import hf_hub_download
+from old_huggingface_hub import hf_hub_download
 
 hf_hub_download(repo_id="tiiuae/falcon-7b-instruct", filename="config.json")
 ```
@@ -81,12 +81,12 @@ hf_hub_download(repo_id="tiiuae/falcon-7b-instruct", filename="config.json")
 레포지토리 전체의 경우:
 
 ```py
-from huggingface_hub import snapshot_download
+from old_huggingface_hub import snapshot_download
 
 snapshot_download("stabilityai/stable-diffusion-2-1")
 ```
 
-파일은 로컬 캐시 폴더에 다운로드됩니다. 자세한 내용은 [이 가이드](https://huggingface.co/docs/huggingface_hub/ko/guides/manage-cache)를 참조하세요.
+파일은 로컬 캐시 폴더에 다운로드됩니다. 자세한 내용은 [이 가이드](https://huggingface.co/docs/old_huggingface_hub/ko/guides/manage-cache)를 참조하세요.
 
 ### 로그인
 
@@ -101,7 +101,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 ### 레포지토리 생성
 
 ```py
-from huggingface_hub import create_repo
+from old_huggingface_hub import create_repo
 
 create_repo(repo_id="super-cool-model")
 ```
@@ -111,7 +111,7 @@ create_repo(repo_id="super-cool-model")
 파일 하나의 경우:
 
 ```py
-from huggingface_hub import upload_file
+from old_huggingface_hub import upload_file
 
 upload_file(
     path_or_fileobj="/home/lysandre/dummy-test/README.md",
@@ -123,7 +123,7 @@ upload_file(
 레포지토리 전체의 경우:
 
 ```py
-from huggingface_hub import upload_folder
+from old_huggingface_hub import upload_folder
 
 upload_folder(
     folder_path="/path/to/local/space",
@@ -132,7 +132,7 @@ upload_folder(
 )
 ```
 
-자세한 내용은 [업로드 가이드](https://huggingface.co/docs/huggingface_hub/ko/guides/upload)를 참조하세요.
+자세한 내용은 [업로드 가이드](https://huggingface.co/docs/old_huggingface_hub/ko/guides/upload)를 참조하세요.
 
 ## Hugging Face Hub와 함께 성장하기
 
@@ -154,4 +154,4 @@ upload_folder(
 
 모든 분들의 기여를 환영하며, 소중히 생각합니다. 코드 작성만이 커뮤니티에 도움을 주는 유일한 방법이 아니에요.
 질문에 답하거나, 다른 분들을 돕거나, 컨택하거나, 문서를 개선하는 것도 커뮤니티에 큰 도움이 됩니다.
-지금 시작하려면 간단한 [기여 가이드](https://github.com/huggingface/huggingface_hub/blob/main/CONTRIBUTING.md)를 참조해주세요.
+지금 시작하려면 간단한 [기여 가이드](https://github.com/huggingface/old_huggingface_hub/blob/main/CONTRIBUTING.md)를 참조해주세요.

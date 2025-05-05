@@ -3,9 +3,9 @@ import time
 import unittest
 from io import BytesIO
 
-from huggingface_hub import HfApi, hf_hub_download, snapshot_download
-from huggingface_hub.utils import SoftTemporaryDirectory, logging
-from huggingface_hub.utils._errors import EntryNotFoundError
+from old_huggingface_hub import HfApi, hf_hub_download, snapshot_download
+from old_huggingface_hub.utils import SoftTemporaryDirectory, logging
+from old_huggingface_hub.utils._errors import EntryNotFoundError
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN
 from .testing_utils import (

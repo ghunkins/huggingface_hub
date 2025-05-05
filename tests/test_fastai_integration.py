@@ -1,13 +1,13 @@
 import os
 from unittest import TestCase, skip
 
-from huggingface_hub import HfApi
-from huggingface_hub.fastai_utils import (
+from old_huggingface_hub import HfApi
+from old_huggingface_hub.fastai_utils import (
     _save_pretrained_fastai,
     from_pretrained_fastai,
     push_to_hub_fastai,
 )
-from huggingface_hub.utils import (
+from old_huggingface_hub.utils import (
     SoftTemporaryDirectory,
     is_fastai_available,
     is_fastcore_available,

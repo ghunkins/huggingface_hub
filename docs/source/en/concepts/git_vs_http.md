@@ -4,9 +4,9 @@ rendered properly in your Markdown viewer.
 
 # Git vs HTTP paradigm
 
-The `huggingface_hub` library is a library for interacting with the Hugging Face Hub, which is a
+The `old_huggingface_hub` library is a library for interacting with the Hugging Face Hub, which is a
 collections of git-based repositories (models, datasets or Spaces). There are two main
-ways to access the Hub using `huggingface_hub`.
+ways to access the Hub using `old_huggingface_hub`.
 
 The first approach, the so-called "git-based" approach, is led by the [`Repository`] class.
 This method uses a wrapper around the `git` command with additional functions specifically
@@ -16,7 +16,7 @@ of each approach.
 
 ## Repository: the historical git-based approach
 
-At first, `huggingface_hub` was mostly built around the [`Repository`] class. It provides
+At first, `old_huggingface_hub` was mostly built around the [`Repository`] class. It provides
 Python wrappers for common `git` commands such as `"git add"`, `"git commit"`, `"git push"`,
 `"git tag"`, `"git checkout"`, etc.
 
@@ -54,9 +54,9 @@ discussions, PRs, and comments, and configure Spaces hardware and secrets.
 
 ## What should I use ? And when ?
 
-Overall, the **HTTP-based approach is the recommended way to use** `huggingface_hub`
+Overall, the **HTTP-based approach is the recommended way to use** `old_huggingface_hub`
 in all cases. [`HfApi`] allows to pull and push changes, work with PRs, tags and branches, interact with discussions and much more. Since the `0.16` release, the http-based methods can also run in the background, which was the last major advantage of the [`Repository`] class.
 
-However, not all git commands are available through [`HfApi`]. Some may never be implemented, but we are always trying to improve and close the gap. If you don't see your use case covered, please open [an issue on Github](https://github.com/huggingface/huggingface_hub)! We welcome feedback to help build the 🤗 ecosystem with and for our users.
+However, not all git commands are available through [`HfApi`]. Some may never be implemented, but we are always trying to improve and close the gap. If you don't see your use case covered, please open [an issue on Github](https://github.com/huggingface/old_huggingface_hub)! We welcome feedback to help build the 🤗 ecosystem with and for our users.
 
 This preference of the http-based [`HfApi`] over the git-based [`Repository`] does not mean that git versioning will disappear from the Hugging Face Hub anytime soon. It will always be possible to use `git` commands locally in workflows where it makes sense.

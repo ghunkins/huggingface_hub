@@ -5,7 +5,7 @@ rendered properly in your Markdown viewer.
 # Inference
 
 Inference is the process of using a trained model to make predictions on new data. As this process can be compute-intensive,
-running on a dedicated server can be an interesting option. The `huggingface_hub` library provides an easy way to call a
+running on a dedicated server can be an interesting option. The `old_huggingface_hub` library provides an easy way to call a
 service that runs inference for hosted models. There are several services you can connect to:
 - [Inference API](https://huggingface.co/docs/api-inference/index): a service that allows you to run accelerated inference
 on Hugging Face's infrastructure for free. This service is a fast way to get started, test different models, and
@@ -26,7 +26,7 @@ An async version of the client is also provided, based on `asyncio` and `aiohttp
 To use it, you can either install `aiohttp` directly or use the `[inference]` extra:
 
 ```sh
-pip install --upgrade huggingface_hub[inference]
+pip install --upgrade old_huggingface_hub[inference]
 # or
 # pip install aiohttp
 ```
@@ -39,7 +39,7 @@ pip install --upgrade huggingface_hub[inference]
 
 ### ModelStatus
 
-[[autodoc]] huggingface_hub.inference._common.ModelStatus
+[[autodoc]] old_huggingface_hub.inference._common.ModelStatus
 
 ## InferenceAPI
 

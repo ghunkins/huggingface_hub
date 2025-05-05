@@ -1,6 +1,6 @@
 <p align="center">
   <br/>
-    <img alt="huggingface_hub library logo" src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/huggingface_hub.svg" width="376" height="59" style="max-width: 100%;">
+    <img alt="old_huggingface_hub library logo" src="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/old_huggingface_hub.svg" width="376" height="59" style="max-width: 100%;">
   <br/>
 </p>
 
@@ -9,61 +9,61 @@
 </p>
 
 <p align="center">
-    <a href="https://huggingface.co/docs/huggingface_hub/en/index"><img alt="Documentation" src="https://img.shields.io/website/http/huggingface.co/docs/huggingface_hub/index.svg?down_color=red&down_message=offline&up_message=online&label=doc"></a>
-    <a href="https://github.com/huggingface/huggingface_hub/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/huggingface_hub.svg"></a>
-    <a href="https://github.com/huggingface/huggingface_hub"><img alt="PyPi version" src="https://img.shields.io/pypi/pyversions/huggingface_hub.svg"></a>
-    <a href="https://pypi.org/project/huggingface-hub"><img alt="downloads" src="https://static.pepy.tech/badge/huggingface_hub/month"></a>
-    <a href="https://codecov.io/gh/huggingface/huggingface_hub"><img alt="Code coverage" src="https://codecov.io/gh/huggingface/huggingface_hub/branch/main/graph/badge.svg?token=RXP95LE2XL"></a>
+    <a href="https://huggingface.co/docs/old_huggingface_hub/en/index"><img alt="Documentation" src="https://img.shields.io/website/http/huggingface.co/docs/old_huggingface_hub/index.svg?down_color=red&down_message=offline&up_message=online&label=doc"></a>
+    <a href="https://github.com/huggingface/old_huggingface_hub/releases"><img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/old_huggingface_hub.svg"></a>
+    <a href="https://github.com/huggingface/old_huggingface_hub"><img alt="PyPi version" src="https://img.shields.io/pypi/pyversions/old_huggingface_hub.svg"></a>
+    <a href="https://pypi.org/project/old-huggingface-hub"><img alt="downloads" src="https://static.pepy.tech/badge/old_huggingface_hub/month"></a>
+    <a href="https://codecov.io/gh/huggingface/old_huggingface_hub"><img alt="Code coverage" src="https://codecov.io/gh/huggingface/old_huggingface_hub/branch/main/graph/badge.svg?token=RXP95LE2XL"></a>
 </p>
 
 <h4 align="center">
     <p>
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README.md">English</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README_de.md">Deutsch</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README_hi.md">हिंदी</a> |
-        <a href="https://github.com/huggingface/huggingface_hub/blob/main/README_ko.md">한국어</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README.md">English</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_de.md">Deutsch</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_hi.md">हिंदी</a> |
+        <a href="https://github.com/huggingface/old_huggingface_hub/blob/main/README_ko.md">한국어</a> |
         <b>中文（简体）</b>
     <p>
 </h4>
 ---
 
-**文档**: `<a href="https://hf.co/docs/huggingface_hub" target="_blank">`https://hf.co/docs/huggingface_hub `</a>`
+**文档**: `<a href="https://hf.co/docs/old_huggingface_hub" target="_blank">`https://hf.co/docs/old_huggingface_hub `</a>`
 
-**源代码**: `<a href="https://github.com/huggingface/huggingface_hub" target="_blank">`https://github.com/huggingface/huggingface_hub `</a>`
+**源代码**: `<a href="https://github.com/huggingface/old_huggingface_hub" target="_blank">`https://github.com/huggingface/old_huggingface_hub `</a>`
 
 ---
 
 ## 欢迎使用 Hugging Face Hub 库
 
-通过`huggingface_hub` 库，您可以与面向机器学习开发者和协作者的平台 [Hugging Face Hub](https://huggingface.co/)进行交互，找到适用于您所在项目的预训练模型和数据集，体验在平台托管的数百个机器学习应用，还可以创建或分享自己的模型和数据集并于社区共享。以上所有都可以用Python在`huggingface_hub` 库中轻松实现。
+通过`old_huggingface_hub` 库，您可以与面向机器学习开发者和协作者的平台 [Hugging Face Hub](https://huggingface.co/)进行交互，找到适用于您所在项目的预训练模型和数据集，体验在平台托管的数百个机器学习应用，还可以创建或分享自己的模型和数据集并于社区共享。以上所有都可以用Python在`old_huggingface_hub` 库中轻松实现。
 
 ## 主要特点
 
-- [从hugging face hub下载文件](https://huggingface.co/docs/huggingface_hub/en/guides/download)
-- [上传文件到 hugging face hub](https://huggingface.co/docs/huggingface_hub/en/guides/upload)
-- [管理您的存储库](https://huggingface.co/docs/huggingface_hub/en/guides/repository)
-- [在部署的模型上运行推断](https://huggingface.co/docs/huggingface_hub/en/guides/inference)
-- [搜索模型、数据集和空间](https://huggingface.co/docs/huggingface_hub/en/guides/search)
-- [分享模型卡片](https://huggingface.co/docs/huggingface_hub/en/guides/model-cards)
-- [社区互动](https://huggingface.co/docs/huggingface_hub/en/guides/community)
+- [从hugging face hub下载文件](https://huggingface.co/docs/old_huggingface_hub/en/guides/download)
+- [上传文件到 hugging face hub](https://huggingface.co/docs/old_huggingface_hub/en/guides/upload)
+- [管理您的存储库](https://huggingface.co/docs/old_huggingface_hub/en/guides/repository)
+- [在部署的模型上运行推断](https://huggingface.co/docs/old_huggingface_hub/en/guides/inference)
+- [搜索模型、数据集和空间](https://huggingface.co/docs/old_huggingface_hub/en/guides/search)
+- [分享模型卡片](https://huggingface.co/docs/old_huggingface_hub/en/guides/model-cards)
+- [社区互动](https://huggingface.co/docs/old_huggingface_hub/en/guides/community)
 
 ## 安装
 
-使用pip安装 `huggingface_hub` 包：
+使用pip安装 `old_huggingface_hub` 包：
 
 ```bash
-pip install huggingface_hub
+pip install old_huggingface_hub
 ```
 
 如果您更喜欢，也可以使用 conda 进行安装
 
-为了默认保持包的最小化，huggingface_hub 带有一些可选的依赖项，适用于某些用例。例如，如果您想要完整的推断体验，请运行：
+为了默认保持包的最小化，old_huggingface_hub 带有一些可选的依赖项，适用于某些用例。例如，如果您想要完整的推断体验，请运行：
 
 ```bash
-pip install huggingface_hub[inference]
+pip install old_huggingface_hub[inference]
 ```
 
-要了解更多安装和可选依赖项，请查看[安装指南](https://huggingface.co/docs/huggingface_hub/cn/安装)
+要了解更多安装和可选依赖项，请查看[安装指南](https://huggingface.co/docs/old_huggingface_hub/cn/安装)
 
 ## 快速入门指南
 
@@ -72,7 +72,7 @@ pip install huggingface_hub[inference]
 下载单个文件,请运行以下代码：
 
 ```py
-from huggingface_hub import hf_hub_download
+from old_huggingface_hub import hf_hub_download
 
 hf_hub_download(repo_id="tiiuae/falcon-7b-instruct", filename="config.json")
 ```
@@ -80,12 +80,12 @@ hf_hub_download(repo_id="tiiuae/falcon-7b-instruct", filename="config.json")
 如果下载整个存储库，请运行以下代码：
 
 ```py
-from huggingface_hub import snapshot_download
+from old_huggingface_hub import snapshot_download
 
 snapshot_download("stabilityai/stable-diffusion-2-1")
 ```
 
-文件将被下载到本地缓存文件夹。更多详细信息请参阅此 [指南](https://huggingface.co/docs/huggingface_hub/en/guides/manage-cache).
+文件将被下载到本地缓存文件夹。更多详细信息请参阅此 [指南](https://huggingface.co/docs/old_huggingface_hub/en/guides/manage-cache).
 
 ### 登录
 
@@ -102,7 +102,7 @@ huggingface-cli login --token $HUGGINGFACE_TOKEN
 要创建一个新存储库，请运行以下代码：
 
 ```py
-from huggingface_hub import create_repo
+from old_huggingface_hub import create_repo
 
 create_repo(repo_id="super-cool-model")
 ```
@@ -112,7 +112,7 @@ create_repo(repo_id="super-cool-model")
 上传单个文件,请运行以下代码
 
 ```py
-from huggingface_hub import upload_file
+from old_huggingface_hub import upload_file
 
 upload_file(
     path_or_fileobj="/home/lysandre/dummy-test/README.md",
@@ -124,7 +124,7 @@ upload_file(
 如果上传整个存储库，请运行以下代码：
 
 ```py
-from huggingface_hub import upload_folder
+from old_huggingface_hub import upload_folder
 
 upload_folder(
     folder_path="/path/to/local/space",
@@ -133,7 +133,7 @@ upload_folder(
 )
 ```
 
-有关详细信息，请查看 [上传指南](https://huggingface.co/docs/huggingface_hub/en/guides/upload).
+有关详细信息，请查看 [上传指南](https://huggingface.co/docs/old_huggingface_hub/en/guides/upload).
 
 ## 集成到 Hub 中
 
@@ -153,4 +153,4 @@ upload_folder(
 
 ## 欢迎各种贡献（功能请求、错误等） 💙💚💛💜🧡❤️
 
-欢迎每个人来进行贡献，我们重视每个人的贡献。编写代码并非唯一的帮助社区的方式。回答问题、帮助他人、积极互动并改善文档对社区来说都是极其有价值的。为此我们编写了一份 [贡献指南](https://github.com/huggingface/huggingface_hub/blob/main/CONTRIBUTING.md) 以进行总结，即如何开始为这个存储库做贡献
+欢迎每个人来进行贡献，我们重视每个人的贡献。编写代码并非唯一的帮助社区的方式。回答问题、帮助他人、积极互动并改善文档对社区来说都是极其有价值的。为此我们编写了一份 [贡献指南](https://github.com/huggingface/old_huggingface_hub/blob/main/CONTRIBUTING.md) 以进行总结，即如何开始为这个存储库做贡献

@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from huggingface_hub.utils import SoftTemporaryDirectory, yaml_dump
+from old_huggingface_hub.utils import SoftTemporaryDirectory, yaml_dump
 
 
 class TestYamlDump(unittest.TestCase):

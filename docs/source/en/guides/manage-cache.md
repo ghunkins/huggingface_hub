@@ -2,7 +2,7 @@
 rendered properly in your Markdown viewer.
 -->
 
-# Manage `huggingface_hub` cache-system
+# Manage `old_huggingface_hub` cache-system
 
 ## Understand caching
 
@@ -115,7 +115,7 @@ helper. It will either return the filepath (if exists and cached), the object `_
 is cached) or `None` (if we don't know).
 
 ```python
-from huggingface_hub import try_to_load_from_cache, _CACHED_NO_EXIST
+from old_huggingface_hub import try_to_load_from_cache, _CACHED_NO_EXIST
 
 filepath = try_to_load_from_cache()
 if isinstance(filepath, str):
@@ -153,9 +153,9 @@ In practice, your cache should look like the following tree:
 
 ### Limitations
 
-In order to have an efficient cache-system, `huggingface-hub` uses symlinks. However,
+In order to have an efficient cache-system, `old-huggingface-hub` uses symlinks. However,
 symlinks are not supported on all machines. This is a known limitation especially on
-Windows. When this is the case, `huggingface_hub` do not use the `blobs/` directory but
+Windows. When this is the case, `old_huggingface_hub` do not use the `blobs/` directory but
 directly stores the files in the `snapshots/` directory instead. This workaround allows
 users to download and cache files from the Hub exactly the same way. Tools to inspect
 and delete the cache (see below) are also supported. However, the cache-system is less
@@ -173,18 +173,18 @@ by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable to true.
 ## Caching assets
 
 In addition to caching files from the Hub, downstream libraries often requires to cache
-other files related to HF but not handled directly by `huggingface_hub` (example: file
+other files related to HF but not handled directly by `old_huggingface_hub` (example: file
 downloaded from GitHub, preprocessed data, logs,...). In order to cache those files,
 called `assets`, one can use [`cached_assets_path`]. This small helper generates paths
 in the HF cache in a unified way based on the name of the library requesting it and
 optionally on a namespace and a subfolder name. The goal is to let every downstream
 libraries manage its assets its own way (e.g. no rule on the structure) as long as it
 stays in the right assets folder. Those libraries can then leverage tools from
-`huggingface_hub` to manage the cache, in particular scanning and deleting parts of the
+`old_huggingface_hub` to manage the cache, in particular scanning and deleting parts of the
 assets from a CLI command.
 
 ```py
-from huggingface_hub import cached_assets_path
+from old_huggingface_hub import cached_assets_path
 
 assets_path = cached_assets_path(library_name="datasets", namespace="SQuAD", subfolder="download")
 something_path = assets_path / "something.json" # Do anything you like in your assets folder !
@@ -237,7 +237,7 @@ In practice, your assets cache should look like the following tree:
 At the moment, cached files are never deleted from your local directory: when you download
 a new revision of a branch, previous files are kept in case you need them again.
 Therefore it can be useful to scan your cache directory in order to know which repos
-and revisions are taking the most disk space. `huggingface_hub` provides an helper to
+and revisions are taking the most disk space. `old_huggingface_hub` provides an helper to
 do so that can be used via `huggingface-cli` or in a python script.
 
 ### Scan cache from the terminal
@@ -319,7 +319,7 @@ You can use it to get a detailed report structured around 4 dataclasses:
 Here is a simple usage example. See reference for details.
 
 ```py
->>> from huggingface_hub import scan_cache_dir
+>>> from old_huggingface_hub import scan_cache_dir
 
 >>> hf_cache_info = scan_cache_dir()
 HFCacheInfo(
@@ -423,7 +423,7 @@ This is the default mode. To use it, you first need to install extra dependencie
 running the following command:
 
 ```
-pip install huggingface_hub["cli"]
+pip install old_huggingface_hub["cli"]
 ```
 
 Then run the command:
@@ -528,7 +528,7 @@ For more flexibility, you can also use the [`~HFCacheInfo.delete_revisions`] met
 programmatically. Here is a simple example. See reference for details.
 
 ```py
->>> from huggingface_hub import scan_cache_dir
+>>> from old_huggingface_hub import scan_cache_dir
 
 >>> delete_strategy = scan_cache_dir().delete_revisions(
 ...     "81fd1d6e7847c99f5862c9fb81387956d99ec7aa"

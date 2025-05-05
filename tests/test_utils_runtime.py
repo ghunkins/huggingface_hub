@@ -1,6 +1,6 @@
 import unittest
 
-from huggingface_hub.utils._runtime import is_google_colab, is_notebook
+from old_huggingface_hub.utils._runtime import is_google_colab, is_notebook
 
 
 class TestRuntimeUtils(unittest.TestCase):

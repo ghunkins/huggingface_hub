@@ -4,8 +4,8 @@ rendered properly in your Markdown viewer.
 
 # Git 대 HTTP 패러다임
 
-`huggingface_hub` 라이브러리는 git 기반의 저장소(Models, Datasets 또는 Spaces)로 구성된 Hugging Face Hub과 상호 작용하기 위한 라이브러리입니다.
-`huggingface_hub`를 사용하여 Hub에 접근하는 방법은 크게 두 가지입니다.
+`old_huggingface_hub` 라이브러리는 git 기반의 저장소(Models, Datasets 또는 Spaces)로 구성된 Hugging Face Hub과 상호 작용하기 위한 라이브러리입니다.
+`old_huggingface_hub`를 사용하여 Hub에 접근하는 방법은 크게 두 가지입니다.
 
 첫 번째 접근 방식인 소위 "git 기반" 접근 방식은 [`Repository`] 클래스가 주도합니다.
 이 방법은 허브와 상호 작용하도록 특별히 설계된 추가 기능이 있는 `git` 명령에 랩퍼를 사용합니다.
@@ -14,7 +14,7 @@ rendered properly in your Markdown viewer.
 
 ## Repository: 역사적인 Git 기반 접근 방식
 
-먼저, `huggingface_hub`는 주로 [`Repository`] 클래스를 기반으로 구축되었습니다.
+먼저, `old_huggingface_hub`는 주로 [`Repository`] 클래스를 기반으로 구축되었습니다.
 이 클래스는 `"git add"`, `"git commit"`, `"git push"`, `"git tag"`, `"git checkout"` 등과 같은 일반적인 `git` 명령에 대한 Python 랩퍼를 제공합니다.
 
 이 라이브러리는 머신러닝 저장소에서 자주 사용되는 큰 파일을 추적하고 자격 증명을 설정하는 데 도움이 됩니다.
@@ -41,12 +41,12 @@ rendered properly in your Markdown viewer.
 
 ## 무엇을 사용해야 하나요? 언제 사용하나요?
 
-전반적으로, **HTTP 기반 접근 방식은 모든 경우에** `huggingface_hub`를 사용하는 것이 좋습니다.
+전반적으로, **HTTP 기반 접근 방식은 모든 경우에** `old_huggingface_hub`를 사용하는 것이 좋습니다.
 [`HfApi`]를 사용하면 변경 사항을 pull하고 push하고, PR, 태그 및 브랜치로 작업하고, 토론과 상호 작용하는 등의 작업을 할 수 있습니다.
 `0.16` 릴리스부터는 [`Repository`] 클래스의 마지막 주요 장점이었던 http 기반 메소드도 백그라운드에서 실행할 수 있습니다.
 
 그러나 모든 git 명령이 [`HfApi`]를 통해 사용 가능한 것은 아닙니다. 일부는 구현되지 않을 수도 있지만, 저희는 항상 개선하고 격차를 줄이기 위해 노력하고 있습니다.
-사용 사례에 해당되지 않는 경우, [Github에서 이슈](https://github.com/huggingface/huggingface_hub)를 개설해 주세요!
+사용 사례에 해당되지 않는 경우, [Github에서 이슈](https://github.com/huggingface/old_huggingface_hub)를 개설해 주세요!
 사용자와 함께, 사용자를 위한 🤗 생태계를 구축하는 데 도움이 되는 피드백을 환영합니다.
 
 git 기반 [`Repository`]보다 http 기반 [`HfApi`]를 선호한다고 해서 Hugging Face Hub에서 git 버전 관리가 바로 사라지는 것은 아닙니다.

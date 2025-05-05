@@ -6,16 +6,16 @@ rendered properly in your Markdown viewer.
 
 Le [Hugging Face Hub](https://huggingface.co/) est le meilleur endroit pour partager des
 modèles de machine learning, des démos, des datasets et des métriques. La librairie
-`huggingface_hub` vous aide à intéragir avec le Hub sans sortir de votre environnement de
+`old_huggingface_hub` vous aide à intéragir avec le Hub sans sortir de votre environnement de
 développement. Vous pouvez: créer et gérer des dépôts facilement, télécharger et upload des
 fichiers, et obtenir des modèles et des métadonnées depuis le Hub.
 
 ## Installation
 
-Pour commencer, installez la librairie `huggingface_hub`:
+Pour commencer, installez la librairie `old_huggingface_hub`:
 
 ```bash
-pip install --upgrade huggingface_hub
+pip install --upgrade old_huggingface_hub
 ```
 
 Pour plus de détails, vérifiez le guide d'[installation](installation)
@@ -33,7 +33,7 @@ Par exemple, pour télécharger le fichier de configuration du
 modèle [Pegasus](https://huggingface.co/google/pegasus-xsum):
 
 ```py
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(repo_id="google/pegasus-xsum", filename="config.json")
 ```
 
@@ -42,7 +42,7 @@ de spécifier le nom de la branche, le tag ou le hash de commit. Si vous décide
 le hash de commit, vous devez renseigner le hash entier et pas le hash court de 7 caractères:
 
 ```py
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(
 ...     repo_id="google/pegasus-xsum", 
 ...     filename="config.json", 
@@ -75,7 +75,7 @@ Sinon, vous pouvez vous connecter en utilisant [`login`] dans un notebook ou
 un script:
 
 ```py
->>> from huggingface_hub import login
+>>> from old_huggingface_hub import login
 >>> login()
 ```
 
@@ -104,7 +104,7 @@ Une fois que vous avez créé votre compte et que vous vous êtes connectés,
 vous pouvez créer un dépôt avec la fonction [`create_repo`]:
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.create_repo(repo_id="super-cool-model")
 ```
@@ -112,7 +112,7 @@ vous pouvez créer un dépôt avec la fonction [`create_repo`]:
 Si vous voulez que votre dépôt soit privé, alors:
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.create_repo(repo_id="super-cool-model", private=True)
 ```
@@ -137,7 +137,7 @@ Vous devez spécifier:
 3. L'id du dépôt dans lequel vous voulez ajouter le fichier.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.upload_file(
 ...     path_or_fileobj="/home/lysandre/dummy-test/README.md",
@@ -151,7 +151,7 @@ qui détaille plusieurs méthodes pour upload des fichiers (avec ou sans Git).
 
 ## Prochaines étapes
 
-La librairie `huggingface_hub` permet à ses utilisateurs d'intéragir facilementavec le Hub via
+La librairie `old_huggingface_hub` permet à ses utilisateurs d'intéragir facilementavec le Hub via
 Python. Pour en apprendre plus sur comment gérer vos fichiers
 et vos dépôts sur le Hub, nous vous recommandons de lire notre [guide conceptuel](./guides/overview)
 pour :

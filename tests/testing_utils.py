@@ -15,7 +15,7 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 
-from huggingface_hub.utils import (
+from old_huggingface_hub.utils import (
     is_package_available,
     logging,
     reset_sessions,
@@ -186,19 +186,19 @@ def offline(mode=OfflineSimulationMode.CONNECTION_FAILS, timeout=1e-16):
     if mode is OfflineSimulationMode.CONNECTION_FAILS:
         # inspired from https://stackoverflow.com/a/18601897
         with patch("socket.socket", offline_socket):
-            with patch("huggingface_hub.utils._http.get_session") as get_session_mock:
-                with patch("huggingface_hub.file_download.get_session") as get_session_mock:
+            with patch("old_huggingface_hub.utils._http.get_session") as get_session_mock:
+                with patch("old_huggingface_hub.file_download.get_session") as get_session_mock:
                     get_session_mock.return_value = requests.Session()  # not an existing one
                     yield
     elif mode is OfflineSimulationMode.CONNECTION_TIMES_OUT:
         # inspired from https://stackoverflow.com/a/904609
         with patch("requests.request", timeout_request):
-            with patch("huggingface_hub.utils._http.get_session") as get_session_mock:
-                with patch("huggingface_hub.file_download.get_session") as get_session_mock:
+            with patch("old_huggingface_hub.utils._http.get_session") as get_session_mock:
+                with patch("old_huggingface_hub.file_download.get_session") as get_session_mock:
                     get_session_mock().request = timeout_request
                     yield
     elif mode is OfflineSimulationMode.HF_HUB_OFFLINE_SET_TO_1:
-        with patch("huggingface_hub.constants.HF_HUB_OFFLINE", True):
+        with patch("old_huggingface_hub.constants.HF_HUB_OFFLINE", True):
             reset_sessions()
             yield
         reset_sessions()
@@ -216,8 +216,8 @@ def rmtree_with_retry(path: Union[str, Path]) -> None:
 
 
 def with_production_testing(func):
-    file_download = patch("huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE", ENDPOINT_PRODUCTION_URL_SCHEME)
-    hf_api = patch("huggingface_hub.hf_api.ENDPOINT", ENDPOINT_PRODUCTION)
+    file_download = patch("old_huggingface_hub.file_download.HUGGINGFACE_CO_URL_TEMPLATE", ENDPOINT_PRODUCTION_URL_SCHEME)
+    hf_api = patch("old_huggingface_hub.hf_api.ENDPOINT", ENDPOINT_PRODUCTION)
     return hf_api(file_download(func))
 
 
@@ -236,7 +236,7 @@ def expect_deprecation(function_name: str):
              In order to keep old tests during the deprecation phase (before removing
              the feature completely) without changing them internally, we can flag
              them with this decorator.
-    See full discussion in https://github.com/huggingface/huggingface_hub/pull/952.
+    See full discussion in https://github.com/huggingface/old_huggingface_hub/pull/952.
 
     This decorator works hand-in-hand with the `_deprecate_arguments` and
     `_deprecate_positional_args` decorators.
@@ -415,7 +415,7 @@ def use_tmp_repo(repo_type: str = "model") -> Callable[[T], T]:
 
     Example:
     ```py
-    from huggingface_hub import RepoUrl
+    from old_huggingface_hub import RepoUrl
     from .testing_utils import use_tmp_repo
 
     class HfApiCommonTest(unittest.TestCase):

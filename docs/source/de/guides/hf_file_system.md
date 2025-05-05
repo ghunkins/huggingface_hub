@@ -4,12 +4,12 @@ rendered properly in your Markdown viewer.
 
 # Interagieren mit dem Hub über die Filesystem API
 
-Zusätzlich zur [`HfApi`] bietet die `huggingface_hub` Bibliothek [`HfFileSystem`], eine pythonische, [fsspec-kompatible](https://filesystem-spec.readthedocs.io/en/latest/) Dateischnittstelle zum Hugging Face Hub. Das [`HfFileSystem`] basiert auf der [`HfApi`] und bietet typische Dateisystemoperationen wie `cp`, `mv`, `ls`, `du`, `glob`, `get_file`, und `put_file`.
+Zusätzlich zur [`HfApi`] bietet die `old_huggingface_hub` Bibliothek [`HfFileSystem`], eine pythonische, [fsspec-kompatible](https://filesystem-spec.readthedocs.io/en/latest/) Dateischnittstelle zum Hugging Face Hub. Das [`HfFileSystem`] basiert auf der [`HfApi`] und bietet typische Dateisystemoperationen wie `cp`, `mv`, `ls`, `du`, `glob`, `get_file`, und `put_file`.
 
 ## Verwendung
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem()
 
 >>> # Alle Dateien in einem Verzeichnis auflisten
@@ -66,7 +66,7 @@ Einige interessante Integrationen, bei denen [`HfFileSystem`] die Interaktion mi
 * Abfrage von (entfernten) Hub-Dateien mit  [DuckDB](https://duckdb.org/docs/guides/python/filesystems):
 
   ```python
-  >>> from huggingface_hub import HfFileSystem
+  >>> from old_huggingface_hub import HfFileSystem
   >>> import duckdb
 
   >>> fs = HfFileSystem()
@@ -103,7 +103,7 @@ Es ist auch möglich, sich programmatisch anzumelden, indem Sie Ihr `token` als 
 
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem(token=token)
 ```
 

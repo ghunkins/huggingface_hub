@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # 모델 카드 생성 및 공유[[create-and-share-model-cards]]
 
-`huggingface_hub` 라이브러리는 모델 카드를 생성, 공유, 업데이트할 수 있는 파이썬 인터페이스를 제공합니다. Hub의 모델 카드가 무엇인지, 그리고 실제로 어떻게 작동하는지에 대한 자세한 내용을 확인하려면 [전용 설명 페이지](https://huggingface.co/docs/hub/models-cards)를 방문하세요.
+`old_huggingface_hub` 라이브러리는 모델 카드를 생성, 공유, 업데이트할 수 있는 파이썬 인터페이스를 제공합니다. Hub의 모델 카드가 무엇인지, 그리고 실제로 어떻게 작동하는지에 대한 자세한 내용을 확인하려면 [전용 설명 페이지](https://huggingface.co/docs/hub/models-cards)를 방문하세요.
 
 <Tip>
 [신규 (베타)! 우리의 실험적인 모델 카드 크리에이터 앱을 사용해 보세요](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool)
@@ -17,7 +17,7 @@ Hub에서 기존 카드를 불러오려면 [`ModelCard.load`] 기능을 사용�
 
 
 ```python
-from huggingface_hub import ModelCard
+from old_huggingface_hub import ModelCard
 
 card = ModelCard.load('nateraw/vit-base-beans')
 ```
@@ -92,7 +92,7 @@ This model created by [@nateraw](https://github.com/nateraw)
 ```python
 from pathlib import Path
 
-from huggingface_hub import ModelCard, ModelCardData
+from old_huggingface_hub import ModelCard, ModelCardData
 
 # jinja 템플릿 정의
 template_text = """
@@ -165,7 +165,7 @@ library_name: timm
 
 ### 기본 템플릿으로부터[[from-the-default-template]]
 
-자체 템플릿을 사용하는 대신에, 많은 섹션으로 구성된 기능이 풍부한 [기본 템플릿](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md)을 사용할 수도 있습니다. 내부적으론 [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) 를 사용하여 템플릿 파일을 작성합니다.
+자체 템플릿을 사용하는 대신에, 많은 섹션으로 구성된 기능이 풍부한 [기본 템플릿](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/templates/modelcard_template.md)을 사용할 수도 있습니다. 내부적으론 [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) 를 사용하여 템플릿 파일을 작성합니다.
 
 <Tip>
 
@@ -180,7 +180,7 @@ card = ModelCard.from_template(
     model_id='my-cool-model',
     model_description="this model does this and that",
     developers="Nate Raw",
-    repo="https://github.com/huggingface/huggingface_hub",
+    repo="https://github.com/huggingface/old_huggingface_hub",
 )
 card.save('my_model_card_2.md')
 print(card)
@@ -193,7 +193,7 @@ Hugging Face Hub로 인증받은 경우(`huggingface-cli login` 또는 [`login`]
 먼저 인증된 사용자의 네임스페이스 아래에 'hf-hub-modelcards-pr-test'라는 새로운 레포지토리를 만듭니다:
 
 ```python
-from huggingface_hub import whoami, create_repo
+from old_huggingface_hub import whoami, create_repo
 
 user = whoami()['name']
 repo_id = f'{user}/hf-hub-modelcards-pr-test'
@@ -209,7 +209,7 @@ card = ModelCard.from_template(
     model_id='my-cool-model',
     model_description="this model does this and that",
     developers="Nate Raw",
-    repo="https://github.com/huggingface/huggingface_hub",
+    repo="https://github.com/huggingface/old_huggingface_hub",
 )
 ```
 
@@ -239,7 +239,7 @@ card.push_to_hub(repo_id, create_pr=True)
 첫 번째 예부터 살펴보겠습니다:
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 >>> metadata_update("username/my-cool-model", {"pipeline_tag": "image-classification"})
 ```
 
@@ -248,14 +248,14 @@ card.push_to_hub(repo_id, create_pr=True)
 기본적으로 카드에 이미 존재하는 키는 업데이트할 수 없습니다. 그렇게 하려면 `overwrite=True`를 명시적으로 전달해야 합니다.
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 >>> metadata_update("username/my-cool-model", {"pipeline_tag": "text-generation"}, overwrite=True)
 ```
 
 쓰기 권한이 없는 저장소에 일부 변경 사항을 제안하려는 경우가 종종 있습니다. 소유자가 귀하의 제안을 검토하고 병합할 수 있도록 해당 저장소에 PR을 생성하면 됩니다.
 
 ```python
->>> from huggingface_hub import metadata_update
+>>> from old_huggingface_hub import metadata_update
 >>> metadata_update("someone/model", {"pipeline_tag": "text-classification"}, create_pr=True)
 ```
 

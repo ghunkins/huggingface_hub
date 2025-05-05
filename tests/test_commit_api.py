@@ -1,6 +1,6 @@
 import unittest
 
-from huggingface_hub._commit_api import (
+from old_huggingface_hub._commit_api import (
     CommitOperationAdd,
     CommitOperationDelete,
     _warn_on_overwriting_operations,

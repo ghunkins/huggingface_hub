@@ -3,7 +3,7 @@ from io import BytesIO
 import pytest
 import requests
 
-from huggingface_hub.file_download import http_get
+from old_huggingface_hub.file_download import http_get
 
 from .testing_utils import (
     OfflineSimulationMode,

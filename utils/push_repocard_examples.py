@@ -19,8 +19,8 @@ from pathlib import Path
 
 import jinja2
 
-from huggingface_hub import DatasetCard, ModelCard, hf_hub_download, upload_file, whoami
-from huggingface_hub.constants import REPOCARD_NAME
+from old_huggingface_hub import DatasetCard, ModelCard, hf_hub_download, upload_file, whoami
+from old_huggingface_hub.constants import REPOCARD_NAME
 
 
 ORG_NAME = "templates"
@@ -53,7 +53,7 @@ def push_model_card_example(overwrite: bool) -> None:
         model_summary=(
             "This modelcard aims to be a base template for new models. "
             "It has been generated using [this raw template]"
-            "(https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md?plain=1)."
+            "(https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/templates/modelcard_template.md?plain=1)."
         ),
     )
     if not overwrite:
@@ -83,7 +83,7 @@ def push_dataset_card_example(overwrite: bool) -> None:
         dataset_summary=(
             "This dataset card aims to be a base template for new datasets. "
             "It has been generated using [this raw template]"
-            "(https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/datasetcard_template.md?plain=1)."
+            "(https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/templates/datasetcard_template.md?plain=1)."
         ),
     )
     if not overwrite:

@@ -20,14 +20,14 @@ from pathlib import Path
 import pytest
 import requests
 
-from huggingface_hub import RepoUrl
-from huggingface_hub.hf_api import HfApi
-from huggingface_hub.repository import (
+from old_huggingface_hub import RepoUrl
+from old_huggingface_hub.hf_api import HfApi
+from old_huggingface_hub.repository import (
     Repository,
     is_tracked_upstream,
     is_tracked_with_lfs,
 )
-from huggingface_hub.utils import SoftTemporaryDirectory, logging, run_subprocess
+from old_huggingface_hub.utils import SoftTemporaryDirectory, logging, run_subprocess
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN
 from .testing_utils import (
@@ -112,7 +112,7 @@ class TestRepositoryShared(RepositoryTestAbstract):
     @expect_deprecation("Repository")
     def test_clone_from_not_hf_url(self):
         # Should not error out
-        Repository(self.repo_path, clone_from="https://hf.co/hf-internal-testing/huggingface-hub-dummy-repository")
+        Repository(self.repo_path, clone_from="https://hf.co/hf-internal-testing/old-huggingface-hub-dummy-repository")
 
     @expect_deprecation("Repository")
     def test_clone_from_missing_repo(self):

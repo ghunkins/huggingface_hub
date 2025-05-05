@@ -7,7 +7,7 @@ from unittest.mock import Mock, patch
 from InquirerPy.base.control import Choice
 from InquirerPy.separator import Separator
 
-from huggingface_hub.commands.delete_cache import (
+from old_huggingface_hub.commands.delete_cache import (
     _CANCEL_DELETION_STR,
     DeleteCacheCommand,
     _ask_for_confirmation_no_tui,
@@ -16,7 +16,7 @@ from huggingface_hub.commands.delete_cache import (
     _manual_review_no_tui,
     _read_manual_review_tmp_file,
 )
-from huggingface_hub.utils import SoftTemporaryDirectory, capture_output
+from old_huggingface_hub.utils import SoftTemporaryDirectory, capture_output
 
 from .testing_utils import handle_injection
 
@@ -150,8 +150,8 @@ class TestDeleteCacheHelpers(unittest.TestCase):
                 ],
             )
 
-    @patch("huggingface_hub.commands.delete_cache.input")
-    @patch("huggingface_hub.commands.delete_cache.mkstemp")
+    @patch("old_huggingface_hub.commands.delete_cache.input")
+    @patch("old_huggingface_hub.commands.delete_cache.mkstemp")
     def test_manual_review_no_tui(self, mock_mkstemp: Mock, mock_input: Mock) -> None:
         # Mock file creation so that we know the file location in test
         fd, tmp_path = mkstemp()
@@ -210,7 +210,7 @@ class TestDeleteCacheHelpers(unittest.TestCase):
         # Check input called twice
         self.assertEqual(mock_input.call_count, 2)
 
-    @patch("huggingface_hub.commands.delete_cache.input")
+    @patch("old_huggingface_hub.commands.delete_cache.input")
     def test_ask_for_confirmation_no_tui(self, mock_input: Mock) -> None:
         """Test `_ask_for_confirmation_no_tui`."""
         # Answer yes
@@ -237,12 +237,12 @@ class TestDeleteCacheHelpers(unittest.TestCase):
         )
 
 
-@patch("huggingface_hub.commands.delete_cache._ask_for_confirmation_no_tui")
-@patch("huggingface_hub.commands.delete_cache._get_expectations_str")
-@patch("huggingface_hub.commands.delete_cache.inquirer.confirm")
-@patch("huggingface_hub.commands.delete_cache._manual_review_tui")
-@patch("huggingface_hub.commands.delete_cache._manual_review_no_tui")
-@patch("huggingface_hub.commands.delete_cache.scan_cache_dir")
+@patch("old_huggingface_hub.commands.delete_cache._ask_for_confirmation_no_tui")
+@patch("old_huggingface_hub.commands.delete_cache._get_expectations_str")
+@patch("old_huggingface_hub.commands.delete_cache.inquirer.confirm")
+@patch("old_huggingface_hub.commands.delete_cache._manual_review_tui")
+@patch("old_huggingface_hub.commands.delete_cache._manual_review_no_tui")
+@patch("old_huggingface_hub.commands.delete_cache.scan_cache_dir")
 @handle_injection
 class TestMockedDeleteCacheCommand(unittest.TestCase):
     """Test case with a patched `DeleteCacheCommand` to test `.run()` without testing

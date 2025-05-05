@@ -11,8 +11,8 @@ import pytest
 import requests
 from requests import ConnectTimeout, HTTPError
 
-from huggingface_hub.constants import ENDPOINT
-from huggingface_hub.utils._http import (
+from old_huggingface_hub.constants import ENDPOINT
+from old_huggingface_hub.utils._http import (
     OfflineModeIsEnabled,
     configure_http_backend,
     fix_hf_endpoint_in_url,
@@ -30,7 +30,7 @@ class TestHttpBackoff(unittest.TestCase):
         get_session_mock = Mock()
         self.mock_request = get_session_mock().request
 
-        self.patcher = patch("huggingface_hub.utils._http.get_session", get_session_mock)
+        self.patcher = patch("old_huggingface_hub.utils._http.get_session", get_session_mock)
         self.patcher.start()
 
     def tearDown(self) -> None:
@@ -247,7 +247,7 @@ class OfflineModeSessionTest(unittest.TestCase):
         reset_sessions()
         return super().tearDown()
 
-    @patch("huggingface_hub.constants.HF_HUB_OFFLINE", True)
+    @patch("old_huggingface_hub.constants.HF_HUB_OFFLINE", True)
     def test_offline_mode(self):
         configure_http_backend()
         session = get_session()

@@ -5,7 +5,7 @@ rendered properly in your Markdown viewer.
 # How-to guides
 
 In this section, you will find practical guides to help you achieve a specific goal.
-Take a look at these guides to learn how to use huggingface_hub to solve real-world problems:
+Take a look at these guides to learn how to use old_huggingface_hub to solve real-world problems:
 
 <div class="mt-10">
   <div class="w-full flex flex-col space-y-4 md:space-y-0 md:grid md:grid-cols-3 md:gap-y-4 md:gap-x-5">

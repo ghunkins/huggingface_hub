@@ -5,14 +5,14 @@ from pathlib import Path
 
 import pytest
 
-from huggingface_hub import HfApi, hf_hub_download, snapshot_download
-from huggingface_hub.keras_mixin import (
+from old_huggingface_hub import HfApi, hf_hub_download, snapshot_download
+from old_huggingface_hub.keras_mixin import (
     KerasModelHubMixin,
     from_pretrained_keras,
     push_to_hub_keras,
     save_pretrained_keras,
 )
-from huggingface_hub.utils import is_graphviz_available, is_pydot_available, is_tf_available, logging
+from old_huggingface_hub.utils import is_graphviz_available, is_pydot_available, is_tf_available, logging
 
 from .testing_constants import ENDPOINT_STAGING, TOKEN, USER
 from .testing_utils import repo_name

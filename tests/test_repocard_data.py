@@ -3,8 +3,8 @@ import unittest
 import pytest
 import yaml
 
-from huggingface_hub import SpaceCardData
-from huggingface_hub.repocard_data import (
+from old_huggingface_hub import SpaceCardData
+from old_huggingface_hub.repocard_data import (
     CardData,
     DatasetCardData,
     EvalResult,

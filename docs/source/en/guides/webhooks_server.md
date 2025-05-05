@@ -6,7 +6,7 @@ rendered properly in your Markdown viewer.
 
 Webhooks are a foundation for MLOps-related features. They allow you to listen for new changes on specific repos or to
 all repos belonging to particular users/organizations you're interested in following. This guide will explain how to
-leverage `huggingface_hub` to create a server listening to webhooks and deploy it to a Space. It assumes you are
+leverage `old_huggingface_hub` to create a server listening to webhooks and deploy it to a Space. It assumes you are
 familiar with the concept of webhooks on the Huggingface Hub. To learn more about webhooks themselves, you can read
 this [guide](https://huggingface.co/docs/hub/webhooks) first.
 
@@ -25,7 +25,7 @@ one. It is a Space that launches ephemeral environments when a PR is opened on a
 
 This is an [experimental feature](../package_reference/environment_variables#hfhubdisableexperimentalwarning). This
 means that we are still working on improving the API. Breaking changes might be introduced in the future without prior
-notice. Make sure to pin the version of `huggingface_hub` in your requirements.
+notice. Make sure to pin the version of `old_huggingface_hub` in your requirements.
 
 </Tip>
 
@@ -37,7 +37,7 @@ concepts:
 
 ```python
 # app.py
-from huggingface_hub import webhook_endpoint, WebhookPayload
+from old_huggingface_hub import webhook_endpoint, WebhookPayload
 
 @webhook_endpoint
 async def trigger_training(payload: WebhookPayload) -> None:
@@ -131,7 +131,7 @@ decorators:
 
 ```python
 # app.py
-from huggingface_hub import webhook_endpoint, WebhookPayload
+from old_huggingface_hub import webhook_endpoint, WebhookPayload
 
 @webhook_endpoint
 async def trigger_training(payload: WebhookPayload) -> None:
@@ -168,7 +168,7 @@ Here is a complete example:
 ```python
 import gradio as gr
 from fastapi import Request
-from huggingface_hub import WebhooksServer, WebhookPayload
+from old_huggingface_hub import WebhooksServer, WebhookPayload
 
 # 1. Define  UI
 with gr.Blocks() as ui:

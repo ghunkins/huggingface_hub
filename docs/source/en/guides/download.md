@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Download files from the Hub
 
-The `huggingface_hub` library provides functions to download files from the repositories
+The `old_huggingface_hub` library provides functions to download files from the repositories
 stored on the Hub. You can use these functions independently or integrate them into your
 own library, making it more convenient for your users to interact with the Hub. This
 guide will show you how to:
@@ -32,7 +32,7 @@ Select the file to download using the `repo_id`, `repo_type` and `filename` para
 be considered as being part of a `model` repo.
 
 ```python
->>> from huggingface_hub import hf_hub_download
+>>> from old_huggingface_hub import hf_hub_download
 >>> hf_hub_download(repo_id="lysandre/arxiv-nlp", filename="config.json")
 '/root/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade/config.json'
 
@@ -76,7 +76,7 @@ means all downloaded files are also cached on your local disk. Downloads are mad
 To download a whole repository, just pass the `repo_id` and `repo_type`:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp")
 '/home/lysandre/.cache/huggingface/hub/models--lysandre--arxiv-nlp/snapshots/894a9adde21d9a3e3843e6d5aeaaf01875c7fade'
 
@@ -89,7 +89,7 @@ To download a whole repository, just pass the `repo_id` and `repo_type`:
 `revision` parameter:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", revision="refs/pr/1")
 ```
 
@@ -106,7 +106,7 @@ based on [`fnmatch`](https://docs.python.org/3/library/fnmatch.html).
 For example, you can use `allow_patterns` to only download JSON configuration files:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", allow_patterns="*.json")
 ```
 
@@ -114,7 +114,7 @@ On the other hand, `ignore_patterns` can exclude certain files from being downlo
 following example ignores the `.msgpack` and `.h5` file extensions:
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="lysandre/arxiv-nlp", ignore_patterns=["*.msgpack", "*.h5"])
 ```
 
@@ -122,7 +122,7 @@ Finally, you can combine both to precisely filter your download. Here is an exam
 files except `vocab.json`.
 
 ```python
->>> from huggingface_hub import snapshot_download
+>>> from old_huggingface_hub import snapshot_download
 >>> snapshot_download(repo_id="gpt2", allow_patterns=["*.md", "*.json"], ignore_patterns="vocab.json")
 ```
 
@@ -171,8 +171,8 @@ you can increase your download speed with [`hf_transfer`](https://github.com/hug
 a Rust-based library developed to speed up file transfers with the Hub.
 To enable it:
 
-1. Specify the `hf_transfer` extra when installing `huggingface_hub`
-   (e.g. `pip install huggingface_hub[hf_transfer]`).
+1. Specify the `hf_transfer` extra when installing `old_huggingface_hub`
+   (e.g. `pip install old_huggingface_hub[hf_transfer]`).
 2. Set `HF_HUB_ENABLE_HF_TRANSFER=1` as an environment variable.
 
 <Tip warning={true}>
@@ -180,6 +180,6 @@ To enable it:
 `hf_transfer` is a power user tool!
 It is tested and production-ready,
 but it lacks user-friendly features like advanced error handling or proxies.
-For more details, please take a look at this [section](https://huggingface.co/docs/huggingface_hub/hf_transfer).
+For more details, please take a look at this [section](https://huggingface.co/docs/old_huggingface_hub/hf_transfer).
 
 </Tip>

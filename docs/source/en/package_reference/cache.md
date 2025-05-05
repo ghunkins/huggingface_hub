@@ -12,15 +12,15 @@ for a detailed presentation of caching at HF.
 
 ### try_to_load_from_cache
 
-[[autodoc]] huggingface_hub.try_to_load_from_cache
+[[autodoc]] old_huggingface_hub.try_to_load_from_cache
 
 ### cached_assets_path
 
-[[autodoc]] huggingface_hub.cached_assets_path
+[[autodoc]] old_huggingface_hub.cached_assets_path
 
 ### scan_cache_dir
 
-[[autodoc]] huggingface_hub.scan_cache_dir
+[[autodoc]] old_huggingface_hub.scan_cache_dir
 
 ## Data structures
 
@@ -28,32 +28,32 @@ All structures are built and returned by [`scan_cache_dir`] and are immutable.
 
 ### HFCacheInfo
 
-[[autodoc]] huggingface_hub.HFCacheInfo
+[[autodoc]] old_huggingface_hub.HFCacheInfo
 
 ### CachedRepoInfo
 
-[[autodoc]] huggingface_hub.CachedRepoInfo
+[[autodoc]] old_huggingface_hub.CachedRepoInfo
     - size_on_disk_str
     - refs
 
 ### CachedRevisionInfo
 
-[[autodoc]] huggingface_hub.CachedRevisionInfo
+[[autodoc]] old_huggingface_hub.CachedRevisionInfo
     - size_on_disk_str
     - nb_files
 
 ### CachedFileInfo
 
-[[autodoc]] huggingface_hub.CachedFileInfo
+[[autodoc]] old_huggingface_hub.CachedFileInfo
     - size_on_disk_str
 
 ### DeleteCacheStrategy
 
-[[autodoc]] huggingface_hub.DeleteCacheStrategy
+[[autodoc]] old_huggingface_hub.DeleteCacheStrategy
     - expected_freed_size_str
 
 ## Exceptions
 
 ### CorruptedCacheException
 
-[[autodoc]] huggingface_hub.CorruptedCacheException
+[[autodoc]] old_huggingface_hub.CorruptedCacheException

@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Dateien auf den Hub hochladen
 
-Das Teilen Ihrer Dateien und Arbeiten ist ein wichtiger Aspekt des Hubs. Das `huggingface_hub` bietet mehrere Optionen, um Ihre Dateien auf den Hub hochzuladen. Sie können diese Funktionen unabhängig verwenden oder sie in Ihre Bibliothek integrieren, um es Ihren Benutzern zu erleichtern, mit dem Hub zu interagieren. In dieser Anleitung erfahren Sie, wie Sie Dateien hochladen:
+Das Teilen Ihrer Dateien und Arbeiten ist ein wichtiger Aspekt des Hubs. Das `old_huggingface_hub` bietet mehrere Optionen, um Ihre Dateien auf den Hub hochzuladen. Sie können diese Funktionen unabhängig verwenden oder sie in Ihre Bibliothek integrieren, um es Ihren Benutzern zu erleichtern, mit dem Hub zu interagieren. In dieser Anleitung erfahren Sie, wie Sie Dateien hochladen:
 
 - ohne Git zu verwenden.
 - mit [Git LFS](https://git-lfs.github.com/) wenn die Dateien sehr groß sind.
@@ -24,7 +24,7 @@ Wenn Sie Dateien auf den Hub hochladen möchten, müssen Sie sich bei Ihrem Hugg
 - Alternativ können Sie sich in einem Notebook oder einem Skript programmatisch mit [`login`] anmelden:
 
   ```python
-  >>> from huggingface_hub import login
+  >>> from old_huggingface_hub import login
   >>> login()
   ```
 
@@ -39,7 +39,7 @@ Sobald Sie ein Repository mit [`create_repo`] erstellt haben, können Sie mit [`
 Geben Sie den Pfad der hochzuladenden Datei, den Ort, an den Sie die Datei im Repository hochladen möchten, und den Namen des Repositories an, zu dem Sie die Datei hinzufügen möchten. Abhängig von Ihrem Repository-Typ können Sie optional den Repository-Typ als `dataset`, `model`, oder `space` festlegen.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.upload_file(
 ...     path_or_fileobj="/path/to/local/folder/README.md",
@@ -54,7 +54,7 @@ Geben Sie den Pfad der hochzuladenden Datei, den Ort, an den Sie die Datei im Re
 Verwenden Sie die Funktion [`upload_folder`], um einen lokalen Ordner in ein vorhandenes Repository hochzuladen. Geben Sie den Pfad des lokalen Ordners an, den Sie hochladen möchten, an welchem Ort Sie den Ordner im Repository hochladen möchten, und den Namen des Repositories, zu dem Sie den Ordner hinzufügen möchten. Abhängig von Ihrem Repository-Typ können Sie optional den Repository-Typ als `dataset`, `model`, oder `space` festlegen.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 
 # Den gesamten Inhalt aus dem lokalen Ordner in den entfernten Space hoch laden.
@@ -96,7 +96,7 @@ Im folgenden Beispiel wird der lokale Ordner `./logs` in den entfernten Ordner `
 
 ## Erweiterte Funktionen
 
-In den meisten Fällen benötigen Sie nicht mehr als [`upload_file`] und [`upload_folder`], um Ihre Dateien auf den Hub hochzuladen. Das `huggingface_hub` bietet jedoch fortschrittlichere Funktionen, um die Dinge einfacher zu machen. Schauen wir sie uns an!
+In den meisten Fällen benötigen Sie nicht mehr als [`upload_file`] und [`upload_folder`], um Ihre Dateien auf den Hub hochzuladen. Das `old_huggingface_hub` bietet jedoch fortschrittlichere Funktionen, um die Dinge einfacher zu machen. Schauen wir sie uns an!
 
 
 ### Nicht blockierende Uploads
@@ -104,7 +104,7 @@ In den meisten Fällen benötigen Sie nicht mehr als [`upload_file`] und [`uploa
 In einigen Fällen möchten Sie Daten hochladen, ohne Ihren Hauptthread zu blockieren. Dies ist besonders nützlich, um Protokolle und Artefakte hochzuladen, während Sie weiter trainieren. Um dies zu tun, können Sie das Argument `run_as_future` in beiden [`upload_file`] und [`upload_folder`] verwenden. Dies gibt ein [`concurrent.futures.Future`](https://docs.python.org/3/library/concurrent.futures.html#future-objects)-Objekt zurück, mit dem Sie den Status des Uploads überprüfen können.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> future = api.upload_folder( # Hochladen im Hintergrund (nicht blockierende Aktion)
 ...     repo_id="username/my-model",
@@ -128,7 +128,7 @@ Hintergrund-Aufgaben werden in die Warteschlange gestellt, wenn `run_as_future=T
 Auch wenn Hintergrundaufgaben hauptsächlich dazu dienen, Daten hochzuladen/Commits zu erstellen, können Sie jede gewünschte Methode in die Warteschlange stellen, indem Sie [`run_as_future`] verwenden. Sie können es beispielsweise verwenden, um ein Repo zu erstellen und dann Daten im Hintergrund dorthin hochzuladen. Das integrierte Argument `run_as_future` in Upload-Methoden ist lediglich ein Alias dafür.
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> api.run_as_future(api.create_repo, "username/my-model", exists_ok=True)
 Future(...)
@@ -145,7 +145,7 @@ Future(...)
 
 Mit [`upload_folder`] können Sie ganz einfach einen gesamten Ordner ins Hub hochladen. Bei großen Ordnern (Tausende von Dateien oder Hunderte von GB) kann dies jedoch immer noch herausfordernd sein. Wenn Sie einen Ordner mit vielen Dateien haben, möchten Sie ihn möglicherweise in mehreren Commits hochladen. Wenn während des Uploads ein Fehler oder ein Verbindungsproblem auftritt, müssen Sie den Vorgang nicht von Anfang an wiederholen.
 
-Um einen Ordner in mehreren Commits hochzuladen, übergeben Sie einfach `multi_commits=True` als Argument. Intern wird `huggingface_hub` die hochzuladenden/zu löschenden Dateien auflisten und sie in mehrere Commits aufteilen. Die "Strategie" (d.h. wie die Commits aufgeteilt werden) basiert auf der Anzahl und Größe der hochzuladenden Dateien. Ein PR wird im Hub geöffnet, um alle Commits zu pushen. Sobald der PR bereit ist, werden die Commits zu einem einzigen Commit zusammengefasst. Wenn der Prozess unterbrochen wird, bevor er abgeschlossen ist, können Sie Ihr Skript erneut ausführen, um den Upload fortzusetzen. Der erstellte PR wird automatisch erkannt und der Upload setzt dort fort, wo er gestoppt wurde. Es wird empfohlen, `multi_commits_verbose=True` zu übergeben, um ein besseres Verständnis für den Upload und dessen Fortschritt zu erhalten.
+Um einen Ordner in mehreren Commits hochzuladen, übergeben Sie einfach `multi_commits=True` als Argument. Intern wird `old_huggingface_hub` die hochzuladenden/zu löschenden Dateien auflisten und sie in mehrere Commits aufteilen. Die "Strategie" (d.h. wie die Commits aufgeteilt werden) basiert auf der Anzahl und Größe der hochzuladenden Dateien. Ein PR wird im Hub geöffnet, um alle Commits zu pushen. Sobald der PR bereit ist, werden die Commits zu einem einzigen Commit zusammengefasst. Wenn der Prozess unterbrochen wird, bevor er abgeschlossen ist, können Sie Ihr Skript erneut ausführen, um den Upload fortzusetzen. Der erstellte PR wird automatisch erkannt und der Upload setzt dort fort, wo er gestoppt wurde. Es wird empfohlen, `multi_commits_verbose=True` zu übergeben, um ein besseres Verständnis für den Upload und dessen Fortschritt zu erhalten.
 
 Das untenstehende Beispiel lädt den Ordner "checkpoints" in ein Dataset in mehreren Commits hoch. Ein PR wird im Hub erstellt und automatisch zusammengeführt, sobald der Upload abgeschlossen ist. Wenn Sie möchten, dass der PR offen bleibt und Sie ihn manuell überprüfen können, übergeben Sie `create_pr=True`.
 
@@ -178,7 +178,7 @@ Die Idee besteht darin, einen Hintergrundjob auszuführen, der regelmäßig eine
 >>> import uuid
 >>> from pathlib import Path
 >>> import gradio as gr
->>> from huggingface_hub import CommitScheduler
+>>> from old_huggingface_hub import CommitScheduler
 
 # Definieren Sie die Datei, in der die Daten gespeichert werden sollen. Verwenden Sie UUID, um sicherzustellen, dass vorhandene Daten aus einem früheren Lauf nicht überschrieben werden.
 >>> feedback_file = Path("user_feedback/") / f"data_{uuid.uuid4()}.json"
@@ -288,7 +288,7 @@ Zum Beispiel, wenn Sie zwei Dateien hochladen und eine Datei in einem Hub-Reposi
 1. Verwenden Sie die entsprechende `CommitOperation`, um eine Datei hinzuzufügen oder zu löschen und einen Ordner zu löschen:
 
 ```py
->>> from huggingface_hub import HfApi, CommitOperationAdd, CommitOperationDelete
+>>> from old_huggingface_hub import HfApi, CommitOperationAdd, CommitOperationDelete
 >>> api = HfApi()
 >>> operations = [
 ...     CommitOperationAdd(path_in_repo="LICENSE.md", path_or_fileobj="~/repo/LICENSE.md"),
@@ -352,7 +352,7 @@ Es gibt mehrere Gründe dafür:
     - Dateien werden den Benutzern über CloudFront bereitgestellt. Aus unserer Erfahrung werden riesige Dateien von diesem Dienst nicht zwischengespeichert, was zu einer langsameren Downloadgeschwindigkeit führt.
 In jedem Fall wird keine einzelne LFS-Datei >50GB sein können. D. h. 50GB ist das absolute Limit für die Einzeldateigröße.
 - **Anzahl der Commits**: Es gibt kein festes Limit für die Gesamtzahl der Commits in Ihrer Repo-Historie. Aus unserer Erfahrung heraus beginnt das Benutzererlebnis im Hub jedoch nach einigen Tausend Commits abzunehmen. Wir arbeiten ständig daran, den Service zu verbessern, aber man sollte immer daran denken, dass ein Git-Repository nicht als Datenbank mit vielen Schreibzugriffen gedacht ist. Wenn die Historie Ihres Repos sehr groß wird, können Sie immer alle Commits mit [`super_squash_history`] zusammenfassen, um einen Neuanfang zu erhalten. Dies ist eine nicht rückgängig zu machende Operation.
-- **Anzahl der Operationen pro Commit**: Auch hier gibt es keine feste Obergrenze. Wenn ein Commit im Hub hochgeladen wird, wird jede Git-Operation (Hinzufügen oder Löschen) vom Server überprüft. Wenn hundert LFS-Dateien auf einmal committed werden, wird jede Datei einzeln überprüft, um sicherzustellen, dass sie korrekt hochgeladen wurde. Beim Pushen von Daten über HTTP mit `huggingface_hub` wird ein Timeout von 60s für die Anforderung festgelegt, was bedeutet, dass, wenn der Prozess mehr Zeit in Anspruch nimmt, clientseitig ein Fehler ausgelöst wird. Es kann jedoch (in seltenen Fällen) vorkommen, dass selbst wenn das Timeout clientseitig ausgelöst wird, der Prozess serverseitig dennoch abgeschlossen wird. Dies kann manuell überprüft werden, indem man das Repo im Hub durchsucht. Um dieses Timeout zu vermeiden, empfehlen wir, pro Commit etwa 50-100 Dateien hinzuzufügen.
+- **Anzahl der Operationen pro Commit**: Auch hier gibt es keine feste Obergrenze. Wenn ein Commit im Hub hochgeladen wird, wird jede Git-Operation (Hinzufügen oder Löschen) vom Server überprüft. Wenn hundert LFS-Dateien auf einmal committed werden, wird jede Datei einzeln überprüft, um sicherzustellen, dass sie korrekt hochgeladen wurde. Beim Pushen von Daten über HTTP mit `old_huggingface_hub` wird ein Timeout von 60s für die Anforderung festgelegt, was bedeutet, dass, wenn der Prozess mehr Zeit in Anspruch nimmt, clientseitig ein Fehler ausgelöst wird. Es kann jedoch (in seltenen Fällen) vorkommen, dass selbst wenn das Timeout clientseitig ausgelöst wird, der Prozess serverseitig dennoch abgeschlossen wird. Dies kann manuell überprüft werden, indem man das Repo im Hub durchsucht. Um dieses Timeout zu vermeiden, empfehlen wir, pro Commit etwa 50-100 Dateien hinzuzufügen.
 
 ### Praktische Tipps
 
@@ -360,7 +360,7 @@ Nachdem wir die technischen Aspekte gesehen haben, die Sie bei der Strukturierun
 
 - **Fangen Sie klein an**: Wir empfehlen, mit einer kleinen Datenmenge zu beginnen, um Ihr Upload-Skript zu testen. Es ist einfacher, an einem Skript zu arbeiten, wenn ein Fehler nur wenig Zeit kostet.
 - **Rechnen Sie mit Ausfällen**: Das Streamen großer Datenmengen ist eine Herausforderung. Sie wissen nicht, was passieren kann, aber es ist immer am besten anzunehmen, dass etwas mindestens einmal schiefgehen wird - unabhängig davon, ob es an Ihrem Gerät, Ihrer Verbindung oder unseren Servern liegt. Wenn Sie zum Beispiel vorhaben, eine große Anzahl von Dateien hochzuladen, ist es am besten, lokal zu verfolgen, welche Dateien Sie bereits hochgeladen haben, bevor Sie die nächste Batch hochladen. Sie können sicher sein, dass eine LFS-Datei, die bereits committed wurde, niemals zweimal hochgeladen wird, aber es kann clientseitig trotzdem Zeit sparen, dies zu überprüfen.
-- **Verwenden Sie `hf_transfer`**: Dabei handelt es sich um eine auf Rust basierende [Bibliothek](https://github.com/huggingface/hf_transfer), die dazu dient, Uploads auf Maschinen mit sehr hoher Bandbreite zu beschleunigen. Um sie zu verwenden, müssen Sie sie installieren (`pip install hf_transfer`) und sie durch Einstellen von `HF_HUB_ENABLE_HF_TRANSFER=1` als Umgebungsvariable aktivieren. Anschließend können Sie `huggingface_hub` wie gewohnt verwenden.
+- **Verwenden Sie `hf_transfer`**: Dabei handelt es sich um eine auf Rust basierende [Bibliothek](https://github.com/huggingface/hf_transfer), die dazu dient, Uploads auf Maschinen mit sehr hoher Bandbreite zu beschleunigen. Um sie zu verwenden, müssen Sie sie installieren (`pip install hf_transfer`) und sie durch Einstellen von `HF_HUB_ENABLE_HF_TRANSFER=1` als Umgebungsvariable aktivieren. Anschließend können Sie `old_huggingface_hub` wie gewohnt verwenden.
 Hinweis: Dies ist ein Tool für Power-User. Es ist getestet und einsatzbereit, verfügt jedoch nicht über benutzerfreundliche Funktionen wie Fortschrittsanzeigen oder erweiterte Fehlerbehandlung.
 
 ## (veraltet) Dateien mit Git LFS hochladen
@@ -393,7 +393,7 @@ Der `commit` Kontextmanager handhabt vier der gängigsten Git-Befehle: pull, add
 4. Schickt die Änderung an das `text-files` Repository.
 
 ```python
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> with Repository(local_dir="text-files", clone_from="<user>/text-files").commit(commit_message="Mein erste Datei :)"):
 ...     with open("file.txt", "w+") as f:
 ...         f.write(json.dumps({"hey": 8}))
@@ -449,7 +449,7 @@ Die Klasse [`Repository`] hat eine Funktion [`~Repository.push_to_hub`], um Date
 Zum Beispiel, wenn Sie bereits ein Repository vom Hub geklont haben, können Sie das `repo` vom lokalen Verzeichnis initialisieren:
 
 ```python
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="pfad/zur/lokalen/repo")
 ```
 Aktualisieren Sie Ihren lokalen Klon mit [`~Repository.git_pull`] und dann pushen Sie Ihre Datei zum Hub:

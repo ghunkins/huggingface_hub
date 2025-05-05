@@ -4,9 +4,9 @@ rendered properly in your Markdown viewer.
 
 # Git vs. HTTP-Paradigma
 
-Die `huggingface_hub`-Bibliothek ist eine Bibliothek zur Interaktion mit dem Hugging Face
+Die `old_huggingface_hub`-Bibliothek ist eine Bibliothek zur Interaktion mit dem Hugging Face
 Hub, einer Sammlung von auf Git basierenden Repositories (Modelle, Datensätze oder
-Spaces). Es gibt zwei Hauptmethoden, um auf den Hub mit `huggingface_hub` zuzugreifen.
+Spaces). Es gibt zwei Hauptmethoden, um auf den Hub mit `old_huggingface_hub` zuzugreifen.
 
 Der erste Ansatz, der sogenannte "Git-basierte" Ansatz, wird von der [`Repository`] Klasse
 geleitet. Diese Methode verwendet einen Wrapper um den `git`-Befehl mit zusätzlichen
@@ -17,7 +17,7 @@ Methode an.
 
 ## Repository: Der historische git-basierte Ansatz
 
-Ursprünglich wurde `huggingface_hub` größtenteils um die [`Repository`] Klasse herum
+Ursprünglich wurde `old_huggingface_hub` größtenteils um die [`Repository`] Klasse herum
 entwickelt. Sie bietet Python-Wrapper für gängige git-Befehle wie `"git add"`, `"git commit"`,
 `"git push"`, `"git tag"`, `"git checkout"` usw.
 
@@ -53,7 +53,7 @@ Kommentare zuzugreifen und Spaces-Hardware und Geheimnisse zu konfigurieren.
 ## Was sollte ich verwenden ? Und wann ?
 
 Insgesamt ist der **HTTP-basierte Ansatz in den meisten Fällen die empfohlene Methode zur Verwendung von**
-`huggingface_hub`. Es gibt jedoch einige Situationen, in denen es vorteilhaft sein kann,
+`old_huggingface_hub`. Es gibt jedoch einige Situationen, in denen es vorteilhaft sein kann,
 eine lokale Git-Kopie (mit [`Repository`]) zu pflegen:
 - Wenn Sie ein Modell auf Ihrem Computer trainieren, kann es effizienter sein, einen
 herkömmlichen git-basierten Workflow zu verwenden und regelmäßige Updates zu pushen.
@@ -66,4 +66,4 @@ sind und daher sowieso nicht von Git-Diffs profitieren.
 Nicht alle Git-Befehle sind über [`HfApi`] verfügbar. Einige werden vielleicht nie
 implementiert, aber wir bemühen uns ständig, die Lücken zu schließen und zu verbessern.
 Wenn Sie Ihren Anwendungsfall nicht abgedeckt sehen, öffnen Sie bitte [ein Issue auf
-Github](https://github.com/huggingface/huggingface_hub)! Wir freuen uns über Feedback, um das 🤗-Ökosystem mit und für unsere Benutzer aufzubauen.
+Github](https://github.com/huggingface/old_huggingface_hub)! Wir freuen uns über Feedback, um das 🤗-Ökosystem mit und für unsere Benutzer aufzubauen.

@@ -5,8 +5,8 @@ from typing import Generator
 import pytest
 from _pytest.fixtures import SubRequest
 
-import huggingface_hub
-from huggingface_hub.utils import SoftTemporaryDirectory, logging
+import old_huggingface_hub
+from old_huggingface_hub.utils import SoftTemporaryDirectory, logging
 
 from .testing_utils import set_write_permission_and_retry
 
@@ -47,7 +47,7 @@ def disable_symlinks_on_windows_ci(monkeypatch: pytest.MonkeyPatch) -> None:
 
     if os.name == "nt" and os.environ.get("DISABLE_SYMLINKS_IN_WINDOWS_TESTS"):
         monkeypatch.setattr(
-            huggingface_hub.file_download,
+            old_huggingface_hub.file_download,
             "_are_symlinks_supported_in_dir",
             FakeSymlinkDict(),
         )
@@ -55,4 +55,4 @@ def disable_symlinks_on_windows_ci(monkeypatch: pytest.MonkeyPatch) -> None:
 
 @pytest.fixture(autouse=True)
 def disable_experimental_warnings(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(huggingface_hub.constants, "HF_HUB_DISABLE_EXPERIMENTAL_WARNING", True)
+    monkeypatch.setattr(old_huggingface_hub.constants, "HF_HUB_DISABLE_EXPERIMENTAL_WARNING", True)

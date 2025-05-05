@@ -21,7 +21,7 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from huggingface_hub import (
+from old_huggingface_hub import (
     AutomaticSpeechRecognitionOutput,
     ChatCompletionOutput,
     ChatCompletionOutputComplete,
@@ -42,9 +42,9 @@ from huggingface_hub import (
     ZeroShotClassificationOutputElement,
     hf_hub_download,
 )
-from huggingface_hub.constants import ALL_INFERENCE_API_FRAMEWORKS, MAIN_INFERENCE_API_FRAMEWORKS
-from huggingface_hub.inference._client import _open_as_binary
-from huggingface_hub.utils import HfHubHTTPError, build_hf_headers
+from old_huggingface_hub.constants import ALL_INFERENCE_API_FRAMEWORKS, MAIN_INFERENCE_API_FRAMEWORKS
+from old_huggingface_hub.inference._client import _open_as_binary
+from old_huggingface_hub.utils import HfHubHTTPError, build_hf_headers
 
 from .testing_utils import expect_deprecation, with_production_testing
 
@@ -156,7 +156,7 @@ class InferenceClientTest(unittest.TestCase):
 
 @pytest.mark.vcr
 @with_production_testing
-@patch("huggingface_hub.inference._client._fetch_recommended_models", lambda: _RECOMMENDED_MODELS_FOR_VCR)
+@patch("old_huggingface_hub.inference._client._fetch_recommended_models", lambda: _RECOMMENDED_MODELS_FOR_VCR)
 class InferenceClientVCRTest(InferenceClientTest):
     """
     Test for the main tasks implemented in InferenceClient. Since Inference API can be flaky, we use VCR.py and
@@ -329,7 +329,7 @@ class InferenceClientVCRTest(InferenceClientTest):
     def test_chat_completion_unprocessable_entity(self) -> None:
         """Regression test for #2225.
 
-        See https://github.com/huggingface/huggingface_hub/issues/2225.
+        See https://github.com/huggingface/old_huggingface_hub/issues/2225.
         """
         with self.assertRaises(HfHubHTTPError):
             self.client.chat_completion(
@@ -763,7 +763,7 @@ class TestHeadersAndCookies(unittest.TestCase):
         # Case-insensitive overwrite
         self.assertEqual(InferenceClient(headers={"USER-agent": "bar"}).headers["user-agent"], "bar")
 
-    @patch("huggingface_hub.inference._client.get_session")
+    @patch("old_huggingface_hub.inference._client.get_session")
     def test_mocked_post(self, get_session_mock: MagicMock) -> None:
         """Test that headers and cookies are correctly passed to the request."""
         client = InferenceClient(headers={"X-My-Header": "foo"}, cookies={"my-cookie": "bar"})
@@ -781,8 +781,8 @@ class TestHeadersAndCookies(unittest.TestCase):
             stream=False,
         )
 
-    @patch("huggingface_hub.inference._client._bytes_to_image")
-    @patch("huggingface_hub.inference._client.get_session")
+    @patch("old_huggingface_hub.inference._client._bytes_to_image")
+    @patch("old_huggingface_hub.inference._client.get_session")
     def test_accept_header_image(self, get_session_mock: MagicMock, bytes_to_image_mock: MagicMock) -> None:
         """Test that Accept: image/png header is set for image tasks."""
         client = InferenceClient()
@@ -823,7 +823,7 @@ class TestModelStatus(unittest.TestCase):
 
 
 class TestListDeployedModels(unittest.TestCase):
-    @patch("huggingface_hub.inference._client.get_session")
+    @patch("old_huggingface_hub.inference._client.get_session")
     def test_list_deployed_models_main_frameworks_mock(self, get_session_mock: MagicMock) -> None:
         InferenceClient().list_deployed_models()
         self.assertEqual(
@@ -831,7 +831,7 @@ class TestListDeployedModels(unittest.TestCase):
             len(MAIN_INFERENCE_API_FRAMEWORKS),
         )
 
-    @patch("huggingface_hub.inference._client.get_session")
+    @patch("old_huggingface_hub.inference._client.get_session")
     def test_list_deployed_models_all_frameworks_mock(self, get_session_mock: MagicMock) -> None:
         InferenceClient().list_deployed_models("all")
         self.assertEqual(

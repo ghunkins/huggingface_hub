@@ -3,8 +3,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from huggingface_hub import CommitOperationAdd, HfApi, snapshot_download
-from huggingface_hub.utils import LocalEntryNotFoundError, RepositoryNotFoundError, SoftTemporaryDirectory
+from old_huggingface_hub import CommitOperationAdd, HfApi, snapshot_download
+from old_huggingface_hub.utils import LocalEntryNotFoundError, RepositoryNotFoundError, SoftTemporaryDirectory
 
 from .testing_constants import TOKEN
 from .testing_utils import OfflineSimulationMode, offline, repo_name
@@ -103,7 +103,7 @@ class SnapshotDownloadTests(unittest.TestCase):
                 _ = snapshot_download(self.repo_id, revision="main", cache_dir=tmpdir)
 
         # Test we can download with token from cache
-        with patch("huggingface_hub.utils._headers.get_token", return_value=TOKEN):
+        with patch("old_huggingface_hub.utils._headers.get_token", return_value=TOKEN):
             with SoftTemporaryDirectory() as tmpdir:
                 storage_folder = snapshot_download(self.repo_id, revision="main", cache_dir=tmpdir)
                 self.assertTrue(self.second_commit_hash in storage_folder)

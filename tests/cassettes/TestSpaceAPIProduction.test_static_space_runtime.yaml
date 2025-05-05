@@ -116,7 +116,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"key": "header", "value": {"summary": "Upload app.py with huggingface_hub",
+    body: '{"key": "header", "value": {"summary": "Upload app.py with old_huggingface_hub",
       "description": ""}}
 
       {"key": "file", "value": {"content": "CmltcG9ydCBncmFkaW8gYXMgZ3IKCgpkZWYgZ3JlZXQobmFtZSk6CiAgICByZXR1cm4gIkhlbGxvICIgKyBuYW1lICsgIiEhIgoKaWZhY2UgPSBnci5JbnRlcmZhY2UoZm49Z3JlZXQsIGlucHV0cz0idGV4dCIsIG91dHB1dHM9InRleHQiKQppZmFjZS5sYXVuY2goKQo=",

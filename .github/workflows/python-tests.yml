@@ -57,7 +57,7 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
-          uv pip install "huggingface_hub[testing] @ ."
+          uv pip install "old_huggingface_hub[testing] @ ."
 
           case "${{ matrix.test_name }}" in
 
@@ -72,13 +72,13 @@ jobs:
               ;;
 
             fastai | torch)
-              uv pip install "huggingface_hub[${{ matrix.test_name }}] @ ."
+              uv pip install "old_huggingface_hub[${{ matrix.test_name }}] @ ."
               ;;
 
             tensorflow)
               sudo apt update
               sudo apt install -y graphviz
-              uv pip install "huggingface_hub[tensorflow-testing] @ ."
+              uv pip install "old_huggingface_hub[tensorflow-testing] @ ."
               ;;
 
           esac
@@ -88,7 +88,7 @@ jobs:
         working-directory: ./src # For code coverage to work
         run: |
           source ../.venv/bin/activate
-          PYTEST="python -m pytest --cov=./huggingface_hub --cov-report=xml:../coverage.xml --vcr-record=none --reruns 5 --reruns-delay 1 --only-rerun '(OSError|Timeout|HTTPError.*502|HTTPError.*504||not less than or equal to 0.01)'"
+          PYTEST="python -m pytest --cov=./old_huggingface_hub --cov-report=xml:../coverage.xml --vcr-record=none --reruns 5 --reruns-delay 1 --only-rerun '(OSError|Timeout|HTTPError.*502|HTTPError.*504||not less than or equal to 0.01)'"
 
           case "${{ matrix.test_name }}" in
 
@@ -164,14 +164,14 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: uv pip install "huggingface_hub[testing] @ ."
+        run: uv pip install "old_huggingface_hub[testing] @ ."
 
       # Run tests
       - name: Run tests
         working-directory: ./src # For code coverage to work
         run: |
           ..\.venv\Scripts\activate
-          python -m pytest -n 4 --cov=./huggingface_hub --cov-report=xml:../coverage.xml --vcr-record=none --reruns 5 --reruns-delay 1 --only-rerun '(OSError|Timeout|HTTPError.*502|HTTPError.*504|not less than or equal to 0.01)' ../tests
+          python -m pytest -n 4 --cov=./old_huggingface_hub --cov-report=xml:../coverage.xml --vcr-record=none --reruns 5 --reruns-delay 1 --only-rerun '(OSError|Timeout|HTTPError.*502|HTTPError.*504|not less than or equal to 0.01)' ../tests
 
       # Upload code coverage
       - name: Upload coverage reports to Codecov with GitHub Action

@@ -3,7 +3,7 @@ import unittest
 import pytest
 from requests.models import PreparedRequest, Response
 
-from huggingface_hub.utils._errors import (
+from old_huggingface_hub.utils._errors import (
     REPO_API_REGEX,
     BadRequestError,
     DisabledRepoError,
@@ -191,7 +191,7 @@ class TestHfHubHTTPError(unittest.TestCase):
     ) -> None:
         """Test server errors are added to the error message after the details.
 
-        Regression test for https://github.com/huggingface/huggingface_hub/issues/1114.
+        Regression test for https://github.com/huggingface/old_huggingface_hub/issues/1114.
         """
         self.response._content = (
             b'{"httpStatusCode": 400, "errors": [{"message": "this is error 1", "type":'

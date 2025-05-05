@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from huggingface_hub.utils._typing import is_jsonable
+from old_huggingface_hub.utils._typing import is_jsonable
 
 
 class NotSerializableClass:

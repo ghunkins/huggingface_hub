@@ -4,14 +4,14 @@ rendered properly in your Markdown viewer.
 
 # Command Line Interface (CLI)
 
-The `huggingface_hub` Python package comes with a built-in CLI called `huggingface-cli`. This tool allows you to interact with the Hugging Face Hub directly from a terminal. For example, you can login to your account, create a repository, upload and download files, etc. It also comes with handy features to configure your machine or manage your cache. In this guide, we will have a look at the main features of the CLI and how to use them.
+The `old_huggingface_hub` Python package comes with a built-in CLI called `huggingface-cli`. This tool allows you to interact with the Hugging Face Hub directly from a terminal. For example, you can login to your account, create a repository, upload and download files, etc. It also comes with handy features to configure your machine or manage your cache. In this guide, we will have a look at the main features of the CLI and how to use them.
 
 ## Getting started
 
 First of all, let's install the CLI:
 
 ```
->>> pip install -U "huggingface_hub[cli]"
+>>> pip install -U "old_huggingface_hub[cli]"
 ```
 
 <Tip>
@@ -101,7 +101,7 @@ _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|
 _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
 _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
 
-To login, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
+To login, `old_huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
 Token:
 Add token as git credential? (Y/n)
 Token is valid (permission: write).
@@ -518,14 +518,14 @@ You can also pass `-y` to skip the confirmation step.
 
 ## huggingface-cli env
 
-The `huggingface-cli env` command prints details about your machine setup. This is useful when you open an issue on [GitHub](https://github.com/huggingface/huggingface_hub) to help the maintainers investigate your problem.
+The `huggingface-cli env` command prints details about your machine setup. This is useful when you open an issue on [GitHub](https://github.com/huggingface/old_huggingface_hub) to help the maintainers investigate your problem.
 
 ```bash
 >>> huggingface-cli env
 
 Copy-and-paste the text below in your GitHub issue.
 
-- huggingface_hub version: 0.19.0.dev0
+- old_huggingface_hub version: 0.19.0.dev0
 - Platform: Linux-6.2.0-36-generic-x86_64-with-glibc2.35
 - Python version: 3.10.12
 - Running in iPython ?: No

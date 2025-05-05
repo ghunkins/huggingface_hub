@@ -4,15 +4,15 @@ rendered properly in your Markdown viewer.
 
 # Search the Hub
 
-In this tutorial, you will learn how to search models, datasets and spaces on the Hub using `huggingface_hub`.
+In this tutorial, you will learn how to search models, datasets and spaces on the Hub using `old_huggingface_hub`.
 
 ## How to list repositories ?
 
-`huggingface_hub` library includes an HTTP client [`HfApi`] to interact with the Hub.
+`old_huggingface_hub` library includes an HTTP client [`HfApi`] to interact with the Hub.
 Among other things, it can list models, datasets and spaces stored on the Hub:
 
 ```py
->>> from huggingface_hub import HfApi
+>>> from old_huggingface_hub import HfApi
 >>> api = HfApi()
 >>> models = api.list_models()
 ```

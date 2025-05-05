@@ -4,7 +4,7 @@ rendered properly in your Markdown viewer.
 
 # Erstellen und Teilen von Model Cards
 
-Die `huggingface_hub`-Bibliothek bietet eine Python-Schnittstelle zum Erstellen, Teilen und Aktualisieren von Model Cards. Besuchen Sie [die spezielle Dokumentationsseite](https://huggingface.co/docs/hub/models-cards) für einen tieferen Einblick in das, was Model Cards im Hub sind und wie sie unter der Haube funktionieren.
+Die `old_huggingface_hub`-Bibliothek bietet eine Python-Schnittstelle zum Erstellen, Teilen und Aktualisieren von Model Cards. Besuchen Sie [die spezielle Dokumentationsseite](https://huggingface.co/docs/hub/models-cards) für einen tieferen Einblick in das, was Model Cards im Hub sind und wie sie unter der Haube funktionieren.
 
 <Tip>
 
@@ -17,7 +17,7 @@ Die `huggingface_hub`-Bibliothek bietet eine Python-Schnittstelle zum Erstellen,
 Um eine bestehende Karte vom Hub zu laden, können Sie die Funktion [`ModelCard.load`] verwenden. Hier laden wir die Karte von [`nateraw/vit-base-beans`](https://huggingface.co/nateraw/vit-base-beans).
 
 ```python
-from huggingface_hub import ModelCard
+from old_huggingface_hub import ModelCard
 
 card = ModelCard.load('nateraw/vit-base-beans')
 ```
@@ -92,7 +92,7 @@ Wenn Sie `Jinja2` installiert haben, können Sie Model Cards aus einer Jinja-Vor
 ```python
 from pathlib import Path
 
-from huggingface_hub import ModelCard, ModelCardData
+from old_huggingface_hub import ModelCard, ModelCardData
 
 # Definieren Sie Ihre Jinja-Vorlage
 template_text = """
@@ -165,7 +165,7 @@ Wenn Sie die Karteninformationen aktualisieren, können Sie durch Aufrufen von [
 
 ### Aus dem Standard-Template
 
-Anstatt Ihr eigenes Template zu verwenden, können Sie auch das [Standard-Template](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md) verwenden, welches eine vollständig ausgestattete Model Card mit vielen Abschnitten ist, die Sie vielleicht ausfüllen möchten. Unter der Haube verwendet es [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/), um eine Vorlagendatei auszufüllen.
+Anstatt Ihr eigenes Template zu verwenden, können Sie auch das [Standard-Template](https://github.com/huggingface/old_huggingface_hub/blob/main/src/old_huggingface_hub/templates/modelcard_template.md) verwenden, welches eine vollständig ausgestattete Model Card mit vielen Abschnitten ist, die Sie vielleicht ausfüllen möchten. Unter der Haube verwendet es [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/), um eine Vorlagendatei auszufüllen.
 
 <Tip>
 
@@ -180,7 +180,7 @@ card = ModelCard.from_template(
     model_id='my-cool-model',
     model_description="this model does this and that",
     developers="Nate Raw",
-    repo="https://github.com/huggingface/huggingface_hub",
+    repo="https://github.com/huggingface/old_huggingface_hub",
 )
 card.save('my_model_card_2.md')
 print(card)
@@ -193,7 +193,7 @@ Wenn Sie mit dem Hugging Face Hub authentifiziert sind (entweder durch Verwendun
 Zuerst erstellen wir ein neues Repo namens 'hf-hub-modelcards-pr-test' im Namensraum des authentifizierten Benutzers:
 
 ```python
-from huggingface_hub import whoami, create_repo
+from old_huggingface_hub import whoami, create_repo
 
 user = whoami()['name']
 repo_id = f'{user}/hf-hub-modelcards-pr-test'
@@ -209,7 +209,7 @@ card = ModelCard.from_template(
     model_id='my-cool-model',
     model_description="this model does this and that",
     developers="Nate Raw",
-    repo="https://github.com/huggingface/huggingface_hub",
+    repo="https://github.com/huggingface/old_huggingface_hub",
 )
 ```
 

@@ -1,10 +1,10 @@
 import pytest
 
-from huggingface_hub.serialization import split_state_dict_into_shards_factory
-from huggingface_hub.serialization._base import parse_size_to_int
-from huggingface_hub.serialization._numpy import get_tensor_size as get_tensor_size_numpy
-from huggingface_hub.serialization._tensorflow import get_tensor_size as get_tensor_size_tensorflow
-from huggingface_hub.serialization._torch import get_tensor_size as get_tensor_size_torch
+from old_huggingface_hub.serialization import split_state_dict_into_shards_factory
+from old_huggingface_hub.serialization._base import parse_size_to_int
+from old_huggingface_hub.serialization._numpy import get_tensor_size as get_tensor_size_numpy
+from old_huggingface_hub.serialization._tensorflow import get_tensor_size as get_tensor_size_tensorflow
+from old_huggingface_hub.serialization._torch import get_tensor_size as get_tensor_size_torch
 
 from .testing_utils import requires
 

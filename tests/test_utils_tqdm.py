@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 from pytest import CaptureFixture
 
-from huggingface_hub.utils import (
+from old_huggingface_hub.utils import (
     SoftTemporaryDirectory,
     are_progress_bars_disabled,
     disable_progress_bars,
@@ -42,7 +42,7 @@ class TestTqdmUtils(CapsysBaseTest):
         else:
             enable_progress_bars()
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_tqdm_helpers(self) -> None:
         """Test helpers to enable/disable progress bars."""
         disable_progress_bars()
@@ -51,7 +51,7 @@ class TestTqdmUtils(CapsysBaseTest):
         enable_progress_bars()
         assert not are_progress_bars_disabled()
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", True)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", True)
     def test_cannot_enable_tqdm_when_env_variable_is_set(self) -> None:
         """
         Test helpers cannot enable/disable progress bars when
@@ -64,7 +64,7 @@ class TestTqdmUtils(CapsysBaseTest):
             enable_progress_bars()
         assert are_progress_bars_disabled()  # Still disabled
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", False)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", False)
     def test_cannot_disable_tqdm_when_env_variable_is_set(self) -> None:
         """
         Test helpers cannot enable/disable progress bars when
@@ -77,7 +77,7 @@ class TestTqdmUtils(CapsysBaseTest):
             disable_progress_bars()
         assert not are_progress_bars_disabled()  # Still enabled
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_tqdm_disabled(self) -> None:
         """Test TQDM not outputting anything when globally disabled."""
         disable_progress_bars()
@@ -88,7 +88,7 @@ class TestTqdmUtils(CapsysBaseTest):
         self.assertEqual(captured.out, "")
         self.assertEqual(captured.err, "")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_tqdm_disabled_cannot_be_forced(self) -> None:
         """Test TQDM cannot be forced when globally disabled."""
         disable_progress_bars()
@@ -99,7 +99,7 @@ class TestTqdmUtils(CapsysBaseTest):
         self.assertEqual(captured.out, "")
         self.assertEqual(captured.err, "")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_tqdm_can_be_disabled_when_globally_enabled(self) -> None:
         """Test TQDM can still be locally disabled even when globally enabled."""
         enable_progress_bars()
@@ -110,7 +110,7 @@ class TestTqdmUtils(CapsysBaseTest):
         self.assertEqual(captured.out, "")
         self.assertEqual(captured.err, "")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_tqdm_enabled(self) -> None:
         """Test TQDM work normally when globally enabled."""
         enable_progress_bars()
@@ -152,7 +152,7 @@ class TestTqdmGroup(CapsysBaseTest):
         super().tearDown()
         enable_progress_bars()
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_disable_specific_group(self):
         """Test disabling a specific group only affects that group and its subgroups."""
         disable_progress_bars("peft.foo")
@@ -161,7 +161,7 @@ class TestTqdmGroup(CapsysBaseTest):
         assert are_progress_bars_disabled("peft.foo")
         assert are_progress_bars_disabled("peft.foo.bar")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_enable_specific_subgroup(self):
         """Test that enabling a subgroup does not affect the disabled state of its parent."""
         disable_progress_bars("peft.foo")
@@ -169,7 +169,7 @@ class TestTqdmGroup(CapsysBaseTest):
         assert are_progress_bars_disabled("peft.foo")
         assert not are_progress_bars_disabled("peft.foo.bar")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", True)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", True)
     def test_disable_override_by_environment_variable(self):
         """Ensure progress bars are disabled regardless of local settings when environment variable is set."""
         with self.assertWarns(UserWarning):
@@ -177,20 +177,20 @@ class TestTqdmGroup(CapsysBaseTest):
         assert are_progress_bars_disabled("peft")
         assert are_progress_bars_disabled("peft.foo")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", False)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", False)
     def test_enable_override_by_environment_variable(self):
         """Ensure progress bars are enabled regardless of local settings when environment variable is set."""
         with self.assertWarns(UserWarning):
             disable_progress_bars("peft.foo")
         assert not are_progress_bars_disabled("peft.foo")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_partial_group_name_not_affected(self):
         """Ensure groups with similar names but not exactly matching are not affected."""
         disable_progress_bars("peft.foo")
         assert not are_progress_bars_disabled("peft.footprint")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_nested_subgroup_behavior(self):
         """Test enabling and disabling nested subgroups."""
         disable_progress_bars("peft")
@@ -200,7 +200,7 @@ class TestTqdmGroup(CapsysBaseTest):
         assert not are_progress_bars_disabled("peft.foo")
         assert are_progress_bars_disabled("peft.foo.bar")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_empty_group_is_root(self):
         """Test the behavior with invalid or empty group names."""
         disable_progress_bars("")
@@ -209,7 +209,7 @@ class TestTqdmGroup(CapsysBaseTest):
         enable_progress_bars("123.invalid.name")
         assert not are_progress_bars_disabled("123.invalid.name")
 
-    @patch("huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
+    @patch("old_huggingface_hub.utils._tqdm.HF_HUB_DISABLE_PROGRESS_BARS", None)
     def test_multiple_level_toggling(self):
         """Test multiple levels of enabling and disabling."""
         disable_progress_bars("peft")

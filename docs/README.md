@@ -47,7 +47,7 @@ Once you have setup the `doc-builder` and additional packages with the pip insta
 you can generate the documentation by typing the following command:
 
 ```bash
-doc-builder build huggingface_hub docs/source/en/ --build_dir ~/tmp/test-build
+doc-builder build old_huggingface_hub docs/source/en/ --build_dir ~/tmp/test-build
 ```
 
 You can adapt the `--build_dir` to set any temporary folder that you prefer. This command will create it and generate
@@ -59,7 +59,7 @@ Markdown editor.
 To preview the docs, run the following command:
 
 ```bash
-doc-builder preview huggingface_hub docs/source/en/
+doc-builder preview old_huggingface_hub docs/source/en/
 ```
 
 The docs will be viewable at [http://localhost:3000](http://localhost:3000). You can also preview the docs once you
@@ -78,7 +78,7 @@ The `preview` command only works with existing doc files. When you add a complet
 Accepted files are Markdown (.md).
 
 Create a file with its extension and put it in the source directory. You can then link it to the toc-tree by putting
-the filename without the extension in the [`_toctree.yml`](https://github.com/huggingface/huggingface_hub/blob/main/docs/source/en/_toctree.yml) file.
+the filename without the extension in the [`_toctree.yml`](https://github.com/huggingface/old_huggingface_hub/blob/main/docs/source/en/_toctree.yml) file.
 
 ## Renaming section headers and moving sections
 
@@ -108,7 +108,7 @@ For an example of a rich moved section set please see the very end of [the trans
 
 ## Writing Documentation - Specification
 
-The `huggingface/huggingface_hub` documentation follows the
+The `huggingface/old_huggingface_hub` documentation follows the
 [Google documentation](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) style for docstrings,
 although we can write them directly in Markdown.
 
@@ -123,7 +123,7 @@ Make sure to put your new file under the proper section. If you have a doubt, fe
 
 ### Translating
 
-When translating, refer to the guide at [./TRANSLATING.md](https://github.com/huggingface/huggingface_hub/blob/main/docs/TRANSLATING.md).
+When translating, refer to the guide at [./TRANSLATING.md](https://github.com/huggingface/old_huggingface_hub/blob/main/docs/TRANSLATING.md).
 
 ### Writing source documentation
 

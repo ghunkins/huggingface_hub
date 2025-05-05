@@ -1,16 +1,16 @@
 # 추론 엔드포인트[[inference-endpoints]]
 
 추론 엔드포인트는 Hugging Face가 관리하는 전용 및 자동 확장 인프라에 `transformers`, `sentence-transformers` 및 `diffusers` 모델을 쉽게 배포할 수 있는 안전한 프로덕션 솔루션을 제공합니다. 추론 엔드포인트는 [Hub](https://huggingface.co/models)의 모델로 구축됩니다.
-이 가이드에서는 `huggingface_hub`를 사용하여 프로그래밍 방식으로 추론 엔드포인트를 관리하는 방법을 배웁니다. 추론 엔드포인트 제품 자체에 대한 자세한 내용은 [공식 문서](https://huggingface.co/docs/inference-endpoints/index)를 참조하세요.
+이 가이드에서는 `old_huggingface_hub`를 사용하여 프로그래밍 방식으로 추론 엔드포인트를 관리하는 방법을 배웁니다. 추론 엔드포인트 제품 자체에 대한 자세한 내용은 [공식 문서](https://huggingface.co/docs/inference-endpoints/index)를 참조하세요.
 
-이 가이드에서는 `huggingface_hub`가 올바르게 설치 및 로그인되어 있다고 가정합니다. 아직 그렇지 않은 경우 [빠른 시작 가이드](https://huggingface.co/docs/huggingface_hub/quick-start#quickstart)를 참조하세요. 추론 엔드포인트 API를 지원하는 최소 버전은 `v0.19.0`입니다.
+이 가이드에서는 `old_huggingface_hub`가 올바르게 설치 및 로그인되어 있다고 가정합니다. 아직 그렇지 않은 경우 [빠른 시작 가이드](https://huggingface.co/docs/old_huggingface_hub/quick-start#quickstart)를 참조하세요. 추론 엔드포인트 API를 지원하는 최소 버전은 `v0.19.0`입니다.
 
 ## 추론 엔드포인트 생성[[create-an-inference-endpoint]]
 
 첫 번째 단계는 [`create_inference_endpoint`]를 사용하여 추론 엔드포인트를 생성하는 것입니다:
 
 ```py
->>> from huggingface_hub import create_inference_endpoint
+>>> from old_huggingface_hub import create_inference_endpoint
 
 >>> endpoint = create_inference_endpoint(
 ...     "my-endpoint-name",
@@ -39,7 +39,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 
 추론 엔드포인트가 생성되면 [개인 대시보드](https://ui.endpoints.huggingface.co/)에서 확인할 수 있습니다.
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/inference_endpoints_created.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/old_huggingface_hub/inference_endpoints_created.png)
 
 #### 사용자 정의 이미지 사용[[using-a-custom-image]]
 
@@ -47,7 +47,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 
 ```python
 # TGI에서 Zephyr-7b-beta를 실행하는 추론 엔드포인트 시작하기
->>> from huggingface_hub import create_inference_endpoint
+>>> from old_huggingface_hub import create_inference_endpoint
 >>> endpoint = create_inference_endpoint(
 ...     "aws-zephyr-7b-beta-0486",
 ...     repository="HuggingFaceH4/zephyr-7b-beta",
@@ -79,7 +79,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 경우에 따라 이전에 생성한 추론 엔드포인트를 관리해야 할 수 있습니다. 이름을 알고 있는 경우 [`get_inference_endpoint`]를 사용하여 [`InferenceEndpoint`] 개체를 가져올 수 있습니다. 또는 [`list_inference_endpoints`]를 사용하여 모든 추론 엔드포인트 리스트를 검색할 수 있습니다. 두 메소드 모두 선택적 `namespace` 매개변수를 허용합니다. 속해 있는 조직의 `namespace`를 설정할 수 있습니다. 그렇지 않으면 기본적으로 사용자 이름이 사용됩니다.
 
 ```py
->>> from huggingface_hub import get_inference_endpoint, list_inference_endpoints
+>>> from old_huggingface_hub import get_inference_endpoint, list_inference_endpoints
 
 # 엔드포인트 개체 가져오기
 >>> get_inference_endpoint("my-endpoint-name")
@@ -120,7 +120,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 # 10초 대기 => InferenceEndpointTimeoutError 발생
 >>> endpoint.wait(timeout=10)
     raise InferenceEndpointTimeoutError("Timeout while waiting for Inference Endpoint to be deployed.")
-huggingface_hub._inference_endpoints.InferenceEndpointTimeoutError: Timeout while waiting for Inference Endpoint to be deployed.
+old_huggingface_hub._inference_endpoints.InferenceEndpointTimeoutError: Timeout while waiting for Inference Endpoint to be deployed.
 
 # 추가 대기
 >>> endpoint.wait()
@@ -148,7 +148,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 
 ```py
 >>> endpoint.client
-huggingface_hub._inference_endpoints.InferenceEndpointError: Cannot create a client for this Inference Endpoint as it is not yet deployed. Please wait for the Inference Endpoint to be deployed using `endpoint.wait()` and try again.
+old_huggingface_hub._inference_endpoints.InferenceEndpointError: Cannot create a client for this Inference Endpoint as it is not yet deployed. Please wait for the Inference Endpoint to be deployed using `endpoint.wait()` and try again.
 ```
 
 [`InferenceClient`]를 사용하는 방법에 대한 자세한 내용은 [추론 가이드](../guides/inference)를 참조하세요.
@@ -222,7 +222,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 
 ```py
 >>> import asyncio
->>> from huggingface_hub import create_inference_endpoint
+>>> from old_huggingface_hub import create_inference_endpoint
 
 # 엔드포인트 시작 + 초기화될 때까지 대기
 >>> endpoint = create_inference_endpoint(name="batch-endpoint",...).wait()
@@ -243,7 +243,7 @@ InferenceEndpoint(name='my-endpoint-name', namespace='Wauplin', repository='gpt2
 
 ```py
 >>> import asyncio
->>> from huggingface_hub import get_inference_endpoint
+>>> from old_huggingface_hub import get_inference_endpoint
 
 # 엔드포인트 가져오기 + 초기화될 때까지 대기
 >>> endpoint = get_inference_endpoint("batch-endpoint").resume().wait()

@@ -39,7 +39,7 @@ your username namespace) or from organizations in which you have write permissio
 Create an empty repository with [`create_repo`] and give it a name with the `repo_id` parameter. The `repo_id` is your namespace followed by the repository name: `username_or_org/repo_name`.
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-model")
 'https://huggingface.co/lysandre/test-model'
 ```
@@ -47,7 +47,7 @@ Create an empty repository with [`create_repo`] and give it a name with the `rep
 By default, [`create_repo`] creates a model repository. But you can use the `repo_type` parameter to specify another repository type. For example, if you want to create a dataset repository:
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-dataset", repo_type="dataset")
 'https://huggingface.co/datasets/lysandre/test-dataset'
 ```
@@ -55,7 +55,7 @@ By default, [`create_repo`] creates a model repository. But you can use the `rep
 When you create a repository, you can set your repository visibility with the `private` parameter.
 
 ```py
->>> from huggingface_hub import create_repo
+>>> from old_huggingface_hub import create_repo
 >>> create_repo("lysandre/test-private", private=True)
 ```
 
@@ -78,7 +78,7 @@ This is possible for Spaces using the [`duplicate_space`] method. It will duplic
 You will still need to configure your own settings (hardware, sleep-time, storage, variables and secrets). Check out our [Manage your Space](./manage-spaces) guide for more details.
 
 ```py
->>> from huggingface_hub import duplicate_space
+>>> from old_huggingface_hub import duplicate_space
 >>> duplicate_space("multimodalart/dreambooth-training", private=False)
 RepoUrl('https://huggingface.co/spaces/nateraw/dreambooth-training',...)
 ```
@@ -102,7 +102,7 @@ More generally, branches and tags are referred as [git references](https://git-s
 You can create new branch and tags using [`create_branch`] and [`create_tag`]:
 
 ```py
->>> from huggingface_hub import create_branch, create_tag
+>>> from old_huggingface_hub import create_branch, create_tag
 
 # Create a branch on a Space repo from `main` branch
 >>> create_branch("Matthijs/speecht5-tts-demo", repo_type="space", branch="handle-dog-speaker")
@@ -118,7 +118,7 @@ You can use the [`delete_branch`] and [`delete_tag`] functions in the same way t
 You can also list the existing git refs from a repository using [`list_repo_refs`]:
 
 ```py
->>> from huggingface_hub import list_repo_refs
+>>> from old_huggingface_hub import list_repo_refs
 >>> list_repo_refs("bigcode/the-stack", repo_type="dataset")
 GitRefs(
    branches=[
@@ -136,7 +136,7 @@ GitRefs(
 
 Repositories come with some settings that you can configure. Most of the time, you will want to do that manually in the
 repo settings page in your browser. You must have write access to a repo to configure it (either own it or being part of
-an organization). In this section, we will see the settings that you can also configure programmatically using `huggingface_hub`.
+an organization). In this section, we will see the settings that you can also configure programmatically using `old_huggingface_hub`.
 
 Some settings are specific to Spaces (hardware, environment variables,...). To configure those, please refer to our [Manage your Spaces](../guides/manage-spaces) guide.
 
@@ -145,7 +145,7 @@ Some settings are specific to Spaces (hardware, environment variables,...). To c
 A repository can be public or private. A private repository is only visible to you or members of the organization in which the repository is located. Change a repository to private as shown in the following:
 
 ```py
->>> from huggingface_hub import update_repo_visibility
+>>> from old_huggingface_hub import update_repo_visibility
 >>> update_repo_visibility(repo_id=repo_id, private=True)
 ```
 
@@ -156,7 +156,7 @@ an organization. When doing so, there are a [few limitations](https://hf.co/docs
 that you should be aware of. For example, you can't transfer your repo to another user.
 
 ```py
->>> from huggingface_hub import move_repo
+>>> from old_huggingface_hub import move_repo
 >>> move_repo(from_id="Wauplin/cool-model", to_id="huggingface/cool-model")
 ```
 
@@ -178,7 +178,7 @@ The [`Repository`] class allows you to interact with files and repositories on t
 Instantiate a [`Repository`] object with a path to a local repository:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="<path>/<to>/<folder>")
 ```
 
@@ -187,14 +187,14 @@ Instantiate a [`Repository`] object with a path to a local repository:
 The `clone_from` parameter clones a repository from a Hugging Face repository ID to a local directory specified by the `local_dir` argument:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo = Repository(local_dir="w2v2", clone_from="facebook/wav2vec2-large-960h-lv60")
 ```
 
 `clone_from` can also clone a repository using a URL:
 
 ```py
->>> repo = Repository(local_dir="huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="https://huggingface.co/facebook/wav2vec2-large-960h-lv60")
 ```
 
 You can combine the `clone_from` parameter with [`create_repo`] to create and clone a repository:
@@ -222,8 +222,8 @@ You can also configure a Git username and email to a cloned repository by specif
 Branches are important for collaboration and experimentation without impacting your current files and code. Switch between branches with [`~Repository.git_checkout`]. For example, if you want to switch from `branch1` to `branch2`:
 
 ```py
->>> from huggingface_hub import Repository
->>> repo = Repository(local_dir="huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
+>>> from old_huggingface_hub import Repository
+>>> repo = Repository(local_dir="old-huggingface-hub", clone_from="<user>/<dataset_id>", revision='branch1')
 >>> repo.git_checkout("branch2")
 ```
 
@@ -232,7 +232,7 @@ Branches are important for collaboration and experimentation without impacting y
 [`~Repository.git_pull`] allows you to update a current local branch with changes from a remote repository:
 
 ```py
->>> from huggingface_hub import Repository
+>>> from old_huggingface_hub import Repository
 >>> repo.git_pull()
 ```
 

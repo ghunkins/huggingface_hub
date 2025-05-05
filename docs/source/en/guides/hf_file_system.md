@@ -4,12 +4,12 @@ rendered properly in your Markdown viewer.
 
 # Interact with the Hub through the Filesystem API
 
-In addition to the [`HfApi`], the `huggingface_hub` library provides [`HfFileSystem`], a pythonic [fsspec-compatible](https://filesystem-spec.readthedocs.io/en/latest/) file interface to the Hugging Face Hub. The [`HfFileSystem`] builds of top of the [`HfApi`] and offers typical filesystem style operations like `cp`, `mv`, `ls`, `du`, `glob`, `get_file`, and `put_file`.
+In addition to the [`HfApi`], the `old_huggingface_hub` library provides [`HfFileSystem`], a pythonic [fsspec-compatible](https://filesystem-spec.readthedocs.io/en/latest/) file interface to the Hugging Face Hub. The [`HfFileSystem`] builds of top of the [`HfApi`] and offers typical filesystem style operations like `cp`, `mv`, `ls`, `du`, `glob`, `get_file`, and `put_file`.
 
 ## Usage
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem()
 
 >>> # List all files in a directory
@@ -66,7 +66,7 @@ The same workflow can also be used for [Dask](https://docs.dask.org/en/stable/ho
 * Querying (remote) Hub files with [DuckDB](https://duckdb.org/docs/guides/python/filesystems):
 
   ```python
-  >>> from huggingface_hub import HfFileSystem
+  >>> from old_huggingface_hub import HfFileSystem
   >>> import duckdb
 
   >>> fs = HfFileSystem()
@@ -102,7 +102,7 @@ In many cases, you must be logged in with a Hugging Face account to interact wit
 It is also possible to login programmatically by passing your `token` as an argument to [`HfFileSystem`]:
 
 ```python
->>> from huggingface_hub import HfFileSystem
+>>> from old_huggingface_hub import HfFileSystem
 >>> fs = HfFileSystem(token=token)
 ```
 
